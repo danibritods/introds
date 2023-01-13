@@ -1,0 +1,115 @@
+---
+title: "Exercícios primeira semana"
+subtitle: "Introdução e Visualização de dados"
+format:
+  revealjs: 
+    slide-number: true
+    chalkboard: 
+      buttons: true
+---
+
+# Introdução 
+
+---
+
+Como você definiria o que é ciência de dados? (tenta responder sem consultar, não precisa estar certo, queremos sua perspectiva)
+
+---
+
+Apresente brevemente as etapas do processo de ciência de dados típico em um projeto de dados
+
+---
+
+Qual data set você selecionou para analisar e por que?
+
+---
+
+Qual pergunta você gostaria de responder sobre esse data set? 
+
+---
+
+Como pretende responder a pergunta usando o dataset escolhido?
+
+# Visualização de dados
+
+---
+
+1. Quantas linhas tem o penguins? E quantas colunas?
+
+---
+
+2. O que a variável bill_depth_mm no penguins descreve?
+(dica: use a função ?penguins)
+
+---
+
+3. Faça um gráfico de dispersão (scatterplot) do bill_depth_mm vs bill_length_mm. Descreva a relação entre essas duas variáveis
+
+---
+
+4. O que acontece se você fizer um gráfico de dispersão (scatterplot) de species vs bill_depth_mm? Esse gráfico pode ser útil? 
+
+---
+
+5. Por que o código dá erro e como poderíamos resolver?
+
+```r
+ggplot( data = penguins ) + geom_point()
+```
+
+---
+
+6. O que o argumento na.rm faz no geom_point()?
+Qual é o valor padrão desse argumento?
+Crie um gráfico de dispersão (scatterplot) onde você usa com sucesso este argumento definido como TRUE.
+
+---
+
+7. Adicione a seguinte legenda ao gráfico que você fez no exercício anterior: “Os dados vêm do pacote palmerpenguins”. Dica: dê uma olhada na documentação de labs(). [código]
+
+---
+
+8. Recrie a seguinte visualização. Para qual estética o bill_depth_mm deve ser mapeado? E deve ser mapeado no nível global ou no nível geom?
+
+![](grafico.png)
+
+---
+
+9. Execute esse código em sua cabeça e preveja como será a saída. Em seguida, execute o código em R e verifique suas previsões. Foi o que você esperava?
+
+
+```r
+ggplot(  
+	data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g, color = island)
+) +
+	geom_point() +
+	geom_smooth(se = FALSE)
+```
+
+---
+
+10. Esses códigos geram gráficos iguais ou diferentes? Por que?
+
+```r
+ggplot(  
+	data = penguins,
+	  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) +
+	geom_point() +
+	geom_smooth()
+```
+
+```r
+ggplot(
+) +
+geom_point(    
+	data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)  
+) +
+geom_smooth(    
+		data = penguins,
+    mapping = aes(x = flipper_length_mm, y = body_mass_g)  )
+```
+---
+

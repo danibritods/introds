@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>aula2---dataviz-92592507211d4eb5977b5ac13fa0fc8a</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Aula2 - DataViz 92592507211d4eb5977b5ac13fa0fc8a_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Aula2 - DataViz 92592507211d4eb5977b5ac13fa0fc8a_files/libs/quarto-html/quarto.js"></script>
+<script src="Aula2 - DataViz 92592507211d4eb5977b5ac13fa0fc8a_files/libs/quarto-html/popper.min.js"></script>
+<script src="Aula2 - DataViz 92592507211d4eb5977b5ac13fa0fc8a_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Aula2 - DataViz 92592507211d4eb5977b5ac13fa0fc8a_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Aula2 - DataViz 92592507211d4eb5977b5ac13fa0fc8a_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Aula2 - DataViz 92592507211d4eb5977b5ac13fa0fc8a_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Aula2 - DataViz 92592507211d4eb5977b5ac13fa0fc8a_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Aula2 - DataViz 92592507211d4eb5977b5ac13fa0fc8a_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Aula2 - DataViz 92592507211d4eb5977b5ac13fa0fc8a_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="aula2---dataviz" class="level1">
+<h1>Aula2 - DataViz</h1>
+<ul>
+<li>2.1 Introdução
+<ul>
+<li>Na aula de hoje vamos apresentar o pacote ggplot2.
+<ul>
+<li>Considerado o mais elegante e versátil dentre os vários sistemas de gráficos disponíveis em R.</li>
+<li>Implementa “gramática dos gráficos”, um sistema coerente para descrever e construir gráficos. Assim vamos poder fazer mais coisas, mais rápido aprendendo um sistema que pode ser utilizado em muitos lugares.</li>
+</ul></li>
+<li>Vamos começar fazendo um “scatterplot” (gráfico de dispersão) para introduzir as peças fundamentais do ggplot2:
+<ul>
+<li>aesthetic mappings e geometric objects.</li>
+</ul></li>
+<li>Em seguida vamos construir visualizações de distribuições tanto de variáveis sozinhas quanto de relações entre variáveis.</li>
+<li>Vamos finalizar salvando os gráficos e apresentando dicas de para solução de possíveis problemas.</li>
+</ul></li>
+<li>2.1.1 Pré-requisitos
+<ul>
+<li><p>ggplot2 faz parte do tidyverse, portanto vamos carrega-lo em memória:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ── Attaching packages ──────────────────────────────────── tidyverse 1.3.2 ──</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ ggplot2 3.4.0           ✔ purrr   1.0.0.9000 </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ tibble  3.1.8           ✔ dplyr   1.0.99.9000</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ tidyr   1.2.1.9001      ✔ stringr 1.5.0      </span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ readr   2.1.3           ✔ forcats 0.5.2      </span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ── Conflicts ─────────────────────────────────────── tidyverse_conflicts() ──</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Esse comando carrega os principais pacotes do tidyverse. Vamos utiliza-los em quase todas as análises de dados. Ele também informa quais funções conflitam, ou seja, que existem funções de mesmo nome em outros pacotes carregados ou no “base R”.</li>
+</ul></li>
+<li><p>Também vamos utilizar o pacote <strong>palmerpenguins</strong> que contém o dataset “penguins” com medidas corporais dos pinguins do arquipélago de Palmer.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul></li>
+<li>2.2 Primeiros passos
+<ul>
+<li>Vamos criar nosso primeiro gráfico para responder a pergunta:
+<ul>
+<li>Pinguins com nadadeiras mais longas pesam mais ou menos que pinguins com nadadeiras mais curtas?</li>
+</ul></li>
+<li>Você já deve suspeitar da resposta, mas vamos tentar dar uma resposta precisa:
+<ul>
+<li>Como deve ser ser a relação entre comprimento de nadadeira e massa corporal? Positiva? Negativa? Linear? Não-linear?</li>
+<li>Por acaso essa relação varia de acordo com a espécie de pinguim?</li>
+<li>E de acordo com a ilha em que eles vivem?</li>
+</ul></li>
+<li>2.2.1 O data frame ********penguins********
+<ul>
+<li><p>Data frame é uma coleção retangular de variáveis e observações em colunas e linhas.</p></li>
+<li><p>********penguins******** contem 344 observações coletadas e disponibilizadas pela Dra. Kristen Gorman e a Estação Palmer na antartica.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>penguins</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 344 × 8</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   species island    bill_length_mm bill_depth_mm flippe…¹ body_…² sex    year</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;    &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Adelie  Torgersen           39.1          18.7      181    3750 male   2007</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Adelie  Torgersen           39.5          17.4      186    3800 fema…  2007</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Adelie  Torgersen           40.3          18        195    3250 fema…  2007</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Adelie  Torgersen           NA            NA         NA      NA &lt;NA&gt;   2007</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 Adelie  Torgersen           36.7          19.3      193    3450 fema…  2007</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 Adelie  Torgersen           39.3          20.6      190    3650 male   2007</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 338 more rows, and abbreviated variable names ¹flipper_length_mm,</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   ²body_mass_g</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Esse data frame contém 8 colunas. Podemos usar a função <em>glimpse()</em> para apresentá-lo de modo a vermos poucas observações de cada variável. Ou ainda a função View(penguins) para abrir uma janela de visualização interativa.</p></li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(penguins)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 344</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 8</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, A…</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torge…</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.…</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.…</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, …</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 347…</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ sex               &lt;fct&gt; male, female, female, NA, female, male, female, m…</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2…</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><p>Dentre as variáveis em ********penguins******** temos:</p>
+<ol type="1">
+<li><em>species</em>: a espécie do pinguim (Adelie, Chinstrap, ou Gentoo)</li>
+<li>****************flipper_leght_mm****************: comprimento da nadadeira do pinguim em milímitros</li>
+<li>************body_mass_g: massa corporal do pinguim em gramas.************</li>
+</ol></li>
+<li><p>Para mais informações sobre penguins podemos abrir a página de ajuda utilizando o comando:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">/</span>penguins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul></li>
+<li>2.2.2 Objetivo Final
+<ul>
+<li><p>Nosso objetivo final é recriar a seguinte visualização apresentando a relação entre o comprimento das nadadeiras e a massa corporal desses pinguins, considerando a espécie de cada um:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div></li>
+</ul></li>
+<li>2.2.3 Criando um gráfico com ggplot
+<ul>
+<li>Vamos recriar o gráfico camada por camada</li>
+<li>Iniciamos com a função <em>ggplot()</em> que define um objeto de plotagem no qual podemos adicionar camadas.
+<ul>
+<li><p>O primeiro argumento dessa função é o dataset que será usado no gráfico, então <em>ggplot(data = penguins)</em> cria um gráfico vazio. Não é muito animador, mas é nessa tela que colocaremos as camadas do nosso gráfico.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%201.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div></li>
+</ul></li>
+<li>Em seguida, vamos informar a <em>ggplot()</em> quais as variáveis do data frame que queremos mapear para propriedades visuais (aesthetics) do plot.
+<ul>
+<li><p>O argumento ***************mapping*************** da função *******ggplot()******* define como as variáveis do data set vão ser mapeadas para propriedades visuais do gráfico.</p></li>
+<li><p>O *******mapping******* sempre recebe o resolta do da função <strong>aes()</strong>, que por sua vez tem os argumento <strong>x</strong> e <strong>y para especificar quais variáveis mapear com os eixos x e y.</strong></p></li>
+<li><p>Assim, vamos mapear o comprimento da nadadeira para o eixo x da *******aesthetic******* e a massa corporal para o eixo y da aesthetic.</p></li>
+<li><p>O ggplot vai automaticamente procurar essas variáveis no argumento ******data.******</p></li>
+<li><p>Vamos plotar o resultado de adicionar esses mapeamentos:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%202.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%203.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div></li>
+<li><p>Vemos que o gráfico está preparado para apresentar as variáveis nos seus eixos adequados. Mas ainda está em branco. Isto ocorre porque ainda não articulamos no código <strong>como representar</strong> as <strong>observações</strong> do nosso <strong>data frame</strong> no <strong>nosso gráfico.</strong></p></li>
+</ul></li>
+<li>Para articular essa representação precisar definir uma **********geom**********
+<ul>
+<li><p>O objeto geométrico que o gráfico usa para representar dados</p></li>
+<li><p>Esses objetos estão disponíveis no ggplot2 por meio de funções que iniciam com <em>geom_.</em></p></li>
+<li><p>Gráficos geralmente são definidos pelo tipo de geometria que utilizam. Por exemplo, gráficos de barras usam <em>geom_bar()</em>, gráficos de linha usam <em>geom_line()</em>, boxplots usam <em>geom_boxplot()</em> e assim sucessivamente.</p></li>
+<li><p>Entretanto, o scatterplot quebra essa sequência, ele utiliza <em>geom_point().</em></p></li>
+<li><p>A função <em>geom_point()</em> adiciona uma camada de pontos ao gráfico, criando uma dispersão de pontos.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: Removed 2 rows containing missing values (`geom_point()`).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%204.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div></li>
+</ul></li>
+<li>Agora sim temos um gráfico de dispersão de pontos. Ainda não responde nosso objetivo principal, mas já podemos ter uma noção da relação entre nadadeira e massa corporal dos pinguins.
+<ul>
+<li>Vemos que em geral é uma relação positiva, um tanto linear, e moderadamente forte.</li>
+<li>Pinguins com nadadeiras maiores, em geral são mais pesados.</li>
+</ul></li>
+<li>Também podemos observar uma mensagem de aviso: “Removed 2 rows containing missing values (<code>geom_point(</code>).”
+<ul>
+<li>Essa mensagem está nos avisando que duas observações estavam com dados faltantes nas variáveis que tentamos exibir, portanto não tinham como esses pontos serem exibidos.</li>
+<li>Não vamos nos preocupar muito com isso por enquanto, mas dados faltantes é uma das situações mais comuns em problemas do mundo real.</li>
+</ul></li>
+</ul></li>
+<li>2.2.4 Adicionando estética e camadas
+<ul>
+<li><p>Scatterplots são úteis para apresentar a relação entre duas variáveis, mas é sempre bom manter o ceticismo quanto a relação aparente.</p></li>
+<li><p>Por exemplo perguntar se outras variáveis podem explicar ou modificar a natureza da relação aparente.</p></li>
+<li><p>Vamos adicionar a espécie dos pinguins para ver se ela nos dá novos insights sobre a relação do comprimento da nadadeira e a massa corporal. Vamos representar a espécie como <strong>cor</strong> dos pontos no gráfico.</p></li>
+<li><p>Onde vocês acham que devemos colocar a espécie nesse código?</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(  </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Assim: no mapeamento estético, dentro da função <em>aes()</em></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(  </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> penguins,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> species)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%205.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li>Quando uma variável é mapeada a uma estética ggplot2 automaticamente atribui um valor estético único (nesse caso uma cor) para cada valor da variável (nesse cada cada uma das três espécies). Esse processo é denominado ****************scaling****************. ggplot2 também adiciona a legenda explicando qual valor estético corresponde a qual valor da variável.</li>
+</ul></li>
+<li><p>Vamos agora adicionar uma nova camada: uma curva suave representando a relação entre a massa corporal e o comprimento de nadadeira dos pinguins.</p>
+<ul>
+<li><p>Onde vocês acham que precisamos mexer no código pra isso?</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(  </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> penguins,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> species)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%206.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div></li>
+<li><p>Adicionamos com sucesso as curvas. Mas o gráfico não está igual nosso objetivo, que tem apenas uma curva, ao invés de uma curva para cada espécie</p></li>
+<li><p>Quando os mapeamentos estéticos são definidos na <em>ggplot()</em> eles são são herdados pelas camadas geométricas subsequentes. Entretanto, cada função <em>geom_</em> também pode receber um argumento de mapping que permite mapeamento estético local naquela geometria.</p></li>
+<li><p>Como queremos os pontos coloridos mas não queremos a curva separada por cor, devemos especificar <em>color = species</em> apenas para <em>gem_point().</em></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a> <span class="at">data =</span> penguins,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a> <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%207.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div></li>
+<li><p>Vóila! Estamos quase lá! Falta apenas usar formas diferentes para representar as espécies diferentes, atém das cores.</p></li>
+<li><p>Em geral não é uma boa ideia utilizar apenas cores para representar informação em um gráfico porque as pessoas percebem cores de forma diferente, inclusive por daltonismo e outras diferenças de percepção cromática.</p></li>
+</ul></li>
+<li><p>Assim, além das cores vamos mapear *******species******* a estética ******shape******.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a> <span class="at">data =</span> penguins,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a> <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">color =</span> species, <span class="at">shape =</span> species)) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%208.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li>Vemos que a legenda também atualizou para refletir as formas diferentes dos pontos.</li>
+</ul></li>
+<li><p>Finalmente, resta apenas ajustar as legendas do nosso gráfico.</p>
+<ul>
+<li>Vamos usar a função ******labs()****** em uma nova camada, seus nomes são auto explanatórios:</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(  </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> penguins,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span><span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> species, <span class="at">shape =</span> species)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(    <span class="at">title =</span> <span class="st">"Body mass and flipper length"</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Dimensions for Adelie, Chinstrap, and Gentoo Penguins"</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Body mass (g)"</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Species"</span>,</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="st">"Species"</span>  </span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul></li>
+</ul></li>
+<li>2.3 Chamadas ggplot2
+<ul>
+<li>Agora que já sabemos usar a função <em>ggplot()</em> vamos usar os argumentos posicionais ao invés de usar as palavras chave “data” e “mapping”.
+<ul>
+<li><p>Elas foram úteis pro aprendizado, subtraí-las nos permite escrever menos e ver mais fácil a diferença entre códigos. Vamos passar a escrever assim:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins,<span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Futuramente vamos usar a notação mais utilizada usando pipes:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul></li>
+</ul></li>
+<li>2.2.5 Exercícios
+<ol type="1">
+<li><p>Quantas linhas tem o ******penguins******? E quantas colunas?</p></li>
+<li><p>O que a variável *****bill_depth_mm***** no *********penguins********* descreve? (dica: use a função *********?penguins*********)</p></li>
+<li><p>Faça um gráfico de dispersão (scatterplot) do bill_depth_mm vs bill_length_mm. Descreva a relação entre essas duas variáveis.</p></li>
+<li><p>O que acontece se você fizer um gráfico de dispersão (scatterplot) de <em>species</em> vs *************bill_depth_mm*************? <del>Por que esse gráfico é inútil?</del> [argumento que é útil sim!]</p></li>
+<li><p>Por que o código dá erro e como poderíamos resolver?</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> penguins</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>O que o argumento na.rm faz no ************geom_point()************? Qual é o valor padrão desse argumento? Crie um gráfico de dispersão (scatterplot) onde você usa com sucesso este argumento definido como TRUE.</p></li>
+<li><p>Adicione a seguinte legenda ao gráfico que você fez no exercício anterior: “Os dados vêm do pacote palmerpenguins”. Dica: dê uma olhada na documentação de <em>labs()</em>.</p></li>
+<li><p>Recrie a seguinte visualização. Para qual estética o bill_depth_mm deve ser mapeado? E deve ser mapeado no nível global ou no nível geom?</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%209.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div></li>
+<li><p>Execute esse código em sua cabeça e preveja como será a saída. Em seguida, execute o código em R e verifique suas previsões. Foi o que você esperava?</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(  </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> penguins,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> island)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Esses códigos geram gráficos iguais ou diferentes? Por que?</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(  </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> penguins,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>()</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(    </span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> penguins,</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g)  </span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(    </span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> penguins,</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g)  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ol></li>
+<li>2.4 Visualizando distribuições
+<ul>
+<li>A maneira de visualizar uma variável depende do seu tipo: numérica ou categórica.</li>
+<li>2.4.1 Variável categórica
+<ul>
+<li><p>Uma variável é **********************categórica********************** quando ela pode assumir apenas um pequeno conjunto de valores.</p></li>
+<li><p>Podemos usar gráficos de barra para examinar sua distribuição. A altura das barras apresenta quantas observações ocorreram para cada valor de <em>x</em>.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins,<span class="fu">aes</span>(<span class="at">x =</span> species)) <span class="sc">+</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%2010.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div></li>
+<li><p>Para variáveis categóricas com níveis não ordenadas como as espécies de pinguim, é frequentemente preferível reordená-las baseado em sua frequências.</p>
+<ul>
+<li><p>Para fazer isso em R nós transformamos a variável em um fator e reordenamos os níveis do fator. Basta utilizar-mos a função <em>fct_infreq()</em>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_infreq</span>(species))) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%2011.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div></li>
+</ul></li>
+</ul></li>
+<li>2.4.2 Variável numérica
+<ul>
+<li><p>Uma variável numérica pode assumir qualquer valor de um conjunto infinito de valores ordenados. Números e data-time são exemplos de variáveis contínuas.</p></li>
+<li><p>Para visualizarmos variáveis contínuas podemos usar histograma ou um plot de densidade.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins,<span class="fu">aes</span>(<span class="at">x =</span> body_mass_g)) <span class="sc">+</span><span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%2012.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li>Um histograma divide o eixo x em caixas igualmente espaçadas de modo que a sua altura represente o número de observações dentro dela. No gráfico acima a barra mais alta tem 39 observações de pinguins com massa corporal em gramas (<em>body_mass_g)</em> entre 3.500 e 3.700 gramas, justamente os limites da caixa.</li>
+</ul>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(<span class="fu">cut_width</span>(body_mass_g, <span class="dv">200</span>))</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 19 × 2</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `cut_width(body_mass_g, 200)`     n</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;fct&gt;                         &lt;int&gt;</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 [2.7e+03,2.9e+03]                 7</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 (2.9e+03,3.1e+03]                10</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 (3.1e+03,3.3e+03]                23</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 (3.3e+03,3.5e+03]                38</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 (3.5e+03,3.7e+03]                39</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 (3.7e+03,3.9e+03]                37</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 13 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Você pode definir a largura dos intervalos no histograma com o argumento *******binwidth******* que é medido de acordo com unidades da variável x. Você deve sempre explorar números diferentes pra esse argumento, porque diferentes larguras de caixa podem revelar padrões diferentes.</li>
+<li>Podemos ver que um intervalo de 20 é muito estreito, resultando em muitas barras e tornando difícil determinar o formato da distribuição.</li>
+<li>O intervalo de 2.000 já é muito grande, resultando em dados encaixados apenas em três caixas o que também não esclarece a distribuição da variável.</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">20</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">200</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%2013.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%2014.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%2015.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div></li>
+</ul></li>
+</ul></li>
+<li>2.4.3 Exercícios
+<ol type="1">
+<li><p>Faça um gráfico de barras das espécies de pinguins onde você atribui a espécie ao eixo y da estética. Qual é a diferença desse gráfico?</p></li>
+<li><p>Qual é a diferença entre os dois gráficos a seguir? Qual estética entre <em>color</em> e ****fill**** é mais útil para mudar a cor das barras?</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species)) <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">"red"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species)) <span class="sc">+</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>O que o argumento ****bins**** faz na função ****************geom_histogram()****************?</p></li>
+<li><p>Faça um histograma da variável *****carat***** do dataset ********diamonds********. Experimento com diferentes larguras de barras (binwidth). Qual largura revela os padrões mais interessantes?</p></li>
+</ol></li>
+<li>2.5 Visualizando relações
+<ul>
+<li>Para visualizar uma relação nós precisamos ter pelo menos duas variáveis mapeadas a estética de um gráfico. Vamos aprender sobre gráficos comumente utilizados para visualizar relações entre duas ou mais variáveis e as geometrias usadas para criá-los.</li>
+<li>2.5.1 Uma variável numérica e uma categórica
+<ul>
+<li><p>Para visualizar a relação entre uma variável numérica e uma categórica podemos boxplots. O <strong>boxplot</strong> é um tipo de representação visual para a distribuição de valores muito popular entre estatísticos.</p></li>
+<li><p>A figura a seguir mostra que todo boxplot consiste em :</p>
+<ul>
+<li><p>Uma caixa que se estende do 25th ao 75th percentis, distância conhecida como Intervalo Inter Quartis (IQR). No meio da caixa está a linha mediana, ou 50th percentil da distruibuição.</p></li>
+<li><p>Essas três linhas dão uma boa noção da dispersão e simetria da distribuição.</p></li>
+<li><p>Pontos são utilizados para os dados que se encontram mais do que 1.5 vezes a distância dos limites da caixa, chamados outliers.</p></li>
+<li><p>Uma linha, ou se estende da caixa até o ponto não-outlier mais distante da distribuição.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%2016.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div></li>
+</ul></li>
+<li><p>Vamos dar uma olhada na distribuição da massa corporal das espécies usando a **************geom_boxplot()**************:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%2017.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div></li>
+<li><p>Alternativamente podemos usar polígonos de frequência com *************geom_freqpoly()*************.</p>
+<ul>
+<li><p>Essa geometria faz os mesmos cálculos que a **********geom_histogram()**********, mas ao invés de apresentar as contagens em barras ela utiliza linhas. É muito mais fácil de compreender linhas sobrepostas que barras sobrepostas.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_freqpoly</span>(<span class="at">binwidth =</span> <span class="dv">200</span>, <span class="at">linewidth =</span> <span class="fl">0.75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%2018.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li>C<em>u</em>stomizamos a espessura das linhas com o *********linewidth*********</li>
+</ul></li>
+</ul></li>
+<li><p>Também podemos sobrepor gráficos de densidade com *******species******* mapeado tanto para *****color***** quanto para *****fill***** e usando o *****alpha***** na estética para adicionar transparência ao preenchimento das curvas.</p>
+<ul>
+<li><p>Essa estética varia do 0 (completamente transparente) ao 1 (completamente opaca).</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">color =</span> species, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%2019.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div></li>
+</ul></li>
+<li><p>Importante ressaltar a terminologia que usamos:</p>
+<ul>
+<li>Mapeamos variáveis à estéticas se queremos que os atributos visuais representados por essa estética variem com os valores da variável.</li>
+<li>Do contrário, atribuímos o valor a uma estética.</li>
+</ul></li>
+</ul></li>
+<li>2.5.2 Duas variáveis categóricas
+<ul>
+<li>Podemos segmentar um gráfico de barras para visualizar a distribuição de duas variáveis.
+<ul>
+<li>Nesse caso, mapeamos a variável pela qual queremos dividir os dados na estética <em>x</em>. Além disso, mapeamos a variável que queremos dividir os grupos na estética <strong>fill.</strong></li>
+<li>Podemos ainda utilizar esse gráfico para representar as frequências relativas de cada variável de nosso interesse.</li>
+</ul></li>
+<li>A seguir apresentamos dois gráficos de barra segmentados. Ambos apresentando a relação entre ******island****** e species, mais especificamente visualizando a distribuição de espécies em cada ilha.
+<ul>
+<li><p>O primeiro gráfico apresenta a frequência, ou contagem de cada espécie em cada ilha.</p></li>
+<li><p>Já o segundo apresenta a frequência relativa, ou proporção de cada espécie em cada ilha. Nesse caso, o eixo y está incorretamente nomeado de “count”.</p></li>
+<li><p>Neles podemos ver que todos os Gentoos vivem na ilha Biscoe, sendo eles ~75% de sua população. Todos os Chinstrap vivem na ilha Dream sendo ~50% de sua população. Finalmente os Adelie vivem nas três ilhas, e são a única espécie da ilha Togersen.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> island, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> island, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%2020.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%2021.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div></li>
+</ul></li>
+</ul></li>
+<li>2.5.3 Duas variáveis numéricas
+<ul>
+<li><p>Já aprendemos sobre os scatterplots (************geom_point()************) e as curvas suaves (*************geom_smooth()*************) para visualizar a relação entre duas variáveis numéricas. O scatterplot é provavelmente o gráfico mais comum para esse representação.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%2022.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div></li>
+</ul></li>
+<li>2.5.4 Três ou mais variáveis
+<ul>
+<li><p>Uma forma de adicionar uma variável adicional é a mapeando a uma estética. Por exemplo o gráfico a seguir utiliza cores para representar as espécies e formas para representar as ilhas.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> species, <span class="at">shape =</span> island))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%2023.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li>Entretanto, adicionar muitos mapeamentos estéticos num gráfico o torna confuso e difícil de compreender.</li>
+</ul></li>
+<li><p>Outra abordagem, especialmente útil para variáveis categóricas é de separar o gráfico em ************facets************, subgráficos onde cada um apresenta um subconjunto dos dados.</p>
+<ul>
+<li>Para facetar seu gráfico por uma única variável, use <em>facet_wrap()</em>.</li>
+<li>O primeiro argumento de <em>facet_wrap()</em> é uma formula que você cria com ~ seguido por um nome de variável. A variável que você passa para facet_wrap() deve ser categórica.</li>
+</ul>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> species, <span class="at">shape =</span> species)) <span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>island)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%2024.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div></li>
+</ul></li>
+</ul></li>
+<li>2.5.5 Exercícios
+<ol type="1">
+<li><p>Qual das variáveis no dataset <strong><em>mpg</em></strong> são categóricas? Quais são continuas? (dica: digite <em>?mpg</em> no console para ler a documentação).</p></li>
+<li><p>Faça um scatterplot de <strong>hwy</strong> vs *****displ***** usando o datafeame <strong><em>mpg</em></strong>. Em seguida, mapeie uma terceira variável numérica à *****color*****, depois a mapeie para *****size*****, depois a mapeie para ******color****** e ****size**** simultaneamente, finalmente mapeie essa terceira variável para *****shape*****. Qual é a diferença no comportamento dessas estéticas?</p></li>
+<li><p><del>No scatterplor de hwy vs displ, o que acontece se você mapear uma terceira variável ao linewidth?</del></p></li>
+<li><p>O que acontece se você mapear a mesma variável para múltiplas estéticas?</p></li>
+<li><p>Faça um scatterplot de bill_depth_mm vs.&nbsp;bill_length_mm e cor dos pontos para as espécies. O que adicionar cor revela sobre a relação entre as duas variáveis?</p></li>
+<li><p>Por que o gráfico seguinte apresenta duas legendas separadas? Como você faria para combinar as suas legendas em uma?</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> species, <span class="at">shape =</span> species</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Species"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Aula2%20-%20DataViz%2092592507211d4eb5977b5ac13fa0fc8a/Untitled%2025.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Untitled</figcaption><p></p>
+</figure>
+</div></li>
+</ol></li>
+<li>2.6 Salvando seus gráficos
+<ul>
+<li>Para salvar os gráficos usamos a função ********ggsave()********. Ela salva o gráfico mais recente na pasta do seu projeto (working directory).</li>
+<li>Você pode especificar altura e largura, do contrário ela vai salvar nas dimensões atuais.</li>
+<li>Para mais informações sobre a função é só <em>?ggsave()</em></li>
+</ul></li>
+<li>2.6.1 Exercícios
+<ol type="1">
+<li><p>Qual dos gráficos será salvo pela função ggsave?</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> cty, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"mpg-plot.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>O que você precisa mudar no código acima para salvar o gráfico como PDF ao invés de PNG?</p></li>
+</ol></li>
+<li>2.8 Sumário
+<ul>
+<li>Nesse capítulo aprendemos o básico de visualização de dados com ggplot2.
+<ul>
+<li>Iniciamos com a ideia básica que fundamenta essa ferramenta: visualização é um mapeamento de variáveis nos dados com propriedades estéticas como posição cor, tamanho e formato. Que por sua vez são apresentadas de acordo com determinada geometria.</li>
+<li>Aprendemos com complexidade incremental e melhorar nossa apresentação camada por camada.</li>
+<li>Aprendemos sobre tipos de gráficos comumente utilizados para representar distribuições e relações entre variáveis além de utilizar mapeamento estético adicional e separar o gráfico em pequenos múltiplos chamados facetas.</li>
+<li>Finalmente vimos a função necessária para salvar nossos gráficos fora do R e usamos onde quisermos.</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

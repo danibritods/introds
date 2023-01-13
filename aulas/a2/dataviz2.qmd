@@ -1,0 +1,243 @@
+---
+title: "Visualização de Dados 2"
+subtitle: "Introdução à ciência de dados"
+author: Daniel Brito dos Santos
+format:
+    # beamer: 
+    #     outertheme: metropolis
+    #     colortheme: metropolis
+    #     fonttheme: metropolis
+  revealjs: 
+    slide-number: true
+    chalkboard: 
+      buttons: true
+---
+
+## Prerequisitos
+```{r}
+#| echo: true
+library(tidyverse)
+library(palmerpenguins)
+```
+
+## 2.4 Visualizando distribuições
+- A maneira de visualizar uma variável depende do seu tipo: numérica ou categórica
+
+## 2.4.1 Variável categórica
+- Uma variável é **categórica** quando ela pode assumir apenas um pequeno conjunto de valores.
+- Podemos usar **gráficos de barra** para examinar sua **distribuição**. A altura das barras apresenta quantas observações ocorreram para cada valor de *x*.
+
+```{r}
+#| echo: true
+ggplot(penguins,aes(x = species)) +
+    geom_bar()
+```
+---
+
+- Para variáveis categóricas com níveis **não ordenadas** como as espécies de pinguim, é frequentemente preferível **reordená-las** baseado em sua frequências.
+    - Para fazer isso em R nós transformamos a variável em um fator e reordenamos os níveis do fator. Basta utilizar-mos a função *fct_infreq()*.
+
+```{r}
+#| echo: true
+ggplot(penguins, aes(x = fct_infreq(species))) +
+    geom_bar()
+```
+
+## 2.4.2 Variável numérica
+- Uma variável **numérica** pode assumir qualquer valor de um conjunto infinito de valores ordenados. **Números** e data-time são exemplos de variáveis contínuas.
+- Para visualizarmos variáveis contínuas podemos usar **histograma** ou um **plot de densidade**.
+    
+- Histograma divide o eixo x em caixas igualmente espaçadas de modo que a sua altura representa o número de observações naquele intervalo.     
+
+---
+```{r}
+#| echo: true
+#| label: fig-hist-200
+#| fig-cap: Histograma com 200 gramas de intervalo
+ggplot(penguins,aes(x = body_mass_g)
+) +geom_histogram(binwidth = 200)
+```
+---
+
+No gráfico anterior (@fig-hist-200) a barra mais alta tem 39 observações de pinguins com massa corporal em gramas (*body_mass_g)* entre 3.500 e 3.700 gramas (limites da caixa)
+
+```{r}
+#| echo: true
+penguins |>
+    count(cut_width(body_mass_g, 200))
+```
+---
+
+- Podemos definir a largura de cada caixa com o argumento *binwidth*, que é medido em unidades de x
+- Você deve sempre **explorar números** diferentes para esse argumento porque diferentes larguras podem reverlar **diferentes padrões**
+---
+
+```{r}
+#| echo: true
+ggplot(penguins, aes(x = body_mass_g)) +
+    geom_histogram(binwidth = 20)
+```
+---
+
+```{r}
+#| echo: true
+ggplot(penguins, aes(x = body_mass_g)) +
+    geom_histogram(binwidth = 200)
+```
+---
+```{r}
+#| echo: true
+ggplot(penguins, aes(x = body_mass_g)) +
+    geom_histogram(binwidth = 2000)
+```
+---
+
+- Podemos ver que um intervalo de 20 é muito estreito, resultando em muitas barras e tornando difícil determinar o formato da distribuição.
+
+- O intervalo de 2.000 já é muito grande, resultando em dados encaixados apenas em três caixas o que também não esclarece a distribuição da variável.
+
+## 2.5 Visualizando relações
+- Para visualizar uma **relação** nós precisamos ter pelo menos duas variáveis mapeadas a estética de um gráfico. 
+- Vamos aprender sobre gráficos comumente utilizados para visualizar relações entre duas ou mais variáveis e as geometrias usadas para criá-los.
+
+## 2.5.1 Uma variável numérica e uma categórica
+- Boxplots! 
+- Representação visual da distribuição de valores de uma variável
+- Muito popular entre estatisticos
+---
+
+![](images/Untitled%2016.png)
+
+---
+
+- A figura mostra que todo **boxplot** consiste em :
+    - Uma **caixa** que se estende do **25th ao 75th** percentis, distância conhecida como Intervalo Inter Quartis (**IQR**). No meio da caixa está a **linha mediana**, ou 50th percentil da distruibuição.
+    - Essas três linhas dão uma boa noção da **dispersão** e **simetria** da distribuição.
+    - Pontos são utilizados para os dados que se encontram mais do que 1.5 vezes a distância dos limites da caixa, chamados **outliers**.
+    - Uma linha, ou se estende da caixa até o ponto não-outlier mais distante da distribuição.
+---
+
+- Vamos dar uma olhada na distribuição da massa corporal das espécies de pinguins usando a *geom_boxplot()*
+
+```{r}
+#| echo: true
+ggplot(penguins, aes(x = species, y = body_mass_g)) +
+    geom_boxplot()
+```
+---
+
+- Alternativamente podemos usar polígonos de frequência com o *geom_freqpoly()*
+- Essa geometria faz os mesmos cálculos que a *geom_histogram()*, mas ao invés de apresentar em barras utiliza linhas. 
+    - É mais fácil de ver linhas sobrepostas que barras
+
+```{r}
+#| echo: true
+ggplot(penguins, aes(x = body_mass_g, color = species)
+) +
+    geom_freqpoly(binwidth = 200, linewidth = 0.75)
+```
+
+---
+
+Também podemos sobrepor gráficos de densidade com *species* mapeado tanto para *color* quanto para *fill* e usando o *alpha* para adicionar transparência no preenchimento das curvas
+
+```{r}
+#| echo: true
+ggplot(penguins, aes(x = body_mass_g, color = species, fill = species)
+) +
+    geom_density(alpha = 0.5)
+```
+
+---
+
+- Importante ressaltar a **terminologia**
+    - **Mapeamos** variaveis a estéticas se queremos que os atributos visuais representados variem com os valores da variável
+    - Do contrária, **atribuímos** o valor de uma estética 
+
+
+## 2.5.2 Duas variáveis categóricas
+
+- Podemos **segmentar** um **gráfico de barras** para visualizar a distribuição de duas variáveis
+    - Nesse caso, mapeamos a variável pela qual queremos dividir os dados na estética *x*. E mapeamos a variável que queremos dividir os grupos na estética **fill.**
+    - Podemos ainda utilizar esse gráfico para representar as frequências relativas de cada variável de nosso interesse.
+
+---
+
+- Nos gráficos seguintes vemos a distribuição de espécies em cada ilha
+
+```{r}
+#| echo: true
+ggplot(penguins, aes(x = island, fill = species)
+) +
+    geom_bar()
+```
+
+```{r}
+#| echo: true
+ggplot(penguins, aes(x = island, fill = species)) +
+    geom_bar(position = "fill")
+```
+
+---
+
+- O primeiro gráfico apresenta a frequência, ou contagem de cada espécie em cada ilha.
+
+- Já o segundo apresenta a frequência relativa, ou proporção de cada espécie em cada ilha. Nesse caso, o eixo y está incorretamente nomeado de “count”.
+
+- Neles podemos ver que todos os Gentoos vivem na ilha Biscoe, sendo eles ~75% de sua população. Todos os Chinstrap vivem na ilha Dream sendo ~50% de sua população. Finalmente os Adelie vivem nas três ilhas, e são a única espécie da ilha Togersen.
+
+## 2.5.3 Duas variáveis numéricas
+- Scatterplots! 
+- Foi o primeiro que aprendemos
+- Provavelmente a representação gráfica mais comum de variáveis numéricas
+
+## 2.5.4 Três ou mais variáveis
+- Uma forma de adicionar uma variável adicional é a mapeando a uma estética. Por exemplo o gráfico a seguir utiliza cores para representar as espécies e formas para representar as ilhas.
+
+---
+
+```{r}
+#| echo: true
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)
+) +
+    geom_point(aes(color = species, shape = island))
+```
+            
+- Entretanto, adicionar muitos mapeamentos estéticos num gráfico o torna confuso e difícil de compreender.
+
+---
+
+- Outra abordagem, especialmente útil para variáveis categóricas é de separar o gráfico em *facets*, subgráficos onde cada um apresenta um subconjunto dos dados.
+    - Para facetar seu gráfico por uma única variável, use *facet_wrap()*.
+    - O primeiro argumento de *facet_wrap()* é uma formula que você cria com ~ seguido por um nome de variável. A variável que você passa para facet_wrap() deve ser categórica.
+
+---
+
+```{r}
+#| echo: true
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)
+) +
+    geom_point(aes(color = species, shape = species)) +
+    facet_wrap(~island)
+```
+
+## 2.6 Salvando seus gráficos
+
+- Para salvar os gráficos usamos a função *ggsave()*. Ela salva o gráfico mais recente na pasta do seu projeto (working directory).
+
+- Você pode especificar altura e largura, do contrário ela vai salvar nas dimensões atuais.
+
+- Para mais informações sobre a função é só *?ggsave()*
+
+## 2.8 Sumário
+- Nesse capítulo aprendemos o básico de visualização de dados com ggplot2.
+    - Iniciamos com a ideia básica que fundamenta essa ferramenta: **visualização** é um **mapeamento** de variáveis nos dados com **propriedades estéticas** como posição cor, tamanho e formato. Que por sua vez são apresentadas de acordo com **determinada geometria**.
+
+    - Aprendemos com complexidade incremental e melhorar nossa apresentação camada por camada.
+
+    - Aprendemos sobre tipos de gráficos comumente utilizados para representar distribuições e relações entre variáveis além de utilizar mapeamento estético adicional e separar o gráfico em pequenos múltiplos chamados facetas.
+
+    - Finalmente vimos a função necessária para salvar nossos gráficos fora do R e usamos onde quisermos.
+
+## Muito obrigado!!!
+# Dúvidas?

@@ -1,0 +1,14 @@
+---
+title: "Exercícios primeira semana"
+subtitle: "Introdução e Visualização de dados"
+format:
+  revealjs: 
+    slide-number: true
+    chalkboard: 
+      buttons: true
+---
+## Teste
+asdads
+
+## TEste
+sad
