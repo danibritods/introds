@@ -24,9 +24,7 @@ format:
 
 - Nosso objetivo é apresentar as principais ferramentas para **transformar** um data frame. 
 
-- Vamos começar com operações em **linhas**, depois em **colunas**
-
-- Terminar com um **estudo de caso** para colocar essas operações em ação
+- Vamos começar com operações em **linhas**, depois em **colunas** e finalmente ver **grupos**
 
 ## 4.1.1 Prerequisitos
 - O **dplyr** é outro pacote fundamental do tidyverse
@@ -269,7 +267,7 @@ flights |>
 ```
 . . .
 
-- Ordena por ordem de decolagem, que está separada nas quatro variáveis: ano, mês, dia e hora da decolagem
+- **Ordena** por ordem de decolagem, que está separada nas quatro variáveis: ano, mês, dia e hora da decolagem
 
 ```r
 #> # A tibble: 336,776 × 19
@@ -309,7 +307,7 @@ flights |>
 . . .
 
 - Vamos deixar mais exato o "hora certa": 
-    - voos que sairam com no máximo 10 minutos de atraso ou adiantamento 
+    - voos que sairam com **até** 10 minutos de **atraso** ou **adiantamento** 
 . . .
 
 - (sim, eu também não sabia que voos poderiam sair adiantados)
@@ -337,7 +335,7 @@ flights |>
 
 ## 4.2.4 `distinct()`
 ::: {.incremental}
-- Encontra todas as linhas únicas em um dataset
+- **Encontra** todas as linhas **únicas** em um dataset
 - Como os outros, seu primeiro argumento é o dataset
 - Seus próximos argumentos são os **nomes das colunas** que queremos as linhas distintas 
 :::
@@ -397,30 +395,636 @@ flights |>
 
 ## `mutate()`
 ::: {.incremental}
-- Adiciona novas colunas que são calculadas das colunas existentes
+- **Adiciona** novas colunas a partir da **manipulação** das colunas existentes
 - Nos capítulos de transformação tem uma série de funções úteis para manipular diferentes tipos de variáveis
-- Aquivamos focar na álgebra básica 
+- Aqui vamos focar na álgebra básica 
 ::: 
-
-
-
-<!-- ------------------------------ -->
-
-
-
 
 ---
 
+### Computar o ``gain`` e ``speed``
+- **gain**: quanto tempo um voo atrasado compensou no ar 
+- **speed**: velocidade em milhas por hora
 
+```r
+flights |> 
+  mutate(
+    gain = dep_delay - arr_delay,
+    speed = distance / air_time * 60
+  )
+```
+. . . 
+
+- Viram as novas colunas? 
+
+---
+
+- Por padrão, o `mutate()` cria **novas colunas** na **extremidade direita** do dataset, fica difícil de ver no resumo
+
+ . . .
+
+- podemos usar o argumento `.before`:
+
+```r
+flights |> 
+  mutate(
+    gain = dep_delay - arr_delay,
+    speed = distance / air_time * 60,
+    .before = 1
+  )
+```
+
+---
+
+- o `.` é um sinal de que `.before` é um argumento e não uma nova variável
+
+. . .
+
+- Também podemos usar `.after` e `.before` com variáveis:
+
+```r
+flights |> 
+  mutate(
+    gain = dep_delay - arr_delay,
+    speed = distance / air_time * 60,
+    .after = day
+  )
+```
+- O que faz esse código? 
+
+. . .
+
+- Cria as variáveis apos a variável `day`
+
+---
+
+### Argumento `.keep`
 ::: {.incremental}
+- permite definirmos as **variáveis** que serão **mantidas**
+- É muito útil usar com o `"used"` para **manter** as variáveis **utilizadas** e **resultantes** do "mutação"
 :::
 
-::: {.incremental}
--
+. . . 
 
+```r
+flights |> 
+  mutate(,
+    gain = dep_delay - arr_delay,
+    hours = air_time / 60,
+    gain_per_hour = gain / hours,
+    .keep = "used"
+  )
+```
+
+## 4.3.2 ``select()``
+::: {.incremental}
+- **Seleciona** um subgrupo de variáveis do dataset a partir dos seus nomes 
+- Muito útil para datasets com centenas ou até milhares de colunas
+- Vamos aos exemplos do seu funcionamento
 :::
 
+---
+
+### Selecionar colunas pelos nomes
+- Quem chuta a sintaxe para selecionarmos: `year`, `month` e `day`?
+
+. . .
+
+```r
+flights |> 
+  select(year, month, day)
+#> # A tibble: 336,776 × 3
+#>    year month   day
+#>   <int> <int> <int>
+#> 1  2013     1     1
+#> 2  2013     1     1
+#> 3  2013     1     1
+#> 4  2013     1     1
+#> 5  2013     1     1
+#> 6  2013     1     1
+#> # … with 336,770 more rows
+```
+
+---
+
+### Selecionar todas as colunas entre `year` e `day`
+
+- e aí?
+
+. . .
+
+```r
+flights |> 
+  select(year:day)
+#> # A tibble: 336,776 × 3
+#>    year month   day
+#>   <int> <int> <int>
+#> 1  2013     1     1
+#> 2  2013     1     1
+#> 3  2013     1     1
+#> 4  2013     1     1
+#> 5  2013     1     1
+#> 6  2013     1     1
+#> # … with 336,770 more rows
+```
+
+---
+
+- E o contrário? Como selecionar todas EXCETO entre `year` e `day`?
+
+. . .
+
+```r
+flights |> 
+  select(!year:day)
+#> # A tibble: 336,776 × 16
+#>   dep_time sched_dep…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier flight tailnum
+#>      <int>       <int>   <dbl>   <int>   <int>   <dbl> <chr>    <int> <chr>  
+#> 1      517         515       2     830     819      11 UA        1545 N14228 
+#> 2      533         529       4     850     830      20 UA        1714 N24211 
+#> 3      542         540       2     923     850      33 AA        1141 N619AA 
+#> 4      544         545      -1    1004    1022     -18 B6         725 N804JB 
+#> 5      554         600      -6     812     837     -25 DL         461 N668DN 
+#> 6      554         558      -4     740     728      12 UA        1696 N39463 
+#> # … with 336,770 more rows, 7 more variables: origin <chr>, dest <chr>,
+#> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>,
+#> #   time_hour <dttm>, and abbreviated variable names ¹​sched_dep_time,
+#> #   ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
+```
+
+---
+
+### Selecionar todas as colunas que são caracteres
+
+. . .
+
+```r
+flights |> 
+  select(where(is.character))
+#> # A tibble: 336,776 × 4
+#>   carrier tailnum origin dest 
+#>   <chr>   <chr>   <chr>  <chr>
+#> 1 UA      N14228  EWR    IAH  
+#> 2 UA      N24211  LGA    IAH  
+#> 3 AA      N619AA  JFK    MIA  
+#> 4 B6      N804JB  JFK    BQN  
+#> 5 DL      N668DN  LGA    ATL  
+#> 6 UA      N39463  EWR    ORD  
+#> # … with 336,770 more rows
+```
+
+. . .
+
+- `where()` é uma "helper function" do `select()`
+
+---
+
+### outras helper functions do `select()`
+::: {.incremental}
+- ``starts_with("abc")``: corresponde aos nomes que começam com “abc”
+- ``ends_with("xyz")``: corresponde aos nomes que terminam com “xyz”
+- `contains("ijk")`: corresponde aos nomes que contém “ijk”
+- `num_range("x", 1:3)`: corresponde com x1, x2 and x3.
+- Para mais detalhes vejam consultem a documentação:
+  - `?select`
+:::
+
+---
+
+### Podemos renomear as variáveis selecionadas 
+- Alguém arrisca? Como mudar "tailnum" para "tail_num"?
+
+. . .
+
+```r
+flights |> 
+  select(tail_num = tailnum)
+#> # A tibble: 336,776 × 1
+#>   tail_num
+#>   <chr>   
+#> 1 N14228  
+#> 2 N24211  
+#> 3 N619AA  
+#> 4 N804JB  
+#> 5 N668DN  
+#> 6 N39463  
+#> # … with 336,770 more rows
+```
+
+- novo_nome = nome_antigo
+
+
+## 4.3.3 rename()
+- se quiser manter as variáveis e apenas **renomar** algumas use ``rename()`` ao invés de ``select()``
+
+- Quem vai? 
+
+. . . 
+
+```r
+flights |> 
+  rename(tail_num = tailnum)
+#> # A tibble: 336,776 × 19
+#>    year month   day dep_time sched_…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+#>   <int> <int> <int>    <int>    <int>   <dbl>   <int>   <int>   <dbl> <chr>  
+#> 1  2013     1     1      517      515       2     830     819      11 UA     
+[...]
+```
+
+- Funciona exatamente como `select()`, mas mantém **todas as variáveis**, não apenas as explicitamente selecionadas
+
+## 4.3.4 ``relocate()``
+::: {.incremental}
+- **Move** variáveis 
+- Podemos querer deixar variáveis relacionadas próximas, ou variáveis importantes mais pra esquerda
+- Por padrão ele **trás pra esquerda** as variáveis citadas
+:::
+
+. . .
+
+```r
+flights |> 
+  relocate(time_hour, air_time)
+#> # A tibble: 336,776 × 19
+#>   time_hour           air_time  year month   day dep_time sched_dep…¹ dep_d…²
+#>   <dttm>                 <dbl> <int> <int> <int>    <int>       <int>   <dbl>
+#> 1 2013-01-01 05:00:00      227  2013     1     1      517         515       2
+#> 2 2013-01-01 05:00:00      227  2013     1     1      533         529       4
+#> 3 2013-01-01 05:00:00      160  2013     1     1      542         540       2
+#> 4 2013-01-01 05:00:00      183  2013     1     1      544         545      -1
+#> 5 2013-01-01 06:00:00      116  2013     1     1      554         600      -6
+#> 6 2013-01-01 05:00:00      150  2013     1     1      554         558      -4
+#> # … with 336,770 more rows, 11 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <dbl>, carrier <chr>, flight <int>,
+#> #   tailnum <chr>, origin <chr>, dest <chr>, distance <dbl>, hour <dbl>,
+#> #   minute <dbl>, and abbreviated variable names ¹​sched_dep_time, ²​dep_delay
+```
+
+---
+
+### Também podemos usar os mesmos `.before` e `.after` que usamos em `mutate()`
+
+- O que acham que esse código faz? 
+```r
+flights |> 
+  relocate(year:dep_time, .after = time_hour)
+```
+
+---
+
+```r
+flights |> 
+  relocate(year:dep_time, .after = time_hour)
+#> # A tibble: 336,776 × 19
+#>   sched…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier flight tailnum origin dest 
+#>     <int>   <dbl>   <int>   <int>   <dbl> <chr>    <int> <chr>   <chr>  <chr>
+#> 1     515       2     830     819      11 UA        1545 N14228  EWR    IAH  
+#> 2     529       4     850     830      20 UA        1714 N24211  LGA    IAH  
+#> 3     540       2     923     850      33 AA        1141 N619AA  JFK    MIA  
+#> 4     545      -1    1004    1022     -18 B6         725 N804JB  JFK    BQN  
+#> 5     600      -6     812     837     -25 DL         461 N668DN  LGA    ATL  
+#> 6     558      -4     740     728      12 UA        1696 N39463  EWR    ORD  
+#> # … with 336,770 more rows, 9 more variables: air_time <dbl>,
+#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>, year <int>,
+#> #   month <int>, day <int>, dep_time <int>, and abbreviated variable names
+#> #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
+```
+
+- **realoca** todas as colunas de ``year`` até ``dep_time`` para depois de `time_hour`
+
+---
+
+- Como poderíamos colocar as variáveis sobre a chegada do voo antes de `dep_time`?
+
+. . .
+
+- Estamos interessados nas variáveis que inicial com "arr", então:
+
+. . .
+
+```r
+flights |> 
+  relocate(starts_with("arr"), .before = dep_time)
+#> # A tibble: 336,776 × 19
+#>    year month   day arr_time arr_de…¹ dep_t…² sched…³ dep_d…⁴ sched…⁵ carrier
+#>   <int> <int> <int>    <int>    <dbl>   <int>   <int>   <dbl>   <int> <chr>  
+#> 1  2013     1     1      830       11     517     515       2     819 UA     
+#> 2  2013     1     1      850       20     533     529       4     830 UA     
+#> 3  2013     1     1      923       33     542     540       2     850 AA     
+#> 4  2013     1     1     1004      -18     544     545      -1    1022 B6     
+#> 5  2013     1     1      812      -25     554     600      -6     837 DL     
+#> 6  2013     1     1      740       12     554     558      -4     728 UA     
+#> # … with 336,770 more rows, 9 more variables: flight <int>, tailnum <chr>,
+#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+#> #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
+#> #   ¹​arr_delay, ²​dep_time, ³​sched_dep_time, ⁴​dep_delay, ⁵​sched_arr_time
+```
+
+# 4.4 Groups
+
+## 4.4 Groups
+- Até aqui aprendemos sobre funções que trabalham com **linhas** e **colunas**.
+- O verdadeiro poder de dplyr é te permitir trabalhar com **grupos**
+- Vamos ver as duas funções mais importantes para isso: 
+  - `group_by()` e `summarize()`
+
+## 4.4.1 `group_by()`
+::: {.incremental}
+- **Divide** o datasets em grupos **significativos** para a análise 
+- Vamos explicar com um exemplo
+:::
+
+. . .
+
+```r
+flights |> 
+  group_by(month)
+#> # A tibble: 336,776 × 19
+#> # Groups:   month [12]
+#>    year month   day dep_time sched_…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+#>   <int> <int> <int>    <int>    <int>   <dbl>   <int>   <int>   <dbl> <chr>  
+#> 1  2013     1     1      517      515       2     830     819      11 UA     
+#> 2  2013     1     1      533      529       4     850     830      20 UA     
+#> 3  2013     1     1      542      540       2     923     850      33 AA     
+#> 4  2013     1     1      544      545      -1    1004    1022     -18 B6     
+#> 5  2013     1     1      554      600      -6     812     837     -25 DL     
+#> 6  2013     1     1      554      558      -4     740     728      12 UA     
+#> # … with 336,770 more rows, 9 more variables: flight <int>, tailnum <chr>,
+#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+#> #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
+#> #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
+```
+---
+
+::: {.incremental}
+- `group_by()` não altera os dados, mas note que aparece "Groups: month"
+- Isso significa que as **próximas operações** vão funcionar "**por mês"**
+- `group_by()` não faz nada sozinho:
+  - ele **altera** o <u>comportamento</u> dos **verbos subsequentes**
+:::
+
+## 4.4.2 `summarize()`
+::: {.incremental}
+- é a operação agrupada mais importante
+- **reduz** <u>cada grupo</u> para uma **única linha**
+- Vamos ao exemplo! 
+:::
+
+---
+
+- O que acham que esse código faz? 
+```r
+flights |> 
+  group_by(month) |> 
+  summarize(
+    delay = mean(dep_delay)
+  )
+```
+. . .
+
+- Ele vai **agrupar** nossos dados por mês, em seguida **resumir** cada mês pela **média** da variável `dep_delay` naquele mês
+- Testem! 
+
+. . . 
+
+- Ué 🤓
+
+---
+
+### O que deu errado? 
+```r
+flights |> 
+  group_by(month) |> 
+  summarize(
+    delay = mean(dep_delay)
+  )
+#> # A tibble: 12 × 2
+#>   month delay
+#>   <int> <dbl>
+#> 1     1    NA
+#> 2     2    NA
+#> 3     3    NA
+#> 4     4    NA
+#> 5     5    NA
+#> 6     6    NA
+#> # … with 6 more rows
+```
+::: {.incremental}
+- NA é contagioso, quase todas as operações com NA resultam em NA. Se `dep_delay` tiver pelo menos um NA, sua média será NA
+- Vamos corrigir removendo todas as NAs: `NA.rm = TRUE `
+:::
+
+---
+
+- Onde acham que devemos colocar o `NA.rm = TRUE `?
+```r
+flights |> 
+  group_by(month) |> 
+  summarize(
+    delay = mean(dep_delay)
+  )
+```
+
+. . .
+
+```r
+flights |> 
+  group_by(month) |> 
+  summarize(
+    delay = mean(dep_delay, na.rm = TRUE)
+  )
+#> # A tibble: 12 × 2
+#>   month delay
+#>   <int> <dbl>
+#> 1     1  10.0
+#> 2     2  10.8
+#> 3     3  13.2
+#> 4     4  13.9
+#> 5     5  13.0
+#> 6     6  20.8
+#> # … with 6 more rows
+```
+---
+
+### `n()`
+- retorna o **número** de **linhas** em **cada** grupo
+- podemos gerar a contagem e média no mesmo `summarize()`
 
 
 ```r
+flights |> 
+  group_by(month) |> 
+  summarize(
+    delay = mean(dep_delay, na.rm = TRUE), 
+    n = n()
+  )
+#> # A tibble: 12 × 3
+#>   month delay     n
+#>   <int> <dbl> <int>
+#> 1     1  10.0 27004
+#> 2     2  10.8 24951
+#> 3     3  13.2 28834
+#> 4     4  13.9 28330
+#> 5     5  13.0 28796
+#> 6     6  20.8 28243
+#> # … with 6 more rows
 ```
+
+---
+
+- Existem outros tipos de sumários, mas nesta parte do livro focamos nesses dois. Segundo o Whikham:
+
+> Means and counts can get you a surprisingly long way in data science!
+
+## 4.4.3 As funções `slice_`
+::: {.incremental}
+- cinco funções úteis para especificar **quais linhas** pegar de **cada grupo**
+  - `df |> slice_head(n = 1)` pega a **primeira** linha de cada grupo
+  - `df |> slice_tail(n = 1)` pega a **última** linha de cada grupo
+:::
+
+---
+
+::: {.incremental}
+  - `df |> slice_min(x, n = 1)` pega a linha com o **menor** valor de `x`
+  - `df |> slice_max(x, n = 1)` pega a linha com o **maior** valor de `x`
+  - `df |> slice_sample(n = 1)` pega uma linha **aleatória** de cada grupo
+- Podemos variar o `n = ` para pegar **mais de uma** linha
+  - Podemos substituir pelo `prop = 0.1` para pegar 10% das linhas de cada grupo 
+:::
+
+---
+
+### Exemplo
+- Como podemos encontrar os voos **mais** atrasados para cada destino?
+
+. . .
+
+```r
+flights |> 
+  group_by(dest) |> 
+  slice_max(arr_delay, n = 1)
+#> # A tibble: 108 × 19
+#> # Groups:   dest [105]
+#>    year month   day dep_time sched_…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+#>   <int> <int> <int>    <int>    <int>   <dbl>   <int>   <int>   <dbl> <chr>  
+#> 1  2013     7    22     2145     2007      98     132    2259     153 B6     
+#> 2  2013     7    23     1139      800     219    1250     909     221 B6     
+#> 3  2013     1    25      123     2000     323     229    2101     328 EV     
+#> 4  2013     8    17     1740     1625      75    2042    2003      39 UA     
+#> 5  2013     7    22     2257      759     898     121    1026     895 DL     
+#> 6  2013     7    10     2056     1505     351    2347    1758     349 UA     
+#> # … with 102 more rows, 9 more variables: flight <int>, tailnum <chr>,
+#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+#> #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
+#> #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
+```
+
+## 4.4.4 Agrupando por múltiplas variáveis
+
+::: {.incremental}
+- Podemos criar grupos usando mais de uma variável
+- Ex: criar um grupo pra cada dia. Quem chuta?
+:::
+
+. . .
+
+```r
+daily <- flights |>  
+  group_by(year, month, day)
+daily
+#> # A tibble: 336,776 × 19
+#> # Groups:   year, month, day [365]
+#>    year month   day dep_time sched_…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+#>   <int> <int> <int>    <int>    <int>   <dbl>   <int>   <int>   <dbl> <chr>  
+#> 1  2013     1     1      517      515       2     830     819      11 UA     
+#> 2  2013     1     1      533      529       4     850     830      20 UA     
+#> 3  2013     1     1      542      540       2     923     850      33 AA     
+#> 4  2013     1     1      544      545      -1    1004    1022     -18 B6     
+#> 5  2013     1     1      554      600      -6     812     837     -25 DL     
+#> 6  2013     1     1      554      558      -4     740     728      12 UA     
+#> # … with 336,770 more rows, 9 more variables: flight <int>, tailnum <chr>,
+#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+#> #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
+#> #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
+```
+---
+
+### Um detalhe 
+- Quando sumarizamos um tibble agrupado por mais de uma variável, o sumário ignora o último agrupamento
+- A própria função avisa desse comportamento contraintuitivo e diz como mudar
+
+```r
+daily_flights <- daily |> 
+  summarize(
+    n = n()
+  )
+#> `summarise()` has grouped output by 'year', 'month'. You can override using
+#> the `.groups` argument.
+```
+
+---
+
+- Testem o `.groups = ` com seus principais argumentos (`drop_last`, `keep`. `drop`)
+- O que cada um faz? 
+
+```r
+daily_flights <- daily |> 
+  summarize(
+    n = n(), 
+    .groups = "drop_last"
+  )
+```
+
+---
+
+- Com o `.groups` podemos usar:
+  - `drop_last` para ignorar o último agrupamento, como o padrão
+  - `keep` para manter todos os grupos
+  - `drop` para ignorar todos os grupos
+
+
+## 4.4.5 Desagrupar
+- `ungroup()` remove os grupos 
+
+- Qual vocês acham que é o resultado desse código? 
+
+```r
+daily |> 
+  ungroup() |>
+  summarize(
+    delay = mean(dep_delay, na.rm = TRUE), 
+    flights = n()
+  )
+```
+
+. . . 
+
+- Rodem. O que aconteceu? É o que esperavam? 
+
+. . .
+
+```r
+#> # A tibble: 1 × 2
+#>   delay flights
+#>   <dbl>   <int>
+#> 1  12.6  336776
+```
+
+- Quando sumarizamos um data frame desagrupado o dplyr trata como se fosse um grupo só 
+
+
+## 4.6 Sumário
+::: {.incremental}
+- Neste capítulo aprendemos ferramentas do dplyr para trabalhar com data frames. Vimos ferramentas para manipular:
+- linhas (filter() e arrange())
+- colunas (select() e mutate())
+- e grupos (group_by() e summarize()).
+- Nosso enfoque nessas ferramentas gerais é um excelente ponto de partida para seguir aprendendo!
+
+- Quem tiver interesse pode ler o capítulo de transformações ou já sair no soco com um dataframe! 
+:::
+
+# Dúvidas? 
+
+<!-- ------------------------------ -->

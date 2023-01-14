@@ -422,8 +422,7 @@ Daniel Brito dos Santos
 <ul>
 <li><p>Vamos aprender a fazer tudo isso usando o pacote <strong>dplyr</strong> e um novo dataset com os <strong>voos</strong> que sairam da cidade de <strong>Nova York</strong> em <strong>2013</strong></p></li>
 <li><p>Nosso objetivo é apresentar as principais ferramentas para <strong>transformar</strong> um data frame.</p></li>
-<li><p>Vamos começar com operações em <strong>linhas</strong>, depois em <strong>colunas</strong></p></li>
-<li><p>Terminar com um <strong>estudo de caso</strong> para colocar essas operações em ação</p></li>
+<li><p>Vamos começar com operações em <strong>linhas</strong>, depois em <strong>colunas</strong> e finalmente ver <strong>grupos</strong></p></li>
 </ul>
 </section>
 <section id="prerequisitos" class="slide level2">
@@ -688,7 +687,7 @@ Daniel Brito dos Santos
 <span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">arrange</span>(year, month, day, dep_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <ul>
-<li>Ordena por ordem de decolagem, que está separada nas quatro variáveis: ano, mês, dia e hora da decolagem</li>
+<li><strong>Ordena</strong> por ordem de decolagem, que está separada nas quatro variáveis: ano, mês, dia e hora da decolagem</li>
 </ul>
 <div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co">#&gt; # A tibble: 336,776 × 19</span></span>
 <span id="cb19-2"><a href="#cb19-2"></a><span class="co">#&gt;    year month   day dep_time sched_…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier</span></span>
@@ -734,7 +733,7 @@ Daniel Brito dos Santos
 <ul>
 <li>Vamos deixar mais exato o “hora certa”:
 <ul>
-<li>voos que sairam com no máximo 10 minutos de atraso ou adiantamento . . .</li>
+<li>voos que sairam com <strong>até</strong> 10 minutos de <strong>atraso</strong> ou <strong>adiantamento</strong> . . .</li>
 </ul></li>
 <li>(sim, eu também não sabia que voos poderiam sair adiantados)</li>
 </ul>
@@ -763,7 +762,7 @@ Daniel Brito dos Santos
 <h2>4.2.4 <code>distinct()</code></h2>
 <div>
 <ul>
-<li class="fragment">Encontra todas as linhas únicas em um dataset</li>
+<li class="fragment"><strong>Encontra</strong> todas as linhas <strong>únicas</strong> em um dataset</li>
 <li class="fragment">Como os outros, seu primeiro argumento é o dataset</li>
 <li class="fragment">Seus próximos argumentos são os <strong>nomes das colunas</strong> que queremos as linhas distintas</li>
 </ul>
@@ -831,24 +830,667 @@ Daniel Brito dos Santos
 <h2><code>mutate()</code></h2>
 <div>
 <ul>
-<li class="fragment">Adiciona novas colunas que são calculadas das colunas existentes</li>
+<li class="fragment"><strong>Adiciona</strong> novas colunas a partir da <strong>manipulação</strong> das colunas existentes</li>
 <li class="fragment">Nos capítulos de transformação tem uma série de funções úteis para manipular diferentes tipos de variáveis</li>
-<li class="fragment">Aquivamos focar na álgebra básica</li>
+<li class="fragment">Aqui vamos focar na álgebra básica</li>
 </ul>
 </div>
-<!-- ------------------------------ -->
+</section>
+<section class="slide level2">
+
+<h3 id="computar-o-gain-e-speed">Computar o <code>gain</code> e <code>speed</code></h3>
+<ul>
+<li><strong>gain</strong>: quanto tempo um voo atrasado compensou no ar</li>
+<li><strong>speed</strong>: velocidade em milhas por hora</li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb25-3"><a href="#cb25-3"></a>    <span class="at">gain =</span> dep_delay <span class="sc">-</span> arr_delay,</span>
+<span id="cb25-4"><a href="#cb25-4"></a>    <span class="at">speed =</span> distance <span class="sc">/</span> air_time <span class="sc">*</span> <span class="dv">60</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<ul>
+<li>Viram as novas colunas?</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<ul>
+<li>Por padrão, o <code>mutate()</code> cria <strong>novas colunas</strong> na <strong>extremidade direita</strong> do dataset, fica difícil de ver no resumo</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>podemos usar o argumento <code>.before</code>:</li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb26-3"><a href="#cb26-3"></a>    <span class="at">gain =</span> dep_delay <span class="sc">-</span> arr_delay,</span>
+<span id="cb26-4"><a href="#cb26-4"></a>    <span class="at">speed =</span> distance <span class="sc">/</span> air_time <span class="sc">*</span> <span class="dv">60</span>,</span>
+<span id="cb26-5"><a href="#cb26-5"></a>    <span class="at">.before =</span> <span class="dv">1</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<ul>
+<li>o <code>.</code> é um sinal de que <code>.before</code> é um argumento e não uma nova variável</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Também podemos usar <code>.after</code> e <code>.before</code> com variáveis:</li>
+</ul>
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb27-3"><a href="#cb27-3"></a>    <span class="at">gain =</span> dep_delay <span class="sc">-</span> arr_delay,</span>
+<span id="cb27-4"><a href="#cb27-4"></a>    <span class="at">speed =</span> distance <span class="sc">/</span> air_time <span class="sc">*</span> <span class="dv">60</span>,</span>
+<span id="cb27-5"><a href="#cb27-5"></a>    <span class="at">.after =</span> day</span>
+<span id="cb27-6"><a href="#cb27-6"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>O que faz esse código?</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Cria as variáveis apos a variável <code>day</code></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="argumento-.keep">Argumento <code>.keep</code></h3>
+<div>
+<ul>
+<li class="fragment">permite definirmos as <strong>variáveis</strong> que serão <strong>mantidas</strong></li>
+<li class="fragment">É muito útil usar com o <code>"used"</code> para <strong>manter</strong> as variáveis <strong>utilizadas</strong> e <strong>resultantes</strong> do “mutação”</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">mutate</span>(,</span>
+<span id="cb28-3"><a href="#cb28-3"></a>    <span class="at">gain =</span> dep_delay <span class="sc">-</span> arr_delay,</span>
+<span id="cb28-4"><a href="#cb28-4"></a>    <span class="at">hours =</span> air_time <span class="sc">/</span> <span class="dv">60</span>,</span>
+<span id="cb28-5"><a href="#cb28-5"></a>    <span class="at">gain_per_hour =</span> gain <span class="sc">/</span> hours,</span>
+<span id="cb28-6"><a href="#cb28-6"></a>    <span class="at">.keep =</span> <span class="st">"used"</span></span>
+<span id="cb28-7"><a href="#cb28-7"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="select" class="slide level2">
+<h2>4.3.2 <code>select()</code></h2>
+<div>
+<ul>
+<li class="fragment"><strong>Seleciona</strong> um subgrupo de variáveis do dataset a partir dos seus nomes</li>
+<li class="fragment">Muito útil para datasets com centenas ou até milhares de colunas</li>
+<li class="fragment">Vamos aos exemplos do seu funcionamento</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="selecionar-colunas-pelos-nomes">Selecionar colunas pelos nomes</h3>
+<ul>
+<li>Quem chuta a sintaxe para selecionarmos: <code>year</code>, <code>month</code> e <code>day</code>?</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">select</span>(year, month, day)</span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="co">#&gt; # A tibble: 336,776 × 3</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="co">#&gt;    year month   day</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb29-6"><a href="#cb29-6"></a><span class="co">#&gt; 1  2013     1     1</span></span>
+<span id="cb29-7"><a href="#cb29-7"></a><span class="co">#&gt; 2  2013     1     1</span></span>
+<span id="cb29-8"><a href="#cb29-8"></a><span class="co">#&gt; 3  2013     1     1</span></span>
+<span id="cb29-9"><a href="#cb29-9"></a><span class="co">#&gt; 4  2013     1     1</span></span>
+<span id="cb29-10"><a href="#cb29-10"></a><span class="co">#&gt; 5  2013     1     1</span></span>
+<span id="cb29-11"><a href="#cb29-11"></a><span class="co">#&gt; 6  2013     1     1</span></span>
+<span id="cb29-12"><a href="#cb29-12"></a><span class="co">#&gt; # … with 336,770 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="selecionar-todas-as-colunas-entre-year-e-day">Selecionar todas as colunas entre <code>year</code> e <code>day</code></h3>
+<ul>
+<li>e aí?</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">select</span>(year<span class="sc">:</span>day)</span>
+<span id="cb30-3"><a href="#cb30-3"></a><span class="co">#&gt; # A tibble: 336,776 × 3</span></span>
+<span id="cb30-4"><a href="#cb30-4"></a><span class="co">#&gt;    year month   day</span></span>
+<span id="cb30-5"><a href="#cb30-5"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb30-6"><a href="#cb30-6"></a><span class="co">#&gt; 1  2013     1     1</span></span>
+<span id="cb30-7"><a href="#cb30-7"></a><span class="co">#&gt; 2  2013     1     1</span></span>
+<span id="cb30-8"><a href="#cb30-8"></a><span class="co">#&gt; 3  2013     1     1</span></span>
+<span id="cb30-9"><a href="#cb30-9"></a><span class="co">#&gt; 4  2013     1     1</span></span>
+<span id="cb30-10"><a href="#cb30-10"></a><span class="co">#&gt; 5  2013     1     1</span></span>
+<span id="cb30-11"><a href="#cb30-11"></a><span class="co">#&gt; 6  2013     1     1</span></span>
+<span id="cb30-12"><a href="#cb30-12"></a><span class="co">#&gt; # … with 336,770 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<ul>
+<li>E o contrário? Como selecionar todas EXCETO entre <code>year</code> e <code>day</code>?</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">select</span>(<span class="sc">!</span>year<span class="sc">:</span>day)</span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="co">#&gt; # A tibble: 336,776 × 16</span></span>
+<span id="cb31-4"><a href="#cb31-4"></a><span class="co">#&gt;   dep_time sched_dep…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier flight tailnum</span></span>
+<span id="cb31-5"><a href="#cb31-5"></a><span class="co">#&gt;      &lt;int&gt;       &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;  </span></span>
+<span id="cb31-6"><a href="#cb31-6"></a><span class="co">#&gt; 1      517         515       2     830     819      11 UA        1545 N14228 </span></span>
+<span id="cb31-7"><a href="#cb31-7"></a><span class="co">#&gt; 2      533         529       4     850     830      20 UA        1714 N24211 </span></span>
+<span id="cb31-8"><a href="#cb31-8"></a><span class="co">#&gt; 3      542         540       2     923     850      33 AA        1141 N619AA </span></span>
+<span id="cb31-9"><a href="#cb31-9"></a><span class="co">#&gt; 4      544         545      -1    1004    1022     -18 B6         725 N804JB </span></span>
+<span id="cb31-10"><a href="#cb31-10"></a><span class="co">#&gt; 5      554         600      -6     812     837     -25 DL         461 N668DN </span></span>
+<span id="cb31-11"><a href="#cb31-11"></a><span class="co">#&gt; 6      554         558      -4     740     728      12 UA        1696 N39463 </span></span>
+<span id="cb31-12"><a href="#cb31-12"></a><span class="co">#&gt; # … with 336,770 more rows, 7 more variables: origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
+<span id="cb31-13"><a href="#cb31-13"></a><span class="co">#&gt; #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,</span></span>
+<span id="cb31-14"><a href="#cb31-14"></a><span class="co">#&gt; #   time_hour &lt;dttm&gt;, and abbreviated variable names ¹​sched_dep_time,</span></span>
+<span id="cb31-15"><a href="#cb31-15"></a><span class="co">#&gt; #   ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="selecionar-todas-as-colunas-que-são-caracteres">Selecionar todas as colunas que são caracteres</h3>
+<div class="fragment">
+<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.character))</span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="co">#&gt; # A tibble: 336,776 × 4</span></span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="co">#&gt;   carrier tailnum origin dest </span></span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;</span></span>
+<span id="cb32-6"><a href="#cb32-6"></a><span class="co">#&gt; 1 UA      N14228  EWR    IAH  </span></span>
+<span id="cb32-7"><a href="#cb32-7"></a><span class="co">#&gt; 2 UA      N24211  LGA    IAH  </span></span>
+<span id="cb32-8"><a href="#cb32-8"></a><span class="co">#&gt; 3 AA      N619AA  JFK    MIA  </span></span>
+<span id="cb32-9"><a href="#cb32-9"></a><span class="co">#&gt; 4 B6      N804JB  JFK    BQN  </span></span>
+<span id="cb32-10"><a href="#cb32-10"></a><span class="co">#&gt; 5 DL      N668DN  LGA    ATL  </span></span>
+<span id="cb32-11"><a href="#cb32-11"></a><span class="co">#&gt; 6 UA      N39463  EWR    ORD  </span></span>
+<span id="cb32-12"><a href="#cb32-12"></a><span class="co">#&gt; # … with 336,770 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<ul>
+<li><code>where()</code> é uma “helper function” do <code>select()</code></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="outras-helper-functions-do-select">outras helper functions do <code>select()</code></h3>
+<div>
+<ul>
+<li class="fragment"><code>starts_with("abc")</code>: corresponde aos nomes que começam com “abc”</li>
+<li class="fragment"><code>ends_with("xyz")</code>: corresponde aos nomes que terminam com “xyz”</li>
+<li class="fragment"><code>contains("ijk")</code>: corresponde aos nomes que contém “ijk”</li>
+<li class="fragment"><code>num_range("x", 1:3)</code>: corresponde com x1, x2 and x3.</li>
+<li class="fragment">Para mais detalhes vejam consultem a documentação:
+<ul>
+<li class="fragment"><code>?select</code></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="podemos-renomear-as-variáveis-selecionadas">Podemos renomear as variáveis selecionadas</h3>
+<ul>
+<li>Alguém arrisca? Como mudar “tailnum” para “tail_num”?</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">select</span>(<span class="at">tail_num =</span> tailnum)</span>
+<span id="cb33-3"><a href="#cb33-3"></a><span class="co">#&gt; # A tibble: 336,776 × 1</span></span>
+<span id="cb33-4"><a href="#cb33-4"></a><span class="co">#&gt;   tail_num</span></span>
+<span id="cb33-5"><a href="#cb33-5"></a><span class="co">#&gt;   &lt;chr&gt;   </span></span>
+<span id="cb33-6"><a href="#cb33-6"></a><span class="co">#&gt; 1 N14228  </span></span>
+<span id="cb33-7"><a href="#cb33-7"></a><span class="co">#&gt; 2 N24211  </span></span>
+<span id="cb33-8"><a href="#cb33-8"></a><span class="co">#&gt; 3 N619AA  </span></span>
+<span id="cb33-9"><a href="#cb33-9"></a><span class="co">#&gt; 4 N804JB  </span></span>
+<span id="cb33-10"><a href="#cb33-10"></a><span class="co">#&gt; 5 N668DN  </span></span>
+<span id="cb33-11"><a href="#cb33-11"></a><span class="co">#&gt; 6 N39463  </span></span>
+<span id="cb33-12"><a href="#cb33-12"></a><span class="co">#&gt; # … with 336,770 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>novo_nome = nome_antigo</li>
+</ul>
+</div>
+</section>
+<section id="rename" class="slide level2">
+<h2>4.3.3 rename()</h2>
+<ul>
+<li><p>se quiser manter as variáveis e apenas <strong>renomar</strong> algumas use <code>rename()</code> ao invés de <code>select()</code></p></li>
+<li><p>Quem vai?</p></li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb34-2"><a href="#cb34-2"></a>  <span class="fu">rename</span>(<span class="at">tail_num =</span> tailnum)</span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="co">#&gt; # A tibble: 336,776 × 19</span></span>
+<span id="cb34-4"><a href="#cb34-4"></a><span class="co">#&gt;    year month   day dep_time sched_…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;    &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  </span></span>
+<span id="cb34-6"><a href="#cb34-6"></a><span class="co">#&gt; 1  2013     1     1      517      515       2     830     819      11 UA     </span></span>
+<span id="cb34-7"><a href="#cb34-7"></a>[...]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Funciona exatamente como <code>select()</code>, mas mantém <strong>todas as variáveis</strong>, não apenas as explicitamente selecionadas</li>
+</ul>
+</div>
+</section>
+<section id="relocate" class="slide level2">
+<h2>4.3.4 <code>relocate()</code></h2>
+<div>
+<ul>
+<li class="fragment"><strong>Move</strong> variáveis</li>
+<li class="fragment">Podemos querer deixar variáveis relacionadas próximas, ou variáveis importantes mais pra esquerda</li>
+<li class="fragment">Por padrão ele <strong>trás pra esquerda</strong> as variáveis citadas</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">relocate</span>(time_hour, air_time)</span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="co">#&gt; # A tibble: 336,776 × 19</span></span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="co">#&gt;   time_hour           air_time  year month   day dep_time sched_dep…¹ dep_d…²</span></span>
+<span id="cb35-5"><a href="#cb35-5"></a><span class="co">#&gt;   &lt;dttm&gt;                 &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;       &lt;int&gt;   &lt;dbl&gt;</span></span>
+<span id="cb35-6"><a href="#cb35-6"></a><span class="co">#&gt; 1 2013-01-01 05:00:00      227  2013     1     1      517         515       2</span></span>
+<span id="cb35-7"><a href="#cb35-7"></a><span class="co">#&gt; 2 2013-01-01 05:00:00      227  2013     1     1      533         529       4</span></span>
+<span id="cb35-8"><a href="#cb35-8"></a><span class="co">#&gt; 3 2013-01-01 05:00:00      160  2013     1     1      542         540       2</span></span>
+<span id="cb35-9"><a href="#cb35-9"></a><span class="co">#&gt; 4 2013-01-01 05:00:00      183  2013     1     1      544         545      -1</span></span>
+<span id="cb35-10"><a href="#cb35-10"></a><span class="co">#&gt; 5 2013-01-01 06:00:00      116  2013     1     1      554         600      -6</span></span>
+<span id="cb35-11"><a href="#cb35-11"></a><span class="co">#&gt; 6 2013-01-01 05:00:00      150  2013     1     1      554         558      -4</span></span>
+<span id="cb35-12"><a href="#cb35-12"></a><span class="co">#&gt; # … with 336,770 more rows, 11 more variables: arr_time &lt;int&gt;,</span></span>
+<span id="cb35-13"><a href="#cb35-13"></a><span class="co">#&gt; #   sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,</span></span>
+<span id="cb35-14"><a href="#cb35-14"></a><span class="co">#&gt; #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span></span>
+<span id="cb35-15"><a href="#cb35-15"></a><span class="co">#&gt; #   minute &lt;dbl&gt;, and abbreviated variable names ¹​sched_dep_time, ²​dep_delay</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="também-podemos-usar-os-mesmos-.before-e-.after-que-usamos-em-mutate">Também podemos usar os mesmos <code>.before</code> e <code>.after</code> que usamos em <code>mutate()</code></h3>
+<ul>
+<li>O que acham que esse código faz?</li>
+</ul>
+<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb36-2"><a href="#cb36-2"></a>  <span class="fu">relocate</span>(year<span class="sc">:</span>dep_time, <span class="at">.after =</span> time_hour)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">relocate</span>(year<span class="sc">:</span>dep_time, <span class="at">.after =</span> time_hour)</span>
+<span id="cb37-3"><a href="#cb37-3"></a><span class="co">#&gt; # A tibble: 336,776 × 19</span></span>
+<span id="cb37-4"><a href="#cb37-4"></a><span class="co">#&gt;   sched…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier flight tailnum origin dest </span></span>
+<span id="cb37-5"><a href="#cb37-5"></a><span class="co">#&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a><span class="co">#&gt; 1     515       2     830     819      11 UA        1545 N14228  EWR    IAH  </span></span>
+<span id="cb37-7"><a href="#cb37-7"></a><span class="co">#&gt; 2     529       4     850     830      20 UA        1714 N24211  LGA    IAH  </span></span>
+<span id="cb37-8"><a href="#cb37-8"></a><span class="co">#&gt; 3     540       2     923     850      33 AA        1141 N619AA  JFK    MIA  </span></span>
+<span id="cb37-9"><a href="#cb37-9"></a><span class="co">#&gt; 4     545      -1    1004    1022     -18 B6         725 N804JB  JFK    BQN  </span></span>
+<span id="cb37-10"><a href="#cb37-10"></a><span class="co">#&gt; 5     600      -6     812     837     -25 DL         461 N668DN  LGA    ATL  </span></span>
+<span id="cb37-11"><a href="#cb37-11"></a><span class="co">#&gt; 6     558      -4     740     728      12 UA        1696 N39463  EWR    ORD  </span></span>
+<span id="cb37-12"><a href="#cb37-12"></a><span class="co">#&gt; # … with 336,770 more rows, 9 more variables: air_time &lt;dbl&gt;,</span></span>
+<span id="cb37-13"><a href="#cb37-13"></a><span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, year &lt;int&gt;,</span></span>
+<span id="cb37-14"><a href="#cb37-14"></a><span class="co">#&gt; #   month &lt;int&gt;, day &lt;int&gt;, dep_time &lt;int&gt;, and abbreviated variable names</span></span>
+<span id="cb37-15"><a href="#cb37-15"></a><span class="co">#&gt; #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><strong>realoca</strong> todas as colunas de <code>year</code> até <code>dep_time</code> para depois de <code>time_hour</code></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<ul>
+<li>Como poderíamos colocar as variáveis sobre a chegada do voo antes de <code>dep_time</code>?</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Estamos interessados nas variáveis que inicial com “arr”, então:</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb38-2"><a href="#cb38-2"></a>  <span class="fu">relocate</span>(<span class="fu">starts_with</span>(<span class="st">"arr"</span>), <span class="at">.before =</span> dep_time)</span>
+<span id="cb38-3"><a href="#cb38-3"></a><span class="co">#&gt; # A tibble: 336,776 × 19</span></span>
+<span id="cb38-4"><a href="#cb38-4"></a><span class="co">#&gt;    year month   day arr_time arr_de…¹ dep_t…² sched…³ dep_d…⁴ sched…⁵ carrier</span></span>
+<span id="cb38-5"><a href="#cb38-5"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;    &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt; &lt;chr&gt;  </span></span>
+<span id="cb38-6"><a href="#cb38-6"></a><span class="co">#&gt; 1  2013     1     1      830       11     517     515       2     819 UA     </span></span>
+<span id="cb38-7"><a href="#cb38-7"></a><span class="co">#&gt; 2  2013     1     1      850       20     533     529       4     830 UA     </span></span>
+<span id="cb38-8"><a href="#cb38-8"></a><span class="co">#&gt; 3  2013     1     1      923       33     542     540       2     850 AA     </span></span>
+<span id="cb38-9"><a href="#cb38-9"></a><span class="co">#&gt; 4  2013     1     1     1004      -18     544     545      -1    1022 B6     </span></span>
+<span id="cb38-10"><a href="#cb38-10"></a><span class="co">#&gt; 5  2013     1     1      812      -25     554     600      -6     837 DL     </span></span>
+<span id="cb38-11"><a href="#cb38-11"></a><span class="co">#&gt; 6  2013     1     1      740       12     554     558      -4     728 UA     </span></span>
+<span id="cb38-12"><a href="#cb38-12"></a><span class="co">#&gt; # … with 336,770 more rows, 9 more variables: flight &lt;int&gt;, tailnum &lt;chr&gt;,</span></span>
+<span id="cb38-13"><a href="#cb38-13"></a><span class="co">#&gt; #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span></span>
+<span id="cb38-14"><a href="#cb38-14"></a><span class="co">#&gt; #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, and abbreviated variable names</span></span>
+<span id="cb38-15"><a href="#cb38-15"></a><span class="co">#&gt; #   ¹​arr_delay, ²​dep_time, ³​sched_dep_time, ⁴​dep_delay, ⁵​sched_arr_time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section>
+<section id="groups" class="title-slide slide level1 center">
+<h1>4.4 Groups</h1>
+
+</section>
+<section id="groups-1" class="slide level2">
+<h2>4.4 Groups</h2>
+<ul>
+<li>Até aqui aprendemos sobre funções que trabalham com <strong>linhas</strong> e <strong>colunas</strong>.</li>
+<li>O verdadeiro poder de dplyr é te permitir trabalhar com <strong>grupos</strong></li>
+<li>Vamos ver as duas funções mais importantes para isso:
+<ul>
+<li><code>group_by()</code> e <code>summarize()</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="group_by" class="slide level2">
+<h2>4.4.1 <code>group_by()</code></h2>
+<div>
+<ul>
+<li class="fragment"><strong>Divide</strong> o datasets em grupos <strong>significativos</strong> para a análise</li>
+<li class="fragment">Vamos explicar com um exemplo</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">group_by</span>(month)</span>
+<span id="cb39-3"><a href="#cb39-3"></a><span class="co">#&gt; # A tibble: 336,776 × 19</span></span>
+<span id="cb39-4"><a href="#cb39-4"></a><span class="co">#&gt; # Groups:   month [12]</span></span>
+<span id="cb39-5"><a href="#cb39-5"></a><span class="co">#&gt;    year month   day dep_time sched_…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier</span></span>
+<span id="cb39-6"><a href="#cb39-6"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;    &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  </span></span>
+<span id="cb39-7"><a href="#cb39-7"></a><span class="co">#&gt; 1  2013     1     1      517      515       2     830     819      11 UA     </span></span>
+<span id="cb39-8"><a href="#cb39-8"></a><span class="co">#&gt; 2  2013     1     1      533      529       4     850     830      20 UA     </span></span>
+<span id="cb39-9"><a href="#cb39-9"></a><span class="co">#&gt; 3  2013     1     1      542      540       2     923     850      33 AA     </span></span>
+<span id="cb39-10"><a href="#cb39-10"></a><span class="co">#&gt; 4  2013     1     1      544      545      -1    1004    1022     -18 B6     </span></span>
+<span id="cb39-11"><a href="#cb39-11"></a><span class="co">#&gt; 5  2013     1     1      554      600      -6     812     837     -25 DL     </span></span>
+<span id="cb39-12"><a href="#cb39-12"></a><span class="co">#&gt; 6  2013     1     1      554      558      -4     740     728      12 UA     </span></span>
+<span id="cb39-13"><a href="#cb39-13"></a><span class="co">#&gt; # … with 336,770 more rows, 9 more variables: flight &lt;int&gt;, tailnum &lt;chr&gt;,</span></span>
+<span id="cb39-14"><a href="#cb39-14"></a><span class="co">#&gt; #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span></span>
+<span id="cb39-15"><a href="#cb39-15"></a><span class="co">#&gt; #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, and abbreviated variable names</span></span>
+<span id="cb39-16"><a href="#cb39-16"></a><span class="co">#&gt; #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section class="slide level2">
 
 <div>
-
-</div>
-<div>
 <ul>
-<li class="fragment"></li>
+<li class="fragment"><code>group_by()</code> não altera os dados, mas note que aparece “Groups: month”</li>
+<li class="fragment">Isso significa que as <strong>próximas operações</strong> vão funcionar “<strong>por mês”</strong></li>
+<li class="fragment"><code>group_by()</code> não faz nada sozinho:
+<ul>
+<li class="fragment">ele <strong>altera</strong> o <u>comportamento</u> dos <strong>verbos subsequentes</strong></li>
+</ul></li>
 </ul>
 </div>
-<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="summarize" class="slide level2">
+<h2>4.4.2 <code>summarize()</code></h2>
+<div>
+<ul>
+<li class="fragment">é a operação agrupada mais importante</li>
+<li class="fragment"><strong>reduz</strong> <u>cada grupo</u> para uma <strong>única linha</strong></li>
+<li class="fragment">Vamos ao exemplo!</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<ul>
+<li>O que acham que esse código faz?</li>
+</ul>
+<div class="sourceCode" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span> </span>
+<span id="cb40-3"><a href="#cb40-3"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb40-4"><a href="#cb40-4"></a>    <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay)</span>
+<span id="cb40-5"><a href="#cb40-5"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<ul>
+<li>Ele vai <strong>agrupar</strong> nossos dados por mês, em seguida <strong>resumir</strong> cada mês pela <strong>média</strong> da variável <code>dep_delay</code> naquele mês</li>
+<li>Testem!</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Ué 🤓</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="o-que-deu-errado">O que deu errado?</h3>
+<div class="sourceCode" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb41-2"><a href="#cb41-2"></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span> </span>
+<span id="cb41-3"><a href="#cb41-3"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb41-4"><a href="#cb41-4"></a>    <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay)</span>
+<span id="cb41-5"><a href="#cb41-5"></a>  )</span>
+<span id="cb41-6"><a href="#cb41-6"></a><span class="co">#&gt; # A tibble: 12 × 2</span></span>
+<span id="cb41-7"><a href="#cb41-7"></a><span class="co">#&gt;   month delay</span></span>
+<span id="cb41-8"><a href="#cb41-8"></a><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt;</span></span>
+<span id="cb41-9"><a href="#cb41-9"></a><span class="co">#&gt; 1     1    NA</span></span>
+<span id="cb41-10"><a href="#cb41-10"></a><span class="co">#&gt; 2     2    NA</span></span>
+<span id="cb41-11"><a href="#cb41-11"></a><span class="co">#&gt; 3     3    NA</span></span>
+<span id="cb41-12"><a href="#cb41-12"></a><span class="co">#&gt; 4     4    NA</span></span>
+<span id="cb41-13"><a href="#cb41-13"></a><span class="co">#&gt; 5     5    NA</span></span>
+<span id="cb41-14"><a href="#cb41-14"></a><span class="co">#&gt; 6     6    NA</span></span>
+<span id="cb41-15"><a href="#cb41-15"></a><span class="co">#&gt; # … with 6 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div>
+<ul>
+<li class="fragment">NA é contagioso, quase todas as operações com NA resultam em NA. Se <code>dep_delay</code> tiver pelo menos um NA, sua média será NA</li>
+<li class="fragment">Vamos corrigir removendo todas as NAs: <code>NA.rm = TRUE</code></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<ul>
+<li>Onde acham que devemos colocar o <code>NA.rm = TRUE</code>?</li>
+</ul>
+<div class="sourceCode" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb42-2"><a href="#cb42-2"></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span> </span>
+<span id="cb42-3"><a href="#cb42-3"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb42-4"><a href="#cb42-4"></a>    <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay)</span>
+<span id="cb42-5"><a href="#cb42-5"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<div class="sourceCode" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb43-2"><a href="#cb43-2"></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span> </span>
+<span id="cb43-3"><a href="#cb43-3"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb43-4"><a href="#cb43-4"></a>    <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb43-5"><a href="#cb43-5"></a>  )</span>
+<span id="cb43-6"><a href="#cb43-6"></a><span class="co">#&gt; # A tibble: 12 × 2</span></span>
+<span id="cb43-7"><a href="#cb43-7"></a><span class="co">#&gt;   month delay</span></span>
+<span id="cb43-8"><a href="#cb43-8"></a><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt;</span></span>
+<span id="cb43-9"><a href="#cb43-9"></a><span class="co">#&gt; 1     1  10.0</span></span>
+<span id="cb43-10"><a href="#cb43-10"></a><span class="co">#&gt; 2     2  10.8</span></span>
+<span id="cb43-11"><a href="#cb43-11"></a><span class="co">#&gt; 3     3  13.2</span></span>
+<span id="cb43-12"><a href="#cb43-12"></a><span class="co">#&gt; 4     4  13.9</span></span>
+<span id="cb43-13"><a href="#cb43-13"></a><span class="co">#&gt; 5     5  13.0</span></span>
+<span id="cb43-14"><a href="#cb43-14"></a><span class="co">#&gt; 6     6  20.8</span></span>
+<span id="cb43-15"><a href="#cb43-15"></a><span class="co">#&gt; # … with 6 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="n"><code>n()</code></h3>
+<ul>
+<li>retorna o <strong>número</strong> de <strong>linhas</strong> em <strong>cada</strong> grupo</li>
+<li>podemos gerar a contagem e média no mesmo <code>summarize()</code></li>
+</ul>
+<div class="sourceCode" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb44-2"><a href="#cb44-2"></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span> </span>
+<span id="cb44-3"><a href="#cb44-3"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb44-4"><a href="#cb44-4"></a>    <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb44-5"><a href="#cb44-5"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
+<span id="cb44-6"><a href="#cb44-6"></a>  )</span>
+<span id="cb44-7"><a href="#cb44-7"></a><span class="co">#&gt; # A tibble: 12 × 3</span></span>
+<span id="cb44-8"><a href="#cb44-8"></a><span class="co">#&gt;   month delay     n</span></span>
+<span id="cb44-9"><a href="#cb44-9"></a><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;int&gt;</span></span>
+<span id="cb44-10"><a href="#cb44-10"></a><span class="co">#&gt; 1     1  10.0 27004</span></span>
+<span id="cb44-11"><a href="#cb44-11"></a><span class="co">#&gt; 2     2  10.8 24951</span></span>
+<span id="cb44-12"><a href="#cb44-12"></a><span class="co">#&gt; 3     3  13.2 28834</span></span>
+<span id="cb44-13"><a href="#cb44-13"></a><span class="co">#&gt; 4     4  13.9 28330</span></span>
+<span id="cb44-14"><a href="#cb44-14"></a><span class="co">#&gt; 5     5  13.0 28796</span></span>
+<span id="cb44-15"><a href="#cb44-15"></a><span class="co">#&gt; 6     6  20.8 28243</span></span>
+<span id="cb44-16"><a href="#cb44-16"></a><span class="co">#&gt; # … with 6 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<ul>
+<li>Existem outros tipos de sumários, mas nesta parte do livro focamos nesses dois. Segundo o Whikham:</li>
+</ul>
+<blockquote>
+<p>Means and counts can get you a surprisingly long way in data science!</p>
+</blockquote>
+</section>
+<section id="as-funções-slice_" class="slide level2">
+<h2>4.4.3 As funções <code>slice_</code></h2>
+<div>
+<ul>
+<li class="fragment">cinco funções úteis para especificar <strong>quais linhas</strong> pegar de <strong>cada grupo</strong>
+<ul>
+<li class="fragment"><code>df |&gt; slice_head(n = 1)</code> pega a <strong>primeira</strong> linha de cada grupo</li>
+<li class="fragment"><code>df |&gt; slice_tail(n = 1)</code> pega a <strong>última</strong> linha de cada grupo</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<div>
+<ul>
+<li class="fragment"><code>df |&gt; slice_min(x, n = 1)</code> pega a linha com o <strong>menor</strong> valor de <code>x</code></li>
+<li class="fragment"><code>df |&gt; slice_max(x, n = 1)</code> pega a linha com o <strong>maior</strong> valor de <code>x</code></li>
+<li class="fragment"><code>df |&gt; slice_sample(n = 1)</code> pega uma linha <strong>aleatória</strong> de cada grupo</li>
+<li class="fragment">Podemos variar o <code>n =</code> para pegar <strong>mais de uma</strong> linha
+<ul>
+<li class="fragment">Podemos substituir pelo <code>prop = 0.1</code> para pegar 10% das linhas de cada grupo</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="exemplo-1">Exemplo</h3>
+<ul>
+<li>Como podemos encontrar os voos <strong>mais</strong> atrasados para cada destino?</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb45-2"><a href="#cb45-2"></a>  <span class="fu">group_by</span>(dest) <span class="sc">|&gt;</span> </span>
+<span id="cb45-3"><a href="#cb45-3"></a>  <span class="fu">slice_max</span>(arr_delay, <span class="at">n =</span> <span class="dv">1</span>)</span>
+<span id="cb45-4"><a href="#cb45-4"></a><span class="co">#&gt; # A tibble: 108 × 19</span></span>
+<span id="cb45-5"><a href="#cb45-5"></a><span class="co">#&gt; # Groups:   dest [105]</span></span>
+<span id="cb45-6"><a href="#cb45-6"></a><span class="co">#&gt;    year month   day dep_time sched_…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier</span></span>
+<span id="cb45-7"><a href="#cb45-7"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;    &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  </span></span>
+<span id="cb45-8"><a href="#cb45-8"></a><span class="co">#&gt; 1  2013     7    22     2145     2007      98     132    2259     153 B6     </span></span>
+<span id="cb45-9"><a href="#cb45-9"></a><span class="co">#&gt; 2  2013     7    23     1139      800     219    1250     909     221 B6     </span></span>
+<span id="cb45-10"><a href="#cb45-10"></a><span class="co">#&gt; 3  2013     1    25      123     2000     323     229    2101     328 EV     </span></span>
+<span id="cb45-11"><a href="#cb45-11"></a><span class="co">#&gt; 4  2013     8    17     1740     1625      75    2042    2003      39 UA     </span></span>
+<span id="cb45-12"><a href="#cb45-12"></a><span class="co">#&gt; 5  2013     7    22     2257      759     898     121    1026     895 DL     </span></span>
+<span id="cb45-13"><a href="#cb45-13"></a><span class="co">#&gt; 6  2013     7    10     2056     1505     351    2347    1758     349 UA     </span></span>
+<span id="cb45-14"><a href="#cb45-14"></a><span class="co">#&gt; # … with 102 more rows, 9 more variables: flight &lt;int&gt;, tailnum &lt;chr&gt;,</span></span>
+<span id="cb45-15"><a href="#cb45-15"></a><span class="co">#&gt; #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span></span>
+<span id="cb45-16"><a href="#cb45-16"></a><span class="co">#&gt; #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, and abbreviated variable names</span></span>
+<span id="cb45-17"><a href="#cb45-17"></a><span class="co">#&gt; #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="agrupando-por-múltiplas-variáveis" class="slide level2">
+<h2>4.4.4 Agrupando por múltiplas variáveis</h2>
+<div>
+<ul>
+<li class="fragment">Podemos criar grupos usando mais de uma variável</li>
+<li class="fragment">Ex: criar um grupo pra cada dia. Quem chuta?</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>daily <span class="ot">&lt;-</span> flights <span class="sc">|&gt;</span>  </span>
+<span id="cb46-2"><a href="#cb46-2"></a>  <span class="fu">group_by</span>(year, month, day)</span>
+<span id="cb46-3"><a href="#cb46-3"></a>daily</span>
+<span id="cb46-4"><a href="#cb46-4"></a><span class="co">#&gt; # A tibble: 336,776 × 19</span></span>
+<span id="cb46-5"><a href="#cb46-5"></a><span class="co">#&gt; # Groups:   year, month, day [365]</span></span>
+<span id="cb46-6"><a href="#cb46-6"></a><span class="co">#&gt;    year month   day dep_time sched_…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier</span></span>
+<span id="cb46-7"><a href="#cb46-7"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;    &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  </span></span>
+<span id="cb46-8"><a href="#cb46-8"></a><span class="co">#&gt; 1  2013     1     1      517      515       2     830     819      11 UA     </span></span>
+<span id="cb46-9"><a href="#cb46-9"></a><span class="co">#&gt; 2  2013     1     1      533      529       4     850     830      20 UA     </span></span>
+<span id="cb46-10"><a href="#cb46-10"></a><span class="co">#&gt; 3  2013     1     1      542      540       2     923     850      33 AA     </span></span>
+<span id="cb46-11"><a href="#cb46-11"></a><span class="co">#&gt; 4  2013     1     1      544      545      -1    1004    1022     -18 B6     </span></span>
+<span id="cb46-12"><a href="#cb46-12"></a><span class="co">#&gt; 5  2013     1     1      554      600      -6     812     837     -25 DL     </span></span>
+<span id="cb46-13"><a href="#cb46-13"></a><span class="co">#&gt; 6  2013     1     1      554      558      -4     740     728      12 UA     </span></span>
+<span id="cb46-14"><a href="#cb46-14"></a><span class="co">#&gt; # … with 336,770 more rows, 9 more variables: flight &lt;int&gt;, tailnum &lt;chr&gt;,</span></span>
+<span id="cb46-15"><a href="#cb46-15"></a><span class="co">#&gt; #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span></span>
+<span id="cb46-16"><a href="#cb46-16"></a><span class="co">#&gt; #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, and abbreviated variable names</span></span>
+<span id="cb46-17"><a href="#cb46-17"></a><span class="co">#&gt; #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="um-detalhe">Um detalhe</h3>
+<ul>
+<li>Quando sumarizamos um tibble agrupado por mais de uma variável, o sumário ignora o último agrupamento</li>
+<li>A própria função avisa desse comportamento contraintuitivo e diz como mudar</li>
+</ul>
+<div class="sourceCode" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>daily_flights <span class="ot">&lt;-</span> daily <span class="sc">|&gt;</span> </span>
+<span id="cb47-2"><a href="#cb47-2"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb47-3"><a href="#cb47-3"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
+<span id="cb47-4"><a href="#cb47-4"></a>  )</span>
+<span id="cb47-5"><a href="#cb47-5"></a><span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using</span></span>
+<span id="cb47-6"><a href="#cb47-6"></a><span class="co">#&gt; the `.groups` argument.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<ul>
+<li>Testem o <code>.groups =</code> com seus principais argumentos (<code>drop_last</code>, <code>keep</code>. <code>drop</code>)</li>
+<li>O que cada um faz?</li>
+</ul>
+<div class="sourceCode" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>daily_flights <span class="ot">&lt;-</span> daily <span class="sc">|&gt;</span> </span>
+<span id="cb48-2"><a href="#cb48-2"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb48-3"><a href="#cb48-3"></a>    <span class="at">n =</span> <span class="fu">n</span>(), </span>
+<span id="cb48-4"><a href="#cb48-4"></a>    <span class="at">.groups =</span> <span class="st">"drop_last"</span></span>
+<span id="cb48-5"><a href="#cb48-5"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<ul>
+<li>Com o <code>.groups</code> podemos usar:
+<ul>
+<li><code>drop_last</code> para ignorar o último agrupamento, como o padrão</li>
+<li><code>keep</code> para manter todos os grupos</li>
+<li><code>drop</code> para ignorar todos os grupos</li>
+</ul></li>
+</ul>
+</section>
+<section id="desagrupar" class="slide level2">
+<h2>4.4.5 Desagrupar</h2>
+<ul>
+<li><p><code>ungroup()</code> remove os grupos</p></li>
+<li><p>Qual vocês acham que é o resultado desse código?</p></li>
+</ul>
+<div class="sourceCode" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>daily <span class="sc">|&gt;</span> </span>
+<span id="cb49-2"><a href="#cb49-2"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb49-3"><a href="#cb49-3"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb49-4"><a href="#cb49-4"></a>    <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb49-5"><a href="#cb49-5"></a>    <span class="at">flights =</span> <span class="fu">n</span>()</span>
+<span id="cb49-6"><a href="#cb49-6"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<ul>
+<li>Rodem. O que aconteceu? É o que esperavam?</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="co">#&gt; # A tibble: 1 × 2</span></span>
+<span id="cb50-2"><a href="#cb50-2"></a><span class="co">#&gt;   delay flights</span></span>
+<span id="cb50-3"><a href="#cb50-3"></a><span class="co">#&gt;   &lt;dbl&gt;   &lt;int&gt;</span></span>
+<span id="cb50-4"><a href="#cb50-4"></a><span class="co">#&gt; 1  12.6  336776</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Quando sumarizamos um data frame desagrupado o dplyr trata como se fosse um grupo só</li>
+</ul>
+</div>
+</section>
+<section id="sumário" class="slide level2">
+<h2>4.6 Sumário</h2>
+<div>
+<ul>
+<li class="fragment"><p>Neste capítulo aprendemos ferramentas do dplyr para trabalhar com data frames. Vimos ferramentas para manipular:</p></li>
+<li class="fragment"><p>linhas (filter() e arrange())</p></li>
+<li class="fragment"><p>colunas (select() e mutate())</p></li>
+<li class="fragment"><p>e grupos (group_by() e summarize()).</p></li>
+<li class="fragment"><p>Nosso enfoque nessas ferramentas gerais é um excelente ponto de partida para seguir aprendendo!</p></li>
+<li class="fragment"><p>Quem tiver interesse pode ler o capítulo de transformações ou já sair no soco com um dataframe!</p></li>
+</ul>
+</div>
+</section></section>
+<section id="dúvidas" class="title-slide slide level1 center">
+<h1>Dúvidas?</h1>
+<!-- ------------------------------ -->
 <div class="footer footer-default">
 
 </div>
