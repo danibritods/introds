@@ -1,0 +1,78 @@
+---
+title: "Exercícios: Transformação de dados"
+subtitle: "Introdução à ciência de dados"
+author: "Daniel Brito dos Santos"
+format: 
+  revealjs:
+    incremental: true
+---
+
+# 4.2.5 Exercícios sobre linhas
+
+## 1. Encontre todos os voos que 
+
+a. Tiveram um atraso de chegada de duas ou mais horas
+b. Voaram para Houston (IAH ou HOU)
+c. Foram operados pela United, American ou Delta
+d. Partiu no verão (julho, agosto e setembro)
+e. Chegou com mais de duas horas de atraso, mas não saiu atrasado
+f. Atrasaram-se em pelo menos uma hora, mas compensaram mais de 30 minutos de voo
+
+## 2. Ordene o dataset `flights` para encontrar os voos com os maiores atrasos de partida. Encontre os voos que partiram mais cedo pela manhã.
+
+## 3. Ordene o dataset `flights` para encontrar os voos mais rápidos (dica: é um cálculo)
+
+## 4. Houve pelo menos um voo em cada dia do ano 2013?
+
+## 5. Quais voos viajaram a maior distância? Quais viajaram as distâncias mais curtas?
+
+## 6. Faz diferença a ordem que você usa `filter()` e `arrange()` se for usar os dois? Por que ou por que não? Considere os resultados e o trabalho que as funções vão ter que fazer.
+
+# 4.3.5 Exercícios sobre colunas
+
+## 1. Compare `air_time` com `arr time - dep_time`. O que você espera ver? O que você viu? O que precisa fazer para consertar? 
+
+## 2. Compare `dep_time`, `sched_dep_time` e `dep_delay`. Como você espera que esses três números se relacionem? 
+
+## 4. O que acontece se você incluir um nome de variável múltiplas vezes em uma chamada `select()`?
+
+## 5. O que a função `any_of()` faz? Como ela pode ser útil com o seguinte vetor?
+```r
+variables <- c("year", "month", "day", "dep_delay", "arr_delay")
+```
+
+# 6. O resultado do código a seguir de surpreende? Como as funções auxiares (helper functions) de `select()` lidam com esse caso por padrão? Como podemos alterar esse padrão?
+```r
+select(flights, contains("TIME"))
+```
+
+# 4.4.6 Exercícios sobre grupos
+
+## 1. Qual operadora tem os piores atrasos? Desafio: você consegue separar os efeitos de aeroportos ruins versus companhias aéreas ruins? Por que/por que não? (Dica: pense em 
+```r
+flights |> group_by(carrier, dest) |> summarize(n())
+``` 
+)
+
+## 2. Encontre o voo mais atrasado para cada destino.
+
+## 3. Como os atrasos variam ao longo do dia? ilustre a resposta com um gráfico. 
+
+## 4. O que acontece se você fornecer um `n` negativo para `slice_min()` e as suas amigas?
+
+## 5. Explique o que `count()` significa em termos dos verbos dplyr que você aprendeu. O que faz o argumento `sort`? 
+
+## 6. Suponha que você tem o seguinte data frame:
+```r
+df <- tibble(
+  x = 1:5,
+  y = c("a", "b", "a", "a", "b"),
+  z = c("K", "K", "L", "L", "K")
+)
+```
+
+a. O que esse código faz? Rode, analise o resultado e diga o que o `group_by()` faz. 
+```r
+df |>
+  group_by(y)
+```
