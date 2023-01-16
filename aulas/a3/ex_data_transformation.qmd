@@ -41,18 +41,26 @@ f. Atrasaram-se em pelo menos uma hora, mas compensaram mais de 30 minutos de vo
 variables <- c("year", "month", "day", "dep_delay", "arr_delay")
 ```
 
-# 6. O resultado do código a seguir de surpreende? Como as funções auxiares (helper functions) de `select()` lidam com esse caso por padrão? Como podemos alterar esse padrão?
+# 6.
+- O resultado do código a seguir de surpreende? 
+- Como as funções auxiares (helper functions) de `select()` lidam com esse caso por padrão? 
+- Como podemos alterar esse padrão?
 ```r
 select(flights, contains("TIME"))
 ```
 
 # 4.4.6 Exercícios sobre grupos
 
-## 1. Qual operadora tem os piores atrasos? Desafio: você consegue separar os efeitos de aeroportos ruins versus companhias aéreas ruins? Por que/por que não? (Dica: pense em 
+## 1. Qual operadora tem os piores atrasos? 
+- Desafio: você consegue separar os efeitos de aeroportos ruins versus companhias aéreas ruins? Por que/por que não? 
+- Dica: pense em 
+
+. . . 
+
 ```r
 flights |> group_by(carrier, dest) |> summarize(n())
 ``` 
-)
+
 
 ## 2. Encontre o voo mais atrasado para cada destino.
 
@@ -71,8 +79,77 @@ df <- tibble(
 )
 ```
 
+---
+
 a. O que esse código faz? Rode, analise o resultado e diga o que o `group_by()` faz. 
+
+. . .
+
 ```r
 df |>
   group_by(y)
+```
+
+
+---
+
+b. O que o código a seguir faz? Execute-o, analise o resultado e descreva o que o ``array()`` faz. Comente também como é diferente do ``group_by()`` na pergunta. 
+
+. . .
+
+```r
+df |>
+  arrange(y)
+```
+
+---
+
+c. O que faz o código a seguir? Execute-o, analise o resultado e descreva o que essa faz pipeline (sequência de pipes).
+
+. . .
+
+```r
+df |>
+  group_by(y) |>
+  summarize(mean_x = mean(x))
+```
+
+---
+
+d. O que faz o código a seguir? Execute-o, analise o resultado e descreva o que essa pipeline faz. Depois comente sobre o que a mensagem diz. 
+
+. . .
+
+```r
+df |>
+  group_by(y, z) |>
+  summarize(mean_x = mean(x))
+```
+
+---
+
+e. O que faz o código a seguir? Execute-o, analise o resultado e descreva o que essa pipeline faz. Como esse output é diferente do output anterior (questão d)?
+
+. . .
+
+```r
+df |>
+  group_by(y, z) |>
+  summarize(mean_x = mean(x), .groups = "drop")
+```
+
+---
+
+f. O que essas pipelines fazem? Execute ambas, analise os resultados e descreva cada uma. Qual é a diferença dos seus resultados? 
+
+. . . 
+
+```r
+df |>
+  group_by(y, z) |>
+  summarize(mean_x = mean(x))
+
+df |>
+  group_by(y, z) |>
+  mutate(mean_x = mean(x))
 ```
