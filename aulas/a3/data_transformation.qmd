@@ -2,9 +2,11 @@
 title: "Transformação de dados"
 subtitle: "Introdução à ciência de dados"
 author: "Daniel Brito dos Santos"
-format: 
-  revealjs:
-    incremental: false
+format: pdf
+
+  # revealjs:
+  #   incremental: false
+  #   chalkboard: true
 ---
 
 ## 4.1 Introdução
