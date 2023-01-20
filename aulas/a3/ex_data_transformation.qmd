@@ -12,25 +12,157 @@ format:
 ## 1. Encontre todos os voos que 
 
 a. Tiveram um atraso de chegada de duas ou mais horas
+
+. . .
+
+```r
+flights |> 
+  filter(arr_delay > 120)
+```
+
+---
+
 b. Voaram para Houston (IAH ou HOU)
+
+. . .
+
+```r
+flights |> filter(dest == "IAH" | dest == "HOU")
+```
+
+
+---
+
 c. Foram operados pela United, American ou Delta
+
+. . .
+
+```r
+flights |> 
+  filter(carrier %in% c("UA", "AA", "DL"))
+```
+
+---
+
 d. Partiu no verão (julho, agosto e setembro)
+
+. . .
+
+```r
+flights |> 
+  filter(month %in% c(7, 8, 9))
+```
+
+---
+
+
 e. Chegou com mais de duas horas de atraso, mas não saiu atrasado
+
+. . .
+
+```r
+flights |> 
+  filter(arr_delay > 120, dep_delay <= 0)
+```
+
+---
+
 f. Atrasaram-se em pelo menos uma hora, mas compensaram mais de 30 minutos de voo
+
+. . .
+
+```r
+flights |>
+  mutate(gain = dep_delay - arr_delay) |>
+  filter(dep_delay >= 60, gain > 30)
+```
+
+---
 
 ## 2. Ordene o dataset `flights` para encontrar os voos com os maiores atrasos de partida. Encontre os voos que partiram mais cedo pela manhã.
 
+. . . 
+
+```r
+flights |> 
+  arrange(desc(dep_delay), dep_time)
+```
+
+. . .
+
+```r
+flights |> 
+  arrange(desc(dep_delay))
+```
+
+```r
+flights |> 
+  arrange(dep_time)
+```
+
 ## 3. Ordene o dataset `flights` para encontrar os voos mais rápidos (dica: é um cálculo)
+
+- Rapidez aqui seria velocidade, não necessáriamente duração, quase todo mundo pegou essa, muito bom!
+
+. . .
+
+```r
+flights |> 
+  mutate(speed = distance / air_time * 60) |> 
+  arrange(desc(speed))
+```
 
 ## 4. Houve pelo menos um voo em cada dia do ano 2013?
 
+. . .
+
+```r
+flights |> 
+  distinct(day, month) |> 
+  summarize(n = n() == 365)
+```
+
+. . .
+
+```r
+flights |> 
+  distinct(day, month)
+```
+
+
 ## 5. Quais voos viajaram a maior distância? Quais viajaram as distâncias mais curtas?
 
+. . .
+
+```r
+flights |> 
+  arrange(distance)
+```
+
+. . .
+
+```r
+flights |> 
+  distinct(desc(distance))
+```
+
+
 ## 6. Faz diferença a ordem que você usa `filter()` e `arrange()` se for usar os dois? Por que ou por que não? Considere os resultados e o trabalho que as funções vão ter que fazer.
+
 
 # 4.3.5 Exercícios sobre colunas
 
 ## 1. Compare `air_time` com `arr time - dep_time`. O que você espera ver? O que você viu? O que precisa fazer para consertar? 
+
+- Tá comparando HHMM com minutos
+
+<!-- ```{r}
+flights |> 
+  mutate(arr_dep_time = arr_time - dep_time, dif = arr_dep_time - air_time) |> 
+  select (air_time, arr_dep_time, dif) |> 
+  arrange(desc(dif)) 
+```
+- Esperamos que o tempo no ar do voo seja igual a diferença entre a hora que ele saiu para a hora que ele chegou. -->
 
 ## 2. Compare `dep_time`, `sched_dep_time` e `dep_delay`. Como você espera que esses três números se relacionem? 
 
@@ -41,6 +173,29 @@ f. Atrasaram-se em pelo menos uma hora, mas compensaram mais de 30 minutos de vo
 variables <- c("year", "month", "day", "dep_delay", "arr_delay")
 ```
 
+. . .
+
+```r
+flights |>
+  select(any_of(variables))
+# A tibble: 336,776 × 5
+    year month   day dep_delay arr_delay
+   <int> <int> <int>     <dbl>     <dbl>
+#>  1  2013     1     1         2        11
+#>  2  2013     1     1         4        20
+#>  3  2013     1     1         2        33
+#>  4  2013     1     1        -1       -18
+#>  5  2013     1     1        -6       -25
+#>  6  2013     1     1        -4        12
+#>  7  2013     1     1        -5        19
+#>  8  2013     1     1        -3       -14
+#>  9  2013     1     1        -3        -8
+#> 10  2013     1     1        -2         8
+#> # … with 336,766 more rows
+#> # ℹ Use `print(n = ...)` to see more rows
+```
+
+
 # 6.
 - O resultado do código a seguir de surpreende? 
 - Como as funções auxiares (helper functions) de `select()` lidam com esse caso por padrão? 
@@ -48,6 +203,29 @@ variables <- c("year", "month", "day", "dep_delay", "arr_delay")
 ```r
 select(flights, contains("TIME"))
 ```
+
+. . . 
+
+```r
+#> # A tibble: 336,776 × 6
+#>    dep_time sched_dep_time arr_time sched_arr_time air_time time_hour          
+#>       <int>          <int>    <int>          <int>    <dbl> <dttm>             
+#>  1      517            515      830            819      227 2013-01-01 05:00:00
+#>  2      533            529      850            830      227 2013-01-01 05:00:00
+#>  3      542            540      923            850      160 2013-01-01 05:00:00
+#> # … with 336,766 more rows
+#> # ℹ Use `print(n = ...)` to see more rows
+```
+
+. . .
+
+```r
+select(flights, contains("TIME", ignore.case = FALSE))
+
+# A tibble: 336,776 × 0
+# ℹ Use `print(n = ...)` to see more rows
+```
+
 
 # 4.4.6 Exercícios sobre grupos
 
@@ -58,13 +236,41 @@ select(flights, contains("TIME"))
 . . . 
 
 ```r
-flights |> group_by(carrier, dest) |> summarize(n())
+flights 
+  |> group_by(carrier, dest) 
+  |> summarize(n())
 ``` 
 
+. . .
+
+```r
+flights |> 
+  group_by(carrier, dest) |> 
+  summarise(arr_delay = mean(arr_delay, na.rm = TRUE, .groups="keep")) |>
+  arrange(desc(arr_delay))
+```
+
+- Precisamos achar a média das médias de atraso por empresa e comparar o a média dos atrasos por aeroporto
 
 ## 2. Encontre o voo mais atrasado para cada destino.
 
+. . . 
+
+```r
+flights |> 
+  group_by(dest) |> 
+  slice_max(arr_delay, n = 1)
+```
+
 ## 3. Como os atrasos variam ao longo do dia? ilustre a resposta com um gráfico. 
+
+```r
+flights |>
+  group_by(dep_time) |> 
+  summarize(mean_delay_per_time = mean(dep_delay, na.rm = TRUE)) |> 
+  ggplot(aes(x=dep_time, y=mean_delay_per_time)) +
+  geom_point()
+```
 
 ## 4. O que acontece se você fornecer um `n` negativo para `slice_min()` e as suas amigas?
 
@@ -153,3 +359,5 @@ df |>
   group_by(y, z) |>
   mutate(mean_x = mean(x))
 ```
+
+# Até a próxima
