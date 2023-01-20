@@ -152,9 +152,33 @@ flights |>
 
 # 4.3.5 Exercícios sobre colunas
 
-## 1. Compare `air_time` com `arr time - dep_time`. O que você espera ver? O que você viu? O que precisa fazer para consertar? 
+## 1. Compare `air_time` com `arr_time - dep_time`.
+
+### O que você espera ver? O que você viu? O que precisa fazer para consertar? 
+
+---
 
 - Tá comparando HHMM com minutos
+- Vamos transformar em minutos depois das 00:00
+- Alguém se arrisca a transformar 245 em 165?
+- Podemos usar divisão inteira!
+- 245 %/% 100 = 2
+- 245 %% 100 = 45
+- 2*60 + 45 = 165
+
+---
+
+```r
+flights |>
+  mutate(
+    arr_time_min = 60*(arr_time %/% 100) + (arr_time %% 100),
+    dep_time_min = 60*(dep_time %/% 100) + (dep_time %% 100),
+    calc_air_time = arr_time_min - dep_time_min, 
+    diff = air_time - calc_air_time,
+    .keep = "used"
+    )
+```
+
 
 <!-- ```{r}
 flights |> 
@@ -231,26 +255,18 @@ select(flights, contains("TIME", ignore.case = FALSE))
 
 ## 1. Qual operadora tem os piores atrasos? 
 - Desafio: você consegue separar os efeitos de aeroportos ruins versus companhias aéreas ruins? Por que/por que não? 
-- Dica: pense em 
-
-. . . 
-
-```r
-flights 
-  |> group_by(carrier, dest) 
-  |> summarize(n())
-``` 
 
 . . .
 
 ```r
 flights |> 
-  group_by(carrier, dest) |> 
-  summarise(arr_delay = mean(arr_delay, na.rm = TRUE, .groups="keep")) |>
+  group_by(carrier) |> 
+  summarise(arr_delay = mean(arr_delay, na.rm = TRUE)) |>
   arrange(desc(arr_delay))
 ```
 
-- Precisamos achar a média das médias de atraso por empresa e comparar o a média dos atrasos por aeroporto
+- O desafio segue aberto. 
+- A abordagem é de alguma forma comparar atraso por rota com o atraso de determinada empresa naquela rota 
 
 ## 2. Encontre o voo mais atrasado para cada destino.
 
@@ -266,11 +282,30 @@ flights |>
 
 ```r
 flights |>
-  group_by(dep_time) |> 
-  summarize(mean_delay_per_time = mean(dep_delay, na.rm = TRUE)) |> 
-  ggplot(aes(x=dep_time, y=mean_delay_per_time)) +
+  mutate(dep_time_min = (60*(arr_time %/% 100) + (arr_time %% 100)) %% 1440) |>
+  group_by(dep_time_min) |> 
+  summarize(
+    mean_delay_per_time = mean(dep_delay, na.rm = TRUE),
+    n_flights = n()) |> 
+  ggplot(aes(x=dep_time_min, y=mean_delay_per_time, alpha=n_flights)) +
   geom_point()
 ```
+---
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+
+flights |>
+  mutate(dep_time_min = (60*(arr_time %/% 100) + (arr_time %% 100)) %% 1440) |>
+  group_by(dep_time_min) |> 
+  summarize(
+    mean_delay_per_time = mean(dep_delay, na.rm = TRUE),
+    n_flights = n()) |> 
+  ggplot(aes(x=dep_time_min, y=mean_delay_per_time, alpha=n_flights)) +
+  geom_point()
+```
+
 
 ## 4. O que acontece se você fornecer um `n` negativo para `slice_min()` e as suas amigas?
 
