@@ -544,7 +544,7 @@ Daniel Brito dos Santos
 <section id="facilidade-de-trabalhar-com-a-table1" class="slide level2">
 <h2>Facilidade de trabalhar com a table1</h2>
 <ul>
-<li class="fragment">Se quisermos a taxa de tuberculose a cada 10,000 habitantes:</li>
+<li class="fragment">Vamos calcular a taxa de tuberculose por 10,000 habitantes em cada país e chamar de <code>rate</code></li>
 </ul>
 <div class="fragment">
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>table1 <span class="sc">|&gt;</span></span>
@@ -580,12 +580,14 @@ Daniel Brito dos Santos
 <section class="slide level2">
 
 <p>E se quisermos visualizar a mudança ao longo do tempo:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">ggplot</span>(table1, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> cases)) <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> country), <span class="at">color =</span> <span class="st">"grey50"</span>) <span class="sc">+</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> country, <span class="at">shape =</span> country)) <span class="sc">+</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1999</span>, <span class="dv">2000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section></section>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggplot</span>(table1, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> cases)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> country), <span class="at">color =</span> <span class="st">"grey50"</span>) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> country, <span class="at">shape =</span> country)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1999</span>, <span class="dv">2000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="data_tidying_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section></section>
 <section>
 <section id="pivotagem" class="title-slide slide level1 center">
 <h1>6.3 Pivotagem</h1>
@@ -779,7 +781,7 @@ Daniel Brito dos Santos
 <section class="slide level2">
 
 
-<img data-src="data_tidying_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section></section>
+<img data-src="data_tidying_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section></section>
 <section>
 <section id="como-a-pivotagem-funciona" class="title-slide slide level1 center">
 <h1>6.3.2 Como a pivotagem funciona?</h1>

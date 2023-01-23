@@ -140,7 +140,7 @@ Representação visual das regras:
 
 ## Facilidade de trabalhar com a table1 
 
-- Se quisermos a taxa de tuberculose a cada 10,000 habitantes:
+- Vamos calcular a taxa de tuberculose por 10,000 habitantes em cada país e chamar de `rate` 
 
 . . . 
 
@@ -180,8 +180,8 @@ table1 |>
 
 E se quisermos visualizar a mudança ao longo do tempo:
 
-```r
-
+```{r}
+#| echo: true
 ggplot(table1, aes(x = year, y = cases)) +
   geom_line(aes(group = country), color = "grey50") +
   geom_point(aes(color = country, shape = country)) +
