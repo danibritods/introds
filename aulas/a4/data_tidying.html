@@ -413,7 +413,7 @@ Daniel Brito dos Santos
 <p>– <cite> Leo Tolstoy </cite></p>
 <div class="fragment">
 <blockquote>
-<p>Datasets tidys são todos iguais, mas datasets bagunçados são cada um bagunçados do seu próprio jeito.</p>
+<p>Datasets tidys são todos iguais, mas datasets bagunçados são bagunçados cada um à sua maneira.</p>
 </blockquote>
 <p>– <cite> Hadley Wickham </cite></p>
 </div>
@@ -483,6 +483,7 @@ Daniel Brito dos Santos
 <span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; 4 Brazil       2000  80488  174504898</span></span>
 <span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; 5 China        1999 212258 1272915272</span></span>
 <span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt; 6 China        2000 213766 1280428583</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>table2</span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="co">#&gt; # A tibble: 12 × 4</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt;   country      year type           count</span></span>
@@ -494,6 +495,7 @@ Daniel Brito dos Santos
 <span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; 5 Brazil       1999 cases          37737</span></span>
 <span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; 6 Brazil       1999 population 172006362</span></span>
 <span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; # … with 6 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section class="slide level2">
 
@@ -507,6 +509,7 @@ Daniel Brito dos Santos
 <span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; 4 Brazil       2000 80488/174504898  </span></span>
 <span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; 5 China        1999 212258/1272915272</span></span>
 <span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; 6 China        2000 213766/1280428583</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>table4a <span class="co"># cases</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&gt; # A tibble: 3 × 3</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt;   country     `1999` `2000`</span></span>
@@ -521,6 +524,7 @@ Daniel Brito dos Santos
 <span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt; 1 Afghanistan   19987071   20595360</span></span>
 <span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt; 2 Brazil       172006362  174504898</span></span>
 <span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt; 3 China       1272915272 1280428583</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="regras-de-datasets-tidy" class="slide level2">
 <h2>3 regras de datasets tidy</h2>
@@ -748,7 +752,9 @@ Daniel Brito dos Santos
 <li class="fragment">essa função extrai o primeiro número de uma string</li>
 </ul></li>
 </ul>
-<div class="fragment">
+</section>
+<section class="slide level2">
+
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>billboard_tidy <span class="ot">&lt;-</span> billboard <span class="sc">|&gt;</span> </span>
 <span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">pivot_longer</span>(</span>
@@ -759,7 +765,23 @@ Daniel Brito dos Santos
 <span id="cb13-7"><a href="#cb13-7"></a>  ) <span class="sc">|&gt;</span> </span>
 <span id="cb13-8"><a href="#cb13-8"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb13-9"><a href="#cb13-9"></a>    <span class="at">week =</span> <span class="fu">parse_number</span>(week)</span>
-<span id="cb13-10"><a href="#cb13-10"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-10"><a href="#cb13-10"></a>  )</span>
+<span id="cb13-11"><a href="#cb13-11"></a>billboard_tidy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5,307 × 5
+   artist  track                   date.entered  week  rank
+   &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt;
+ 1 2 Pac   Baby Don't Cry (Keep... 2000-02-26       1    87
+ 2 2 Pac   Baby Don't Cry (Keep... 2000-02-26       2    82
+ 3 2 Pac   Baby Don't Cry (Keep... 2000-02-26       3    72
+ 4 2 Pac   Baby Don't Cry (Keep... 2000-02-26       4    77
+ 5 2 Pac   Baby Don't Cry (Keep... 2000-02-26       5    87
+ 6 2 Pac   Baby Don't Cry (Keep... 2000-02-26       6    94
+ 7 2 Pac   Baby Don't Cry (Keep... 2000-02-26       7    99
+ 8 2Ge+her The Hardest Part Of ... 2000-09-02       1    91
+ 9 2Ge+her The Hardest Part Of ... 2000-09-02       2    87
+10 2Ge+her The Hardest Part Of ... 2000-09-02       3    92
+# … with 5,297 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -769,10 +791,10 @@ Daniel Brito dos Santos
 <li class="fragment">Agora é fácil de vermos como as músicas variaram no ranking ao longo do tempo!</li>
 </ul>
 <div class="fragment">
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>billboard_tidy <span class="sc">|&gt;</span> </span>
-<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> week, <span class="at">y =</span> rank, <span class="at">group =</span> track)) <span class="sc">+</span> </span>
-<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>) <span class="sc">+</span> </span>
-<span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">scale_y_reverse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>billboard_tidy <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> week, <span class="at">y =</span> rank, <span class="at">group =</span> track)) <span class="sc">+</span> </span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="fu">scale_y_reverse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">Como fica esse gráfico?</li>
 </ul>
@@ -792,12 +814,12 @@ Daniel Brito dos Santos
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb15-2"><a href="#cb15-2"></a>  <span class="sc">~</span>var, <span class="sc">~</span>col1, <span class="sc">~</span>col2,</span>
-<span id="cb15-3"><a href="#cb15-3"></a>   <span class="st">"A"</span>,     <span class="dv">1</span>,     <span class="dv">2</span>,</span>
-<span id="cb15-4"><a href="#cb15-4"></a>   <span class="st">"B"</span>,     <span class="dv">3</span>,     <span class="dv">4</span>,</span>
-<span id="cb15-5"><a href="#cb15-5"></a>   <span class="st">"C"</span>,     <span class="dv">5</span>,     <span class="dv">6</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="sc">~</span>var, <span class="sc">~</span>col1, <span class="sc">~</span>col2,</span>
+<span id="cb16-3"><a href="#cb16-3"></a>   <span class="st">"A"</span>,     <span class="dv">1</span>,     <span class="dv">2</span>,</span>
+<span id="cb16-4"><a href="#cb16-4"></a>   <span class="st">"B"</span>,     <span class="dv">3</span>,     <span class="dv">4</span>,</span>
+<span id="cb16-5"><a href="#cb16-5"></a>   <span class="st">"C"</span>,     <span class="dv">5</span>,     <span class="dv">6</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">Vamos considerar que temos três variáveis:
 <ul>
@@ -810,21 +832,21 @@ Daniel Brito dos Santos
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb16-3"><a href="#cb16-3"></a>    <span class="at">cols =</span> col1<span class="sc">:</span>col2,</span>
-<span id="cb16-4"><a href="#cb16-4"></a>    <span class="at">names_to =</span> <span class="st">"name"</span>,</span>
-<span id="cb16-5"><a href="#cb16-5"></a>    <span class="at">values_to =</span> <span class="st">"values"</span></span>
-<span id="cb16-6"><a href="#cb16-6"></a>  )</span>
-<span id="cb16-7"><a href="#cb16-7"></a><span class="co">#&gt; # A tibble: 6 × 3</span></span>
-<span id="cb16-8"><a href="#cb16-8"></a><span class="co">#&gt;   var   name values</span></span>
-<span id="cb16-9"><a href="#cb16-9"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
-<span id="cb16-10"><a href="#cb16-10"></a><span class="co">#&gt; 1 A     col1       1</span></span>
-<span id="cb16-11"><a href="#cb16-11"></a><span class="co">#&gt; 2 A     col2       2</span></span>
-<span id="cb16-12"><a href="#cb16-12"></a><span class="co">#&gt; 3 B     col1       3</span></span>
-<span id="cb16-13"><a href="#cb16-13"></a><span class="co">#&gt; 4 B     col2       4</span></span>
-<span id="cb16-14"><a href="#cb16-14"></a><span class="co">#&gt; 5 C     col1       5</span></span>
-<span id="cb16-15"><a href="#cb16-15"></a><span class="co">#&gt; 6 C     col2       6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb17-3"><a href="#cb17-3"></a>    <span class="at">cols =</span> col1<span class="sc">:</span>col2,</span>
+<span id="cb17-4"><a href="#cb17-4"></a>    <span class="at">names_to =</span> <span class="st">"name"</span>,</span>
+<span id="cb17-5"><a href="#cb17-5"></a>    <span class="at">values_to =</span> <span class="st">"values"</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a>  )</span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="co">#&gt; # A tibble: 6 × 3</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a><span class="co">#&gt;   var   name values</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a><span class="co">#&gt; 1 A     col1       1</span></span>
+<span id="cb17-11"><a href="#cb17-11"></a><span class="co">#&gt; 2 A     col2       2</span></span>
+<span id="cb17-12"><a href="#cb17-12"></a><span class="co">#&gt; 3 B     col1       3</span></span>
+<span id="cb17-13"><a href="#cb17-13"></a><span class="co">#&gt; 4 B     col2       4</span></span>
+<span id="cb17-14"><a href="#cb17-14"></a><span class="co">#&gt; 5 C     col1       5</span></span>
+<span id="cb17-15"><a href="#cb17-15"></a><span class="co">#&gt; 6 C     col2       6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">Como essa transformação aconteceu? Vamos por partes!</li>
 </ul>
@@ -868,7 +890,7 @@ Daniel Brito dos Santos
 <li class="fragment"><p>Duas colunas são bem claras: <code>country</code> e <code>year</code></p></li>
 <li class="fragment"><p>E as outras? Queria que vocês tentassem descobrir juntos:</p></li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">glimpse</span>(who2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">glimpse</span>(who2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section class="slide level2">
 
@@ -886,12 +908,17 @@ Daniel Brito dos Santos
 <section class="slide level2">
 
 <ul>
-<li class="fragment">Assim, temos seis variáveis:
+<li class="fragment">Assim, temos <strong>seis</strong> variáveis:
 <ul>
-<li class="fragment">duas já nas colunas <code>country</code> e <code>year</code></li>
-<li class="fragment">três contidas nos nomes de colunas</li>
-<li class="fragment">e mais uma nos valores dessas colunas</li>
+<li class="fragment"><strong>duas</strong> já nas colunas <code>country</code> e <code>year</code></li>
+<li class="fragment"><strong>três</strong> contidas nos nomes de colunas</li>
+<li class="fragment">e mais <strong>uma</strong> nos valores dessas colunas</li>
 </ul></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<ul>
 <li class="fragment">Portanto nosso <code>pivot_longer()</code> vai ter as seguintes mudanças:
 <ul>
 <li class="fragment"><code>names_to</code> vai receber um vetor com os nomes de colunas</li>
@@ -902,24 +929,24 @@ Daniel Brito dos Santos
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>who2 <span class="sc">|&gt;</span> </span>
-<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb18-3"><a href="#cb18-3"></a>    <span class="at">cols =</span> <span class="sc">!</span>(country<span class="sc">:</span>year),</span>
-<span id="cb18-4"><a href="#cb18-4"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"diagnosis"</span>, <span class="st">"gender"</span>, <span class="st">"age"</span>), </span>
-<span id="cb18-5"><a href="#cb18-5"></a>    <span class="at">names_sep =</span> <span class="st">"_"</span>,</span>
-<span id="cb18-6"><a href="#cb18-6"></a>    <span class="at">values_to =</span> <span class="st">"count"</span></span>
-<span id="cb18-7"><a href="#cb18-7"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>who2 <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb19-3"><a href="#cb19-3"></a>    <span class="at">cols =</span> <span class="sc">!</span>(country<span class="sc">:</span>year),</span>
+<span id="cb19-4"><a href="#cb19-4"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"diagnosis"</span>, <span class="st">"gender"</span>, <span class="st">"age"</span>), </span>
+<span id="cb19-5"><a href="#cb19-5"></a>    <span class="at">names_sep =</span> <span class="st">"_"</span>,</span>
+<span id="cb19-6"><a href="#cb19-6"></a>    <span class="at">values_to =</span> <span class="st">"count"</span></span>
+<span id="cb19-7"><a href="#cb19-7"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co">#&gt; # A tibble: 405,440 × 6</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="co">#&gt;   country      year diagnosis gender age   count</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;</span></span>
-<span id="cb19-4"><a href="#cb19-4"></a><span class="co">#&gt; 1 Afghanistan  1980 sp        m      014      NA</span></span>
-<span id="cb19-5"><a href="#cb19-5"></a><span class="co">#&gt; 2 Afghanistan  1980 sp        m      1524     NA</span></span>
-<span id="cb19-6"><a href="#cb19-6"></a><span class="co">#&gt; 3 Afghanistan  1980 sp        m      2534     NA</span></span>
-<span id="cb19-7"><a href="#cb19-7"></a><span class="co">#&gt; 4 Afghanistan  1980 sp        m      3544     NA</span></span>
-<span id="cb19-8"><a href="#cb19-8"></a><span class="co">#&gt; 5 Afghanistan  1980 sp        m      4554     NA</span></span>
-<span id="cb19-9"><a href="#cb19-9"></a><span class="co">#&gt; 6 Afghanistan  1980 sp        m      5564     NA</span></span>
-<span id="cb19-10"><a href="#cb19-10"></a><span class="co">#&gt; # … with 405,434 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co">#&gt; # A tibble: 405,440 × 6</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="co">#&gt;   country      year diagnosis gender age   count</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="co">#&gt; 1 Afghanistan  1980 sp        m      014      NA</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="co">#&gt; 2 Afghanistan  1980 sp        m      1524     NA</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a><span class="co">#&gt; 3 Afghanistan  1980 sp        m      2534     NA</span></span>
+<span id="cb20-7"><a href="#cb20-7"></a><span class="co">#&gt; 4 Afghanistan  1980 sp        m      3544     NA</span></span>
+<span id="cb20-8"><a href="#cb20-8"></a><span class="co">#&gt; 5 Afghanistan  1980 sp        m      4554     NA</span></span>
+<span id="cb20-9"><a href="#cb20-9"></a><span class="co">#&gt; 6 Afghanistan  1980 sp        m      5564     NA</span></span>
+<span id="cb20-10"><a href="#cb20-10"></a><span class="co">#&gt; # … with 405,434 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
@@ -940,15 +967,15 @@ Daniel Brito dos Santos
 </section>
 <section id="vamos-ver-o-dataset-household" class="slide level2">
 <h2>Vamos ver o dataset <code>household</code></h2>
-<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>household</span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="co">#&gt; # A tibble: 5 × 5</span></span>
-<span id="cb20-3"><a href="#cb20-3"></a><span class="co">#&gt;   family dob_child1 dob_child2 name_child1 name_child2</span></span>
-<span id="cb20-4"><a href="#cb20-4"></a><span class="co">#&gt;    &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;       &lt;chr&gt;      </span></span>
-<span id="cb20-5"><a href="#cb20-5"></a><span class="co">#&gt; 1      1 1998-11-26 2000-01-29 Susan       Jose       </span></span>
-<span id="cb20-6"><a href="#cb20-6"></a><span class="co">#&gt; 2      2 1996-06-22 NA         Mark        &lt;NA&gt;       </span></span>
-<span id="cb20-7"><a href="#cb20-7"></a><span class="co">#&gt; 3      3 2002-07-11 2004-04-05 Sam         Seth       </span></span>
-<span id="cb20-8"><a href="#cb20-8"></a><span class="co">#&gt; 4      4 2004-10-10 2009-08-27 Craig       Khai       </span></span>
-<span id="cb20-9"><a href="#cb20-9"></a><span class="co">#&gt; 5      5 2000-12-05 2005-02-28 Parker      Gracie</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>household</span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="co">#&gt; # A tibble: 5 × 5</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="co">#&gt;   family dob_child1 dob_child2 name_child1 name_child2</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="co">#&gt;    &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;       &lt;chr&gt;      </span></span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="co">#&gt; 1      1 1998-11-26 2000-01-29 Susan       Jose       </span></span>
+<span id="cb21-6"><a href="#cb21-6"></a><span class="co">#&gt; 2      2 1996-06-22 NA         Mark        &lt;NA&gt;       </span></span>
+<span id="cb21-7"><a href="#cb21-7"></a><span class="co">#&gt; 3      3 2002-07-11 2004-04-05 Sam         Seth       </span></span>
+<span id="cb21-8"><a href="#cb21-8"></a><span class="co">#&gt; 4      4 2004-10-10 2009-08-27 Craig       Khai       </span></span>
+<span id="cb21-9"><a href="#cb21-9"></a><span class="co">#&gt; 5      5 2000-12-05 2005-02-28 Parker      Gracie</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">Tem os dados de cinco famílias</li>
 <li class="fragment">Nomes, datas de nascimento de até duas crianças</li>
@@ -966,27 +993,27 @@ Daniel Brito dos Santos
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>household <span class="sc">|&gt;</span> </span>
-<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb21-3"><a href="#cb21-3"></a>    <span class="at">cols =</span> <span class="sc">!</span>family, </span>
-<span id="cb21-4"><a href="#cb21-4"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"child"</span>), </span>
-<span id="cb21-5"><a href="#cb21-5"></a>    <span class="at">names_sep =</span> <span class="st">"_"</span>, </span>
-<span id="cb21-6"><a href="#cb21-6"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span></span>
-<span id="cb21-7"><a href="#cb21-7"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb21-8"><a href="#cb21-8"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb21-9"><a href="#cb21-9"></a>    <span class="at">child =</span> <span class="fu">parse_number</span>(child)</span>
-<span id="cb21-10"><a href="#cb21-10"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>household <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb22-3"><a href="#cb22-3"></a>    <span class="at">cols =</span> <span class="sc">!</span>family, </span>
+<span id="cb22-4"><a href="#cb22-4"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"child"</span>), </span>
+<span id="cb22-5"><a href="#cb22-5"></a>    <span class="at">names_sep =</span> <span class="st">"_"</span>, </span>
+<span id="cb22-6"><a href="#cb22-6"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span></span>
+<span id="cb22-7"><a href="#cb22-7"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb22-8"><a href="#cb22-8"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb22-9"><a href="#cb22-9"></a>    <span class="at">child =</span> <span class="fu">parse_number</span>(child)</span>
+<span id="cb22-10"><a href="#cb22-10"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co">#&gt; # A tibble: 9 × 4</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="co">#&gt;   family child dob        name </span></span>
-<span id="cb22-3"><a href="#cb22-3"></a><span class="co">#&gt;    &lt;int&gt; &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;</span></span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="co">#&gt; 1      1     1 1998-11-26 Susan</span></span>
-<span id="cb22-5"><a href="#cb22-5"></a><span class="co">#&gt; 2      1     2 2000-01-29 Jose </span></span>
-<span id="cb22-6"><a href="#cb22-6"></a><span class="co">#&gt; 3      2     1 1996-06-22 Mark </span></span>
-<span id="cb22-7"><a href="#cb22-7"></a><span class="co">#&gt; 4      3     1 2002-07-11 Sam  </span></span>
-<span id="cb22-8"><a href="#cb22-8"></a><span class="co">#&gt; 5      3     2 2004-04-05 Seth </span></span>
-<span id="cb22-9"><a href="#cb22-9"></a><span class="co">#&gt; 6      4     1 2004-10-10 Craig</span></span>
-<span id="cb22-10"><a href="#cb22-10"></a><span class="co">#&gt; # … with 3 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co">#&gt; # A tibble: 9 × 4</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="co">#&gt;   family child dob        name </span></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="co">#&gt;    &lt;int&gt; &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="co">#&gt; 1      1     1 1998-11-26 Susan</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="co">#&gt; 2      1     2 2000-01-29 Jose </span></span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="co">#&gt; 3      2     1 1996-06-22 Mark </span></span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="co">#&gt; 4      3     1 2002-07-11 Sam  </span></span>
+<span id="cb23-8"><a href="#cb23-8"></a><span class="co">#&gt; 5      3     2 2004-04-05 Seth </span></span>
+<span id="cb23-9"><a href="#cb23-9"></a><span class="co">#&gt; 6      4     1 2004-10-10 Craig</span></span>
+<span id="cb23-10"><a href="#cb23-10"></a><span class="co">#&gt; # … with 3 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
@@ -998,8 +1025,10 @@ Daniel Brito dos Santos
 <li class="fragment">o segundo determina o valor de <code>id</code></li>
 </ul></li>
 </ul>
-
-<img data-src="data_tidying_files/images/names-and-values.png" class="r-stretch"></section></section>
+<div class="fragment">
+<p><img data-src="data_tidying_files/images/names-and-values.png"></p>
+</div>
+</section></section>
 <section>
 <section id="horizontalizando-os-dados" class="title-slide slide level1 center">
 <h1>6.3.5 Horizontalizando os dados</h1>
@@ -1014,17 +1043,17 @@ Daniel Brito dos Santos
 <ul>
 <li class="fragment">Dataset do Centers of Medicare and Medicaid sobre a experiência de pacientes</li>
 </ul>
-<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>cms_patient_experience</span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="co">#&gt; # A tibble: 500 × 5</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a><span class="co">#&gt;   org_pac_id org_nm                     measure_cd   measure_title    prf_r…¹</span></span>
-<span id="cb23-4"><a href="#cb23-4"></a><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;                      &lt;chr&gt;        &lt;chr&gt;              &lt;dbl&gt;</span></span>
-<span id="cb23-5"><a href="#cb23-5"></a><span class="co">#&gt; 1 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_1  CAHPS for MIPS …      63</span></span>
-<span id="cb23-6"><a href="#cb23-6"></a><span class="co">#&gt; 2 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_2  CAHPS for MIPS …      87</span></span>
-<span id="cb23-7"><a href="#cb23-7"></a><span class="co">#&gt; 3 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_3  CAHPS for MIPS …      86</span></span>
-<span id="cb23-8"><a href="#cb23-8"></a><span class="co">#&gt; 4 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_5  CAHPS for MIPS …      57</span></span>
-<span id="cb23-9"><a href="#cb23-9"></a><span class="co">#&gt; 5 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_8  CAHPS for MIPS …      85</span></span>
-<span id="cb23-10"><a href="#cb23-10"></a><span class="co">#&gt; 6 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_12 CAHPS for MIPS …      24</span></span>
-<span id="cb23-11"><a href="#cb23-11"></a><span class="co">#&gt; # … with 494 more rows, and abbreviated variable name ¹​prf_rate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>cms_patient_experience</span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="co">#&gt; # A tibble: 500 × 5</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="co">#&gt;   org_pac_id org_nm                     measure_cd   measure_title    prf_r…¹</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;                      &lt;chr&gt;        &lt;chr&gt;              &lt;dbl&gt;</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="co">#&gt; 1 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_1  CAHPS for MIPS …      63</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a><span class="co">#&gt; 2 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_2  CAHPS for MIPS …      87</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a><span class="co">#&gt; 3 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_3  CAHPS for MIPS …      86</span></span>
+<span id="cb24-8"><a href="#cb24-8"></a><span class="co">#&gt; 4 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_5  CAHPS for MIPS …      57</span></span>
+<span id="cb24-9"><a href="#cb24-9"></a><span class="co">#&gt; 5 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_8  CAHPS for MIPS …      85</span></span>
+<span id="cb24-10"><a href="#cb24-10"></a><span class="co">#&gt; 6 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_12 CAHPS for MIPS …      24</span></span>
+<span id="cb24-11"><a href="#cb24-11"></a><span class="co">#&gt; # … with 494 more rows, and abbreviated variable name ¹​prf_rate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section class="slide level2">
 
@@ -1037,17 +1066,17 @@ Daniel Brito dos Santos
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>cms_patient_experience <span class="sc">|&gt;</span> </span>
-<span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">distinct</span>(measure_cd, measure_title)</span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="co">#&gt; # A tibble: 6 × 2</span></span>
-<span id="cb24-4"><a href="#cb24-4"></a><span class="co">#&gt;   measure_cd   measure_title                                                 </span></span>
-<span id="cb24-5"><a href="#cb24-5"></a><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;                                                        </span></span>
-<span id="cb24-6"><a href="#cb24-6"></a><span class="co">#&gt; 1 CAHPS_GRP_1  CAHPS for MIPS SSM: Getting Timely Care, Appointments, and In…</span></span>
-<span id="cb24-7"><a href="#cb24-7"></a><span class="co">#&gt; 2 CAHPS_GRP_2  CAHPS for MIPS SSM: How Well Providers Communicate            </span></span>
-<span id="cb24-8"><a href="#cb24-8"></a><span class="co">#&gt; 3 CAHPS_GRP_3  CAHPS for MIPS SSM: Patient's Rating of Provider              </span></span>
-<span id="cb24-9"><a href="#cb24-9"></a><span class="co">#&gt; 4 CAHPS_GRP_5  CAHPS for MIPS SSM: Health Promotion and Education            </span></span>
-<span id="cb24-10"><a href="#cb24-10"></a><span class="co">#&gt; 5 CAHPS_GRP_8  CAHPS for MIPS SSM: Courteous and Helpful Office Staff        </span></span>
-<span id="cb24-11"><a href="#cb24-11"></a><span class="co">#&gt; 6 CAHPS_GRP_12 CAHPS for MIPS SSM: Stewardship of Patient Resources</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>cms_patient_experience <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">distinct</span>(measure_cd, measure_title)</span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="co">#&gt; # A tibble: 6 × 2</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="co">#&gt;   measure_cd   measure_title                                                 </span></span>
+<span id="cb25-5"><a href="#cb25-5"></a><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;                                                        </span></span>
+<span id="cb25-6"><a href="#cb25-6"></a><span class="co">#&gt; 1 CAHPS_GRP_1  CAHPS for MIPS SSM: Getting Timely Care, Appointments, and In…</span></span>
+<span id="cb25-7"><a href="#cb25-7"></a><span class="co">#&gt; 2 CAHPS_GRP_2  CAHPS for MIPS SSM: How Well Providers Communicate            </span></span>
+<span id="cb25-8"><a href="#cb25-8"></a><span class="co">#&gt; 3 CAHPS_GRP_3  CAHPS for MIPS SSM: Patient's Rating of Provider              </span></span>
+<span id="cb25-9"><a href="#cb25-9"></a><span class="co">#&gt; 4 CAHPS_GRP_5  CAHPS for MIPS SSM: Health Promotion and Education            </span></span>
+<span id="cb25-10"><a href="#cb25-10"></a><span class="co">#&gt; 5 CAHPS_GRP_8  CAHPS for MIPS SSM: Courteous and Helpful Office Staff        </span></span>
+<span id="cb25-11"><a href="#cb25-11"></a><span class="co">#&gt; 6 CAHPS_GRP_12 CAHPS for MIPS SSM: Stewardship of Patient Resources</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">Nenhuma dessas colunas tem um bom nome de variável
 <ul>
@@ -1067,27 +1096,27 @@ Daniel Brito dos Santos
 </ul></li>
 </ul>
 <div class="fragment">
-<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>cms_patient_experience <span class="sc">|&gt;</span> </span>
-<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb25-3"><a href="#cb25-3"></a>    <span class="at">names_from =</span> measure_cd,</span>
-<span id="cb25-4"><a href="#cb25-4"></a>    <span class="at">values_from =</span> prf_rate</span>
-<span id="cb25-5"><a href="#cb25-5"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>cms_patient_experience <span class="sc">|&gt;</span> </span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb26-3"><a href="#cb26-3"></a>    <span class="at">names_from =</span> measure_cd,</span>
+<span id="cb26-4"><a href="#cb26-4"></a>    <span class="at">values_from =</span> prf_rate</span>
+<span id="cb26-5"><a href="#cb26-5"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co">#&gt; # A tibble: 500 × 9</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="co">#&gt;   org_pac_id org_nm   measu…¹ CAHPS…² CAHPS…³ CAHPS…⁴ CAHPS…⁵ CAHPS…⁶ CAHPS…⁷</span></span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="co">#&gt; 1 0446157747 USC CAR… CAHPS …      63      NA      NA      NA      NA      NA</span></span>
-<span id="cb26-5"><a href="#cb26-5"></a><span class="co">#&gt; 2 0446157747 USC CAR… CAHPS …      NA      87      NA      NA      NA      NA</span></span>
-<span id="cb26-6"><a href="#cb26-6"></a><span class="co">#&gt; 3 0446157747 USC CAR… CAHPS …      NA      NA      86      NA      NA      NA</span></span>
-<span id="cb26-7"><a href="#cb26-7"></a><span class="co">#&gt; 4 0446157747 USC CAR… CAHPS …      NA      NA      NA      57      NA      NA</span></span>
-<span id="cb26-8"><a href="#cb26-8"></a><span class="co">#&gt; 5 0446157747 USC CAR… CAHPS …      NA      NA      NA      NA      85      NA</span></span>
-<span id="cb26-9"><a href="#cb26-9"></a><span class="co">#&gt; 6 0446157747 USC CAR… CAHPS …      NA      NA      NA      NA      NA      24</span></span>
-<span id="cb26-10"><a href="#cb26-10"></a><span class="co">#&gt; # … with 494 more rows, and abbreviated variable names ¹​measure_title,</span></span>
-<span id="cb26-11"><a href="#cb26-11"></a><span class="co">#&gt; #   ²​CAHPS_GRP_1, ³​CAHPS_GRP_2, ⁴​CAHPS_GRP_3, ⁵​CAHPS_GRP_5, ⁶​CAHPS_GRP_8,</span></span>
-<span id="cb26-12"><a href="#cb26-12"></a><span class="co">#&gt; #   ⁷​CAHPS_GRP_12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co">#&gt; # A tibble: 500 × 9</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="co">#&gt;   org_pac_id org_nm   measu…¹ CAHPS…² CAHPS…³ CAHPS…⁴ CAHPS…⁵ CAHPS…⁶ CAHPS…⁷</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="co">#&gt; 1 0446157747 USC CAR… CAHPS …      63      NA      NA      NA      NA      NA</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="co">#&gt; 2 0446157747 USC CAR… CAHPS …      NA      87      NA      NA      NA      NA</span></span>
+<span id="cb27-6"><a href="#cb27-6"></a><span class="co">#&gt; 3 0446157747 USC CAR… CAHPS …      NA      NA      86      NA      NA      NA</span></span>
+<span id="cb27-7"><a href="#cb27-7"></a><span class="co">#&gt; 4 0446157747 USC CAR… CAHPS …      NA      NA      NA      57      NA      NA</span></span>
+<span id="cb27-8"><a href="#cb27-8"></a><span class="co">#&gt; 5 0446157747 USC CAR… CAHPS …      NA      NA      NA      NA      85      NA</span></span>
+<span id="cb27-9"><a href="#cb27-9"></a><span class="co">#&gt; 6 0446157747 USC CAR… CAHPS …      NA      NA      NA      NA      NA      24</span></span>
+<span id="cb27-10"><a href="#cb27-10"></a><span class="co">#&gt; # … with 494 more rows, and abbreviated variable names ¹​measure_title,</span></span>
+<span id="cb27-11"><a href="#cb27-11"></a><span class="co">#&gt; #   ²​CAHPS_GRP_1, ³​CAHPS_GRP_2, ⁴​CAHPS_GRP_3, ⁵​CAHPS_GRP_5, ⁶​CAHPS_GRP_8,</span></span>
+<span id="cb27-12"><a href="#cb27-12"></a><span class="co">#&gt; #   ⁷​CAHPS_GRP_12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">O que acham desse resultado?</li>
 <li class="fragment">Ué, esse resultado não parece certo
@@ -1106,27 +1135,27 @@ Daniel Brito dos Santos
 <li class="fragment">Para resolver esse problema vamos avisar quais colunas identificam cada linha</li>
 </ul>
 <div class="fragment">
-<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>cms_patient_experience <span class="sc">|&gt;</span> </span>
-<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb27-3"><a href="#cb27-3"></a>    <span class="at">id_cols =</span> <span class="fu">starts_with</span>(<span class="st">"org"</span>),</span>
-<span id="cb27-4"><a href="#cb27-4"></a>    <span class="at">names_from =</span> measure_cd,</span>
-<span id="cb27-5"><a href="#cb27-5"></a>    <span class="at">values_from =</span> prf_rate</span>
-<span id="cb27-6"><a href="#cb27-6"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>cms_patient_experience <span class="sc">|&gt;</span> </span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb28-3"><a href="#cb28-3"></a>    <span class="at">id_cols =</span> <span class="fu">starts_with</span>(<span class="st">"org"</span>),</span>
+<span id="cb28-4"><a href="#cb28-4"></a>    <span class="at">names_from =</span> measure_cd,</span>
+<span id="cb28-5"><a href="#cb28-5"></a>    <span class="at">values_from =</span> prf_rate</span>
+<span id="cb28-6"><a href="#cb28-6"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co">#&gt; # A tibble: 95 × 8</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="co">#&gt;   org_pac_id org_nm           CAHPS…¹ CAHPS…² CAHPS…³ CAHPS…⁴ CAHPS…⁵ CAHPS…⁶</span></span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;              &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb28-4"><a href="#cb28-4"></a><span class="co">#&gt; 1 0446157747 USC CARE MEDICA…      63      87      86      57      85      24</span></span>
-<span id="cb28-5"><a href="#cb28-5"></a><span class="co">#&gt; 2 0446162697 ASSOCIATION OF …      59      85      83      63      88      22</span></span>
-<span id="cb28-6"><a href="#cb28-6"></a><span class="co">#&gt; 3 0547164295 BEAVER MEDICAL …      49      NA      75      44      73      12</span></span>
-<span id="cb28-7"><a href="#cb28-7"></a><span class="co">#&gt; 4 0749333730 CAPE PHYSICIANS…      67      84      85      65      82      24</span></span>
-<span id="cb28-8"><a href="#cb28-8"></a><span class="co">#&gt; 5 0840104360 ALLIANCE PHYSIC…      66      87      87      64      87      28</span></span>
-<span id="cb28-9"><a href="#cb28-9"></a><span class="co">#&gt; 6 0840109864 REX HOSPITAL INC      73      87      84      67      91      30</span></span>
-<span id="cb28-10"><a href="#cb28-10"></a><span class="co">#&gt; # … with 89 more rows, and abbreviated variable names ¹​CAHPS_GRP_1,</span></span>
-<span id="cb28-11"><a href="#cb28-11"></a><span class="co">#&gt; #   ²​CAHPS_GRP_2, ³​CAHPS_GRP_3, ⁴​CAHPS_GRP_5, ⁵​CAHPS_GRP_8, ⁶​CAHPS_GRP_12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co">#&gt; # A tibble: 95 × 8</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="co">#&gt;   org_pac_id org_nm           CAHPS…¹ CAHPS…² CAHPS…³ CAHPS…⁴ CAHPS…⁵ CAHPS…⁶</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;              &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="co">#&gt; 1 0446157747 USC CARE MEDICA…      63      87      86      57      85      24</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="co">#&gt; 2 0446162697 ASSOCIATION OF …      59      85      83      63      88      22</span></span>
+<span id="cb29-6"><a href="#cb29-6"></a><span class="co">#&gt; 3 0547164295 BEAVER MEDICAL …      49      NA      75      44      73      12</span></span>
+<span id="cb29-7"><a href="#cb29-7"></a><span class="co">#&gt; 4 0749333730 CAPE PHYSICIANS…      67      84      85      65      82      24</span></span>
+<span id="cb29-8"><a href="#cb29-8"></a><span class="co">#&gt; 5 0840104360 ALLIANCE PHYSIC…      66      87      87      64      87      28</span></span>
+<span id="cb29-9"><a href="#cb29-9"></a><span class="co">#&gt; 6 0840109864 REX HOSPITAL INC      73      87      84      67      91      30</span></span>
+<span id="cb29-10"><a href="#cb29-10"></a><span class="co">#&gt; # … with 89 more rows, and abbreviated variable names ¹​CAHPS_GRP_1,</span></span>
+<span id="cb29-11"><a href="#cb29-11"></a><span class="co">#&gt; #   ²​CAHPS_GRP_2, ³​CAHPS_GRP_3, ⁴​CAHPS_GRP_5, ⁵​CAHPS_GRP_8, ⁶​CAHPS_GRP_12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">Agora sim!</li>
 </ul>
@@ -1142,24 +1171,24 @@ Daniel Brito dos Santos
 <li class="fragment">Vamos começar com um exemplo simples</li>
 </ul>
 <div class="fragment">
-<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb29-2"><a href="#cb29-2"></a>  <span class="sc">~</span>id, <span class="sc">~</span>name, <span class="sc">~</span>value,</span>
-<span id="cb29-3"><a href="#cb29-3"></a>  <span class="st">"A"</span>, <span class="st">"x"</span>, <span class="dv">1</span>,</span>
-<span id="cb29-4"><a href="#cb29-4"></a>  <span class="st">"B"</span>, <span class="st">"y"</span>, <span class="dv">2</span>,</span>
-<span id="cb29-5"><a href="#cb29-5"></a>  <span class="st">"B"</span>, <span class="st">"x"</span>, <span class="dv">3</span>, </span>
-<span id="cb29-6"><a href="#cb29-6"></a>  <span class="st">"A"</span>, <span class="st">"y"</span>, <span class="dv">4</span>,</span>
-<span id="cb29-7"><a href="#cb29-7"></a>  <span class="st">"A"</span>, <span class="st">"z"</span>, <span class="dv">5</span>,</span>
-<span id="cb29-8"><a href="#cb29-8"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb30-2"><a href="#cb30-2"></a>  <span class="sc">~</span>id, <span class="sc">~</span>name, <span class="sc">~</span>value,</span>
+<span id="cb30-3"><a href="#cb30-3"></a>  <span class="st">"A"</span>, <span class="st">"x"</span>, <span class="dv">1</span>,</span>
+<span id="cb30-4"><a href="#cb30-4"></a>  <span class="st">"B"</span>, <span class="st">"y"</span>, <span class="dv">2</span>,</span>
+<span id="cb30-5"><a href="#cb30-5"></a>  <span class="st">"B"</span>, <span class="st">"x"</span>, <span class="dv">3</span>, </span>
+<span id="cb30-6"><a href="#cb30-6"></a>  <span class="st">"A"</span>, <span class="st">"y"</span>, <span class="dv">4</span>,</span>
+<span id="cb30-7"><a href="#cb30-7"></a>  <span class="st">"A"</span>, <span class="st">"z"</span>, <span class="dv">5</span>,</span>
+<span id="cb30-8"><a href="#cb30-8"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">Vamos pegar o valor da coluna <code>value</code> e os nomes da coluna <code>name</code></li>
 </ul>
 </div>
 <div class="fragment">
-<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb30-3"><a href="#cb30-3"></a>    <span class="at">names_from =</span> name,</span>
-<span id="cb30-4"><a href="#cb30-4"></a>    <span class="at">values_from =</span> value</span>
-<span id="cb30-5"><a href="#cb30-5"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb31-3"><a href="#cb31-3"></a>    <span class="at">names_from =</span> name,</span>
+<span id="cb31-4"><a href="#cb31-4"></a>    <span class="at">values_from =</span> value</span>
+<span id="cb31-5"><a href="#cb31-5"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">Como acham que vai ficar essa tabela?</li>
 </ul>
@@ -1167,11 +1196,11 @@ Daniel Brito dos Santos
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co">#&gt; # A tibble: 2 × 4</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="co">#&gt;   id        x     y     z</span></span>
-<span id="cb31-3"><a href="#cb31-3"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb31-4"><a href="#cb31-4"></a><span class="co">#&gt; 1 A         1     4     5</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="co">#&gt; 2 B         3     2    NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co">#&gt; # A tibble: 2 × 4</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="co">#&gt;   id        x     y     z</span></span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="co">#&gt; 1 A         1     4     5</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="co">#&gt; 2 B         3     2    NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">Conseguem ver o que faz o <code>pivot_wider()</code>?</li>
 </ul>
@@ -1186,14 +1215,14 @@ Daniel Brito dos Santos
 </ul></li>
 </ul>
 <div class="fragment">
-<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">distinct</span>(name)</span>
-<span id="cb32-3"><a href="#cb32-3"></a><span class="co">#&gt; # A tibble: 3 × 1</span></span>
-<span id="cb32-4"><a href="#cb32-4"></a><span class="co">#&gt;   name </span></span>
-<span id="cb32-5"><a href="#cb32-5"></a><span class="co">#&gt;   &lt;chr&gt;</span></span>
-<span id="cb32-6"><a href="#cb32-6"></a><span class="co">#&gt; 1 x    </span></span>
-<span id="cb32-7"><a href="#cb32-7"></a><span class="co">#&gt; 2 y    </span></span>
-<span id="cb32-8"><a href="#cb32-8"></a><span class="co">#&gt; 3 z</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">distinct</span>(name)</span>
+<span id="cb33-3"><a href="#cb33-3"></a><span class="co">#&gt; # A tibble: 3 × 1</span></span>
+<span id="cb33-4"><a href="#cb33-4"></a><span class="co">#&gt;   name </span></span>
+<span id="cb33-5"><a href="#cb33-5"></a><span class="co">#&gt;   &lt;chr&gt;</span></span>
+<span id="cb33-6"><a href="#cb33-6"></a><span class="co">#&gt; 1 x    </span></span>
+<span id="cb33-7"><a href="#cb33-7"></a><span class="co">#&gt; 2 y    </span></span>
+<span id="cb33-8"><a href="#cb33-8"></a><span class="co">#&gt; 3 z</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
@@ -1202,14 +1231,14 @@ Daniel Brito dos Santos
 <li class="fragment">As <strong>linhas</strong> por padrão são formadas pelas variáveis que <strong>não são</strong> <code>names_from</code>, nem <code>values_from</code>. Chamamos essas colunas de de <code>id_cols</code></li>
 </ul>
 <div class="fragment">
-<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>name, <span class="sc">-</span>value) <span class="sc">|&gt;</span> </span>
-<span id="cb33-3"><a href="#cb33-3"></a>  <span class="fu">distinct</span>()</span>
-<span id="cb33-4"><a href="#cb33-4"></a><span class="co">#&gt; # A tibble: 2 × 1</span></span>
-<span id="cb33-5"><a href="#cb33-5"></a><span class="co">#&gt;   id   </span></span>
-<span id="cb33-6"><a href="#cb33-6"></a><span class="co">#&gt;   &lt;chr&gt;</span></span>
-<span id="cb33-7"><a href="#cb33-7"></a><span class="co">#&gt; 1 A    </span></span>
-<span id="cb33-8"><a href="#cb33-8"></a><span class="co">#&gt; 2 B</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb34-2"><a href="#cb34-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>name, <span class="sc">-</span>value) <span class="sc">|&gt;</span> </span>
+<span id="cb34-3"><a href="#cb34-3"></a>  <span class="fu">distinct</span>()</span>
+<span id="cb34-4"><a href="#cb34-4"></a><span class="co">#&gt; # A tibble: 2 × 1</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a><span class="co">#&gt;   id   </span></span>
+<span id="cb34-6"><a href="#cb34-6"></a><span class="co">#&gt;   &lt;chr&gt;</span></span>
+<span id="cb34-7"><a href="#cb34-7"></a><span class="co">#&gt; 1 A    </span></span>
+<span id="cb34-8"><a href="#cb34-8"></a><span class="co">#&gt; 2 B</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
@@ -1218,15 +1247,15 @@ Daniel Brito dos Santos
 <li class="fragment">O <code>pivot_wider()</code> combina as linhas e colunas para griar um dataframe vazio:</li>
 </ul>
 <div class="fragment">
-<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb34-2"><a href="#cb34-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>name, <span class="sc">-</span>value) <span class="sc">|&gt;</span> </span>
-<span id="cb34-3"><a href="#cb34-3"></a>  <span class="fu">distinct</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb34-4"><a href="#cb34-4"></a>  <span class="fu">mutate</span>(<span class="at">x =</span> <span class="cn">NA</span>, <span class="at">y =</span> <span class="cn">NA</span>, <span class="at">z =</span> <span class="cn">NA</span>)</span>
-<span id="cb34-5"><a href="#cb34-5"></a><span class="co">#&gt; # A tibble: 2 × 4</span></span>
-<span id="cb34-6"><a href="#cb34-6"></a><span class="co">#&gt;   id    x     y     z    </span></span>
-<span id="cb34-7"><a href="#cb34-7"></a><span class="co">#&gt;   &lt;chr&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt;</span></span>
-<span id="cb34-8"><a href="#cb34-8"></a><span class="co">#&gt; 1 A     NA    NA    NA   </span></span>
-<span id="cb34-9"><a href="#cb34-9"></a><span class="co">#&gt; 2 B     NA    NA    NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>name, <span class="sc">-</span>value) <span class="sc">|&gt;</span> </span>
+<span id="cb35-3"><a href="#cb35-3"></a>  <span class="fu">distinct</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb35-4"><a href="#cb35-4"></a>  <span class="fu">mutate</span>(<span class="at">x =</span> <span class="cn">NA</span>, <span class="at">y =</span> <span class="cn">NA</span>, <span class="at">z =</span> <span class="cn">NA</span>)</span>
+<span id="cb35-5"><a href="#cb35-5"></a><span class="co">#&gt; # A tibble: 2 × 4</span></span>
+<span id="cb35-6"><a href="#cb35-6"></a><span class="co">#&gt;   id    x     y     z    </span></span>
+<span id="cb35-7"><a href="#cb35-7"></a><span class="co">#&gt;   &lt;chr&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt;</span></span>
+<span id="cb35-8"><a href="#cb35-8"></a><span class="co">#&gt; 1 A     NA    NA    NA   </span></span>
+<span id="cb35-9"><a href="#cb35-9"></a><span class="co">#&gt; 2 B     NA    NA    NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">Logo em seguida ele é preenchido com as as informações no dataset
 <ul>
@@ -1240,18 +1269,18 @@ Daniel Brito dos Santos
 <h3 id="ps">PS</h3>
 <p>(Se uma linha tiver múltiplas entradas o <code>pivot_wider()</code> vai transformar cada valor do dataset em uma lista e te sugerir analisar se você não quer sumarizar, resolver algum bug ou deixar desse jeito</p>
 <div class="fragment">
-<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">tribble</span>(</span>
-<span id="cb35-2"><a href="#cb35-2"></a>  <span class="sc">~</span>id, <span class="sc">~</span>name, <span class="sc">~</span>value,</span>
-<span id="cb35-3"><a href="#cb35-3"></a>  <span class="st">"A"</span>, <span class="st">"x"</span>, <span class="dv">1</span>,</span>
-<span id="cb35-4"><a href="#cb35-4"></a>  <span class="st">"A"</span>, <span class="st">"x"</span>, <span class="dv">2</span>,</span>
-<span id="cb35-5"><a href="#cb35-5"></a>  <span class="st">"A"</span>, <span class="st">"y"</span>, <span class="dv">3</span>,</span>
-<span id="cb35-6"><a href="#cb35-6"></a>  <span class="st">"B"</span>, <span class="st">"x"</span>, <span class="dv">4</span>, </span>
-<span id="cb35-7"><a href="#cb35-7"></a>  <span class="st">"B"</span>, <span class="st">"y"</span>, <span class="dv">5</span>, </span>
-<span id="cb35-8"><a href="#cb35-8"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb35-9"><a href="#cb35-9"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb35-10"><a href="#cb35-10"></a>  <span class="at">names_from =</span> name,</span>
-<span id="cb35-11"><a href="#cb35-11"></a>  <span class="at">values_from =</span> value</span>
-<span id="cb35-12"><a href="#cb35-12"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">tribble</span>(</span>
+<span id="cb36-2"><a href="#cb36-2"></a>  <span class="sc">~</span>id, <span class="sc">~</span>name, <span class="sc">~</span>value,</span>
+<span id="cb36-3"><a href="#cb36-3"></a>  <span class="st">"A"</span>, <span class="st">"x"</span>, <span class="dv">1</span>,</span>
+<span id="cb36-4"><a href="#cb36-4"></a>  <span class="st">"A"</span>, <span class="st">"x"</span>, <span class="dv">2</span>,</span>
+<span id="cb36-5"><a href="#cb36-5"></a>  <span class="st">"A"</span>, <span class="st">"y"</span>, <span class="dv">3</span>,</span>
+<span id="cb36-6"><a href="#cb36-6"></a>  <span class="st">"B"</span>, <span class="st">"x"</span>, <span class="dv">4</span>, </span>
+<span id="cb36-7"><a href="#cb36-7"></a>  <span class="st">"B"</span>, <span class="st">"y"</span>, <span class="dv">5</span>, </span>
+<span id="cb36-8"><a href="#cb36-8"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb36-9"><a href="#cb36-9"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb36-10"><a href="#cb36-10"></a>  <span class="at">names_from =</span> name,</span>
+<span id="cb36-11"><a href="#cb36-11"></a>  <span class="at">values_from =</span> value</span>
+<span id="cb36-12"><a href="#cb36-12"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>)</p>
 </div>
 </section></section>
@@ -1282,24 +1311,24 @@ Daniel Brito dos Santos
 <li class="fragment">Vamos contar os diamantes do dataset <code>diamonds</code> por cor e clareza</li>
 </ul>
 <div class="fragment">
-<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>diamonds <span class="sc">|&gt;</span> </span>
-<span id="cb36-2"><a href="#cb36-2"></a>  <span class="fu">count</span>(clarity, color)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>diamonds <span class="sc">|&gt;</span> </span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">count</span>(clarity, color)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>diamonds <span class="sc">|&gt;</span> </span>
-<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">count</span>(clarity, color)</span>
-<span id="cb37-3"><a href="#cb37-3"></a><span class="co">#&gt; # A tibble: 56 × 3</span></span>
-<span id="cb37-4"><a href="#cb37-4"></a><span class="co">#&gt;   clarity color     n</span></span>
-<span id="cb37-5"><a href="#cb37-5"></a><span class="co">#&gt;   &lt;ord&gt;   &lt;ord&gt; &lt;int&gt;</span></span>
-<span id="cb37-6"><a href="#cb37-6"></a><span class="co">#&gt; 1 I1      D        42</span></span>
-<span id="cb37-7"><a href="#cb37-7"></a><span class="co">#&gt; 2 I1      E       102</span></span>
-<span id="cb37-8"><a href="#cb37-8"></a><span class="co">#&gt; 3 I1      F       143</span></span>
-<span id="cb37-9"><a href="#cb37-9"></a><span class="co">#&gt; 4 I1      G       150</span></span>
-<span id="cb37-10"><a href="#cb37-10"></a><span class="co">#&gt; 5 I1      H       162</span></span>
-<span id="cb37-11"><a href="#cb37-11"></a><span class="co">#&gt; 6 I1      I        92</span></span>
-<span id="cb37-12"><a href="#cb37-12"></a><span class="co">#&gt; # … with 50 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>diamonds <span class="sc">|&gt;</span> </span>
+<span id="cb38-2"><a href="#cb38-2"></a>  <span class="fu">count</span>(clarity, color)</span>
+<span id="cb38-3"><a href="#cb38-3"></a><span class="co">#&gt; # A tibble: 56 × 3</span></span>
+<span id="cb38-4"><a href="#cb38-4"></a><span class="co">#&gt;   clarity color     n</span></span>
+<span id="cb38-5"><a href="#cb38-5"></a><span class="co">#&gt;   &lt;ord&gt;   &lt;ord&gt; &lt;int&gt;</span></span>
+<span id="cb38-6"><a href="#cb38-6"></a><span class="co">#&gt; 1 I1      D        42</span></span>
+<span id="cb38-7"><a href="#cb38-7"></a><span class="co">#&gt; 2 I1      E       102</span></span>
+<span id="cb38-8"><a href="#cb38-8"></a><span class="co">#&gt; 3 I1      F       143</span></span>
+<span id="cb38-9"><a href="#cb38-9"></a><span class="co">#&gt; 4 I1      G       150</span></span>
+<span id="cb38-10"><a href="#cb38-10"></a><span class="co">#&gt; 5 I1      H       162</span></span>
+<span id="cb38-11"><a href="#cb38-11"></a><span class="co">#&gt; 6 I1      I        92</span></span>
+<span id="cb38-12"><a href="#cb38-12"></a><span class="co">#&gt; # … with 50 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment"><code>dplyr::count()</code> produz tidy data:
 <ul>
@@ -1310,22 +1339,22 @@ Daniel Brito dos Santos
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>diamonds <span class="sc">|&gt;</span> </span>
-<span id="cb38-2"><a href="#cb38-2"></a>  <span class="fu">count</span>(clarity, color) <span class="sc">|&gt;</span> </span>
-<span id="cb38-3"><a href="#cb38-3"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb38-4"><a href="#cb38-4"></a>    <span class="at">names_from =</span> color, </span>
-<span id="cb38-5"><a href="#cb38-5"></a>    <span class="at">values_from =</span> n</span>
-<span id="cb38-6"><a href="#cb38-6"></a>  )</span>
-<span id="cb38-7"><a href="#cb38-7"></a><span class="co">#&gt; # A tibble: 8 × 8</span></span>
-<span id="cb38-8"><a href="#cb38-8"></a><span class="co">#&gt;   clarity     D     E     F     G     H     I     J</span></span>
-<span id="cb38-9"><a href="#cb38-9"></a><span class="co">#&gt;   &lt;ord&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
-<span id="cb38-10"><a href="#cb38-10"></a><span class="co">#&gt; 1 I1         42   102   143   150   162    92    50</span></span>
-<span id="cb38-11"><a href="#cb38-11"></a><span class="co">#&gt; 2 SI2      1370  1713  1609  1548  1563   912   479</span></span>
-<span id="cb38-12"><a href="#cb38-12"></a><span class="co">#&gt; 3 SI1      2083  2426  2131  1976  2275  1424   750</span></span>
-<span id="cb38-13"><a href="#cb38-13"></a><span class="co">#&gt; 4 VS2      1697  2470  2201  2347  1643  1169   731</span></span>
-<span id="cb38-14"><a href="#cb38-14"></a><span class="co">#&gt; 5 VS1       705  1281  1364  2148  1169   962   542</span></span>
-<span id="cb38-15"><a href="#cb38-15"></a><span class="co">#&gt; 6 VVS2      553   991   975  1443   608   365   131</span></span>
-<span id="cb38-16"><a href="#cb38-16"></a><span class="co">#&gt; # … with 2 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>diamonds <span class="sc">|&gt;</span> </span>
+<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">count</span>(clarity, color) <span class="sc">|&gt;</span> </span>
+<span id="cb39-3"><a href="#cb39-3"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb39-4"><a href="#cb39-4"></a>    <span class="at">names_from =</span> color, </span>
+<span id="cb39-5"><a href="#cb39-5"></a>    <span class="at">values_from =</span> n</span>
+<span id="cb39-6"><a href="#cb39-6"></a>  )</span>
+<span id="cb39-7"><a href="#cb39-7"></a><span class="co">#&gt; # A tibble: 8 × 8</span></span>
+<span id="cb39-8"><a href="#cb39-8"></a><span class="co">#&gt;   clarity     D     E     F     G     H     I     J</span></span>
+<span id="cb39-9"><a href="#cb39-9"></a><span class="co">#&gt;   &lt;ord&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb39-10"><a href="#cb39-10"></a><span class="co">#&gt; 1 I1         42   102   143   150   162    92    50</span></span>
+<span id="cb39-11"><a href="#cb39-11"></a><span class="co">#&gt; 2 SI2      1370  1713  1609  1548  1563   912   479</span></span>
+<span id="cb39-12"><a href="#cb39-12"></a><span class="co">#&gt; 3 SI1      2083  2426  2131  1976  2275  1424   750</span></span>
+<span id="cb39-13"><a href="#cb39-13"></a><span class="co">#&gt; 4 VS2      1697  2470  2201  2347  1643  1169   731</span></span>
+<span id="cb39-14"><a href="#cb39-14"></a><span class="co">#&gt; 5 VS1       705  1281  1364  2148  1169   962   542</span></span>
+<span id="cb39-15"><a href="#cb39-15"></a><span class="co">#&gt; 6 VVS2      553   991   975  1443   608   365   131</span></span>
+<span id="cb39-16"><a href="#cb39-16"></a><span class="co">#&gt; # … with 2 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="computação-pragmática" class="slide level2">
 <h2>6.4.3 Computação pragmática</h2>
@@ -1340,22 +1369,22 @@ Daniel Brito dos Santos
 <li class="fragment">é mais fácil trabalhar com ele untidy:</li>
 </ul>
 <div class="fragment">
-<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>cms_patient_experience <span class="sc">|&gt;</span> </span>
-<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">group_by</span>(org_pac_id) <span class="sc">|&gt;</span> </span>
-<span id="cb39-3"><a href="#cb39-3"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb39-4"><a href="#cb39-4"></a>    <span class="at">n_miss =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(prf_rate)),</span>
-<span id="cb39-5"><a href="#cb39-5"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb39-6"><a href="#cb39-6"></a>  )</span>
-<span id="cb39-7"><a href="#cb39-7"></a><span class="co">#&gt; # A tibble: 95 × 3</span></span>
-<span id="cb39-8"><a href="#cb39-8"></a><span class="co">#&gt;   org_pac_id n_miss     n</span></span>
-<span id="cb39-9"><a href="#cb39-9"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;int&gt;</span></span>
-<span id="cb39-10"><a href="#cb39-10"></a><span class="co">#&gt; 1 0446157747      0     6</span></span>
-<span id="cb39-11"><a href="#cb39-11"></a><span class="co">#&gt; 2 0446162697      0     6</span></span>
-<span id="cb39-12"><a href="#cb39-12"></a><span class="co">#&gt; 3 0547164295      1     6</span></span>
-<span id="cb39-13"><a href="#cb39-13"></a><span class="co">#&gt; 4 0749333730      0     6</span></span>
-<span id="cb39-14"><a href="#cb39-14"></a><span class="co">#&gt; 5 0840104360      0     6</span></span>
-<span id="cb39-15"><a href="#cb39-15"></a><span class="co">#&gt; 6 0840109864      0     6</span></span>
-<span id="cb39-16"><a href="#cb39-16"></a><span class="co">#&gt; # … with 89 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>cms_patient_experience <span class="sc">|&gt;</span> </span>
+<span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">group_by</span>(org_pac_id) <span class="sc">|&gt;</span> </span>
+<span id="cb40-3"><a href="#cb40-3"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb40-4"><a href="#cb40-4"></a>    <span class="at">n_miss =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(prf_rate)),</span>
+<span id="cb40-5"><a href="#cb40-5"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb40-6"><a href="#cb40-6"></a>  )</span>
+<span id="cb40-7"><a href="#cb40-7"></a><span class="co">#&gt; # A tibble: 95 × 3</span></span>
+<span id="cb40-8"><a href="#cb40-8"></a><span class="co">#&gt;   org_pac_id n_miss     n</span></span>
+<span id="cb40-9"><a href="#cb40-9"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb40-10"><a href="#cb40-10"></a><span class="co">#&gt; 1 0446157747      0     6</span></span>
+<span id="cb40-11"><a href="#cb40-11"></a><span class="co">#&gt; 2 0446162697      0     6</span></span>
+<span id="cb40-12"><a href="#cb40-12"></a><span class="co">#&gt; 3 0547164295      1     6</span></span>
+<span id="cb40-13"><a href="#cb40-13"></a><span class="co">#&gt; 4 0749333730      0     6</span></span>
+<span id="cb40-14"><a href="#cb40-14"></a><span class="co">#&gt; 5 0840104360      0     6</span></span>
+<span id="cb40-15"><a href="#cb40-15"></a><span class="co">#&gt; 6 0840109864      0     6</span></span>
+<span id="cb40-16"><a href="#cb40-16"></a><span class="co">#&gt; # … with 89 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
@@ -1387,17 +1416,17 @@ Daniel Brito dos Santos
 <section class="slide level2">
 
 <div class="fragment">
-<div class="sourceCode" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>cms_patient_care</span>
-<span id="cb40-2"><a href="#cb40-2"></a><span class="co">#&gt; # A tibble: 252 × 5</span></span>
-<span id="cb40-3"><a href="#cb40-3"></a><span class="co">#&gt;   ccn    facility_name   measure_abbr      score type       </span></span>
-<span id="cb40-4"><a href="#cb40-4"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;      </span></span>
-<span id="cb40-5"><a href="#cb40-5"></a><span class="co">#&gt; 1 011500 BAPTIST HOSPICE beliefs_addressed 202   denominator</span></span>
-<span id="cb40-6"><a href="#cb40-6"></a><span class="co">#&gt; 2 011500 BAPTIST HOSPICE beliefs_addressed 100   observed   </span></span>
-<span id="cb40-7"><a href="#cb40-7"></a><span class="co">#&gt; 3 011500 BAPTIST HOSPICE composite_process 202   denominator</span></span>
-<span id="cb40-8"><a href="#cb40-8"></a><span class="co">#&gt; 4 011500 BAPTIST HOSPICE composite_process  88.1 observed   </span></span>
-<span id="cb40-9"><a href="#cb40-9"></a><span class="co">#&gt; 5 011500 BAPTIST HOSPICE dyspena_treatment 110   denominator</span></span>
-<span id="cb40-10"><a href="#cb40-10"></a><span class="co">#&gt; 6 011500 BAPTIST HOSPICE dyspena_treatment  99.1 observed   </span></span>
-<span id="cb40-11"><a href="#cb40-11"></a><span class="co">#&gt; # … with 246 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>cms_patient_care</span>
+<span id="cb41-2"><a href="#cb41-2"></a><span class="co">#&gt; # A tibble: 252 × 5</span></span>
+<span id="cb41-3"><a href="#cb41-3"></a><span class="co">#&gt;   ccn    facility_name   measure_abbr      score type       </span></span>
+<span id="cb41-4"><a href="#cb41-4"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;      </span></span>
+<span id="cb41-5"><a href="#cb41-5"></a><span class="co">#&gt; 1 011500 BAPTIST HOSPICE beliefs_addressed 202   denominator</span></span>
+<span id="cb41-6"><a href="#cb41-6"></a><span class="co">#&gt; 2 011500 BAPTIST HOSPICE beliefs_addressed 100   observed   </span></span>
+<span id="cb41-7"><a href="#cb41-7"></a><span class="co">#&gt; 3 011500 BAPTIST HOSPICE composite_process 202   denominator</span></span>
+<span id="cb41-8"><a href="#cb41-8"></a><span class="co">#&gt; 4 011500 BAPTIST HOSPICE composite_process  88.1 observed   </span></span>
+<span id="cb41-9"><a href="#cb41-9"></a><span class="co">#&gt; 5 011500 BAPTIST HOSPICE dyspena_treatment 110   denominator</span></span>
+<span id="cb41-10"><a href="#cb41-10"></a><span class="co">#&gt; 6 011500 BAPTIST HOSPICE dyspena_treatment  99.1 observed   </span></span>
+<span id="cb41-11"><a href="#cb41-11"></a><span class="co">#&gt; # … with 246 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">ele contém informação de 9 medidas:
 <ul>
@@ -1417,17 +1446,17 @@ Daniel Brito dos Santos
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>cms_patient_care</span>
-<span id="cb41-2"><a href="#cb41-2"></a><span class="co">#&gt; # A tibble: 252 × 5</span></span>
-<span id="cb41-3"><a href="#cb41-3"></a><span class="co">#&gt;   ccn    facility_name   measure_abbr      score type       </span></span>
-<span id="cb41-4"><a href="#cb41-4"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;      </span></span>
-<span id="cb41-5"><a href="#cb41-5"></a><span class="co">#&gt; 1 011500 BAPTIST HOSPICE beliefs_addressed 202   denominator</span></span>
-<span id="cb41-6"><a href="#cb41-6"></a><span class="co">#&gt; 2 011500 BAPTIST HOSPICE beliefs_addressed 100   observed   </span></span>
-<span id="cb41-7"><a href="#cb41-7"></a><span class="co">#&gt; 3 011500 BAPTIST HOSPICE composite_process 202   denominator</span></span>
-<span id="cb41-8"><a href="#cb41-8"></a><span class="co">#&gt; 4 011500 BAPTIST HOSPICE composite_process  88.1 observed   </span></span>
-<span id="cb41-9"><a href="#cb41-9"></a><span class="co">#&gt; 5 011500 BAPTIST HOSPICE dyspena_treatment 110   denominator</span></span>
-<span id="cb41-10"><a href="#cb41-10"></a><span class="co">#&gt; 6 011500 BAPTIST HOSPICE dyspena_treatment  99.1 observed   </span></span>
-<span id="cb41-11"><a href="#cb41-11"></a><span class="co">#&gt; # … with 246 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>cms_patient_care</span>
+<span id="cb42-2"><a href="#cb42-2"></a><span class="co">#&gt; # A tibble: 252 × 5</span></span>
+<span id="cb42-3"><a href="#cb42-3"></a><span class="co">#&gt;   ccn    facility_name   measure_abbr      score type       </span></span>
+<span id="cb42-4"><a href="#cb42-4"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;      </span></span>
+<span id="cb42-5"><a href="#cb42-5"></a><span class="co">#&gt; 1 011500 BAPTIST HOSPICE beliefs_addressed 202   denominator</span></span>
+<span id="cb42-6"><a href="#cb42-6"></a><span class="co">#&gt; 2 011500 BAPTIST HOSPICE beliefs_addressed 100   observed   </span></span>
+<span id="cb42-7"><a href="#cb42-7"></a><span class="co">#&gt; 3 011500 BAPTIST HOSPICE composite_process 202   denominator</span></span>
+<span id="cb42-8"><a href="#cb42-8"></a><span class="co">#&gt; 4 011500 BAPTIST HOSPICE composite_process  88.1 observed   </span></span>
+<span id="cb42-9"><a href="#cb42-9"></a><span class="co">#&gt; 5 011500 BAPTIST HOSPICE dyspena_treatment 110   denominator</span></span>
+<span id="cb42-10"><a href="#cb42-10"></a><span class="co">#&gt; 6 011500 BAPTIST HOSPICE dyspena_treatment  99.1 observed   </span></span>
+<span id="cb42-11"><a href="#cb42-11"></a><span class="co">#&gt; # … with 246 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">Se você quiser computar o <strong>número de pacientes</strong> que responderam <strong>sim</strong> para cada <strong>pergunta</strong>? Como você faria?</li>
 <li class="fragment">você pode pivotar <code>type</code> para a as colunas:</li>
@@ -1436,40 +1465,40 @@ Daniel Brito dos Santos
 <section class="slide level2">
 
 <p>Dessa forma:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>cms_patient_care <span class="sc">|&gt;</span> </span>
-<span id="cb42-2"><a href="#cb42-2"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb42-3"><a href="#cb42-3"></a>    <span class="at">names_from =</span> type,</span>
-<span id="cb42-4"><a href="#cb42-4"></a>    <span class="at">values_from =</span> score</span>
-<span id="cb42-5"><a href="#cb42-5"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb42-6"><a href="#cb42-6"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb42-7"><a href="#cb42-7"></a>    <span class="at">numerator =</span> <span class="fu">round</span>(observed <span class="sc">/</span> <span class="dv">100</span> <span class="sc">*</span> denominator)</span>
-<span id="cb42-8"><a href="#cb42-8"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>cms_patient_care <span class="sc">|&gt;</span> </span>
+<span id="cb43-2"><a href="#cb43-2"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb43-3"><a href="#cb43-3"></a>    <span class="at">names_from =</span> type,</span>
+<span id="cb43-4"><a href="#cb43-4"></a>    <span class="at">values_from =</span> score</span>
+<span id="cb43-5"><a href="#cb43-5"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb43-6"><a href="#cb43-6"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb43-7"><a href="#cb43-7"></a>    <span class="at">numerator =</span> <span class="fu">round</span>(observed <span class="sc">/</span> <span class="dv">100</span> <span class="sc">*</span> denominator)</span>
+<span id="cb43-8"><a href="#cb43-8"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<div class="sourceCode" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="co">#&gt; # A tibble: 126 × 6</span></span>
-<span id="cb43-2"><a href="#cb43-2"></a><span class="co">#&gt;   ccn    facility_name   measure_abbr      denominator observed numerator</span></span>
-<span id="cb43-3"><a href="#cb43-3"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;                   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span id="cb43-4"><a href="#cb43-4"></a><span class="co">#&gt; 1 011500 BAPTIST HOSPICE beliefs_addressed         202    100         202</span></span>
-<span id="cb43-5"><a href="#cb43-5"></a><span class="co">#&gt; 2 011500 BAPTIST HOSPICE composite_process         202     88.1       178</span></span>
-<span id="cb43-6"><a href="#cb43-6"></a><span class="co">#&gt; 3 011500 BAPTIST HOSPICE dyspena_treatment         110     99.1       109</span></span>
-<span id="cb43-7"><a href="#cb43-7"></a><span class="co">#&gt; 4 011500 BAPTIST HOSPICE dyspnea_screening         202    100         202</span></span>
-<span id="cb43-8"><a href="#cb43-8"></a><span class="co">#&gt; 5 011500 BAPTIST HOSPICE opioid_bowel               61    100          61</span></span>
-<span id="cb43-9"><a href="#cb43-9"></a><span class="co">#&gt; 6 011500 BAPTIST HOSPICE pain_assessment           107    100         107</span></span>
-<span id="cb43-10"><a href="#cb43-10"></a><span class="co">#&gt; # … with 120 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="co">#&gt; # A tibble: 126 × 6</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a><span class="co">#&gt;   ccn    facility_name   measure_abbr      denominator observed numerator</span></span>
+<span id="cb44-3"><a href="#cb44-3"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;                   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span id="cb44-4"><a href="#cb44-4"></a><span class="co">#&gt; 1 011500 BAPTIST HOSPICE beliefs_addressed         202    100         202</span></span>
+<span id="cb44-5"><a href="#cb44-5"></a><span class="co">#&gt; 2 011500 BAPTIST HOSPICE composite_process         202     88.1       178</span></span>
+<span id="cb44-6"><a href="#cb44-6"></a><span class="co">#&gt; 3 011500 BAPTIST HOSPICE dyspena_treatment         110     99.1       109</span></span>
+<span id="cb44-7"><a href="#cb44-7"></a><span class="co">#&gt; 4 011500 BAPTIST HOSPICE dyspnea_screening         202    100         202</span></span>
+<span id="cb44-8"><a href="#cb44-8"></a><span class="co">#&gt; 5 011500 BAPTIST HOSPICE opioid_bowel               61    100          61</span></span>
+<span id="cb44-9"><a href="#cb44-9"></a><span class="co">#&gt; 6 011500 BAPTIST HOSPICE pain_assessment           107    100         107</span></span>
+<span id="cb44-10"><a href="#cb44-10"></a><span class="co">#&gt; # … with 120 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>cms_patient_care</span>
-<span id="cb44-2"><a href="#cb44-2"></a><span class="co">#&gt; # A tibble: 252 × 5</span></span>
-<span id="cb44-3"><a href="#cb44-3"></a><span class="co">#&gt;   ccn    facility_name   measure_abbr      score type       </span></span>
-<span id="cb44-4"><a href="#cb44-4"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;      </span></span>
-<span id="cb44-5"><a href="#cb44-5"></a><span class="co">#&gt; 1 011500 BAPTIST HOSPICE beliefs_addressed 202   denominator</span></span>
-<span id="cb44-6"><a href="#cb44-6"></a><span class="co">#&gt; 2 011500 BAPTIST HOSPICE beliefs_addressed 100   observed   </span></span>
-<span id="cb44-7"><a href="#cb44-7"></a><span class="co">#&gt; 3 011500 BAPTIST HOSPICE composite_process 202   denominator</span></span>
-<span id="cb44-8"><a href="#cb44-8"></a><span class="co">#&gt; 4 011500 BAPTIST HOSPICE composite_process  88.1 observed   </span></span>
-<span id="cb44-9"><a href="#cb44-9"></a><span class="co">#&gt; 5 011500 BAPTIST HOSPICE dyspena_treatment 110   denominator</span></span>
-<span id="cb44-10"><a href="#cb44-10"></a><span class="co">#&gt; 6 011500 BAPTIST HOSPICE dyspena_treatment  99.1 observed   </span></span>
-<span id="cb44-11"><a href="#cb44-11"></a><span class="co">#&gt; # … with 246 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>cms_patient_care</span>
+<span id="cb45-2"><a href="#cb45-2"></a><span class="co">#&gt; # A tibble: 252 × 5</span></span>
+<span id="cb45-3"><a href="#cb45-3"></a><span class="co">#&gt;   ccn    facility_name   measure_abbr      score type       </span></span>
+<span id="cb45-4"><a href="#cb45-4"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;      </span></span>
+<span id="cb45-5"><a href="#cb45-5"></a><span class="co">#&gt; 1 011500 BAPTIST HOSPICE beliefs_addressed 202   denominator</span></span>
+<span id="cb45-6"><a href="#cb45-6"></a><span class="co">#&gt; 2 011500 BAPTIST HOSPICE beliefs_addressed 100   observed   </span></span>
+<span id="cb45-7"><a href="#cb45-7"></a><span class="co">#&gt; 3 011500 BAPTIST HOSPICE composite_process 202   denominator</span></span>
+<span id="cb45-8"><a href="#cb45-8"></a><span class="co">#&gt; 4 011500 BAPTIST HOSPICE composite_process  88.1 observed   </span></span>
+<span id="cb45-9"><a href="#cb45-9"></a><span class="co">#&gt; 5 011500 BAPTIST HOSPICE dyspena_treatment 110   denominator</span></span>
+<span id="cb45-10"><a href="#cb45-10"></a><span class="co">#&gt; 6 011500 BAPTIST HOSPICE dyspena_treatment  99.1 observed   </span></span>
+<span id="cb45-11"><a href="#cb45-11"></a><span class="co">#&gt; # … with 246 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">Se você quiser apresentar a distribuição de cada métrica? Como você faria?</li>
 <li class="fragment">Poderia deixar quieto sem pivotar, e criar um histograma facetado por <code>measure_abbr</code></li>
@@ -1479,27 +1508,34 @@ Daniel Brito dos Santos
 
 <p>Dessa forma:</p>
 <div class="fragment">
-<div class="sourceCode" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>cms_patient_care <span class="sc">|&gt;</span> </span>
-<span id="cb45-2"><a href="#cb45-2"></a>  <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"observed"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb45-3"><a href="#cb45-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> score)) <span class="sc">+</span> </span>
-<span id="cb45-4"><a href="#cb45-4"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
-<span id="cb45-5"><a href="#cb45-5"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(measure_abbr))</span>
-<span id="cb45-6"><a href="#cb45-6"></a><span class="co">#&gt; Warning: Removed 1 rows containing non-finite values (`stat_bin()`).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>cms_patient_care <span class="sc">|&gt;</span> </span>
+<span id="cb46-2"><a href="#cb46-2"></a>  <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"observed"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb46-3"><a href="#cb46-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> score)) <span class="sc">+</span> </span>
+<span id="cb46-4"><a href="#cb46-4"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb46-5"><a href="#cb46-5"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(measure_abbr))</span>
+<span id="cb46-6"><a href="#cb46-6"></a><span class="co">#&gt; Warning: Removed 1 rows containing non-finite values (`stat_bin()`).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="data_tidying_files/figure-revealjs/unnamed-chunk-5-1.png" width="960"></p>
+</div>
+</div>
 </div>
 </section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>cms_patient_care</span>
-<span id="cb46-2"><a href="#cb46-2"></a><span class="co">#&gt; # A tibble: 252 × 5</span></span>
-<span id="cb46-3"><a href="#cb46-3"></a><span class="co">#&gt;   ccn    facility_name   measure_abbr      score type       </span></span>
-<span id="cb46-4"><a href="#cb46-4"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;      </span></span>
-<span id="cb46-5"><a href="#cb46-5"></a><span class="co">#&gt; 1 011500 BAPTIST HOSPICE beliefs_addressed 202   denominator</span></span>
-<span id="cb46-6"><a href="#cb46-6"></a><span class="co">#&gt; 2 011500 BAPTIST HOSPICE beliefs_addressed 100   observed   </span></span>
-<span id="cb46-7"><a href="#cb46-7"></a><span class="co">#&gt; 3 011500 BAPTIST HOSPICE composite_process 202   denominator</span></span>
-<span id="cb46-8"><a href="#cb46-8"></a><span class="co">#&gt; 4 011500 BAPTIST HOSPICE composite_process  88.1 observed   </span></span>
-<span id="cb46-9"><a href="#cb46-9"></a><span class="co">#&gt; 5 011500 BAPTIST HOSPICE dyspena_treatment 110   denominator</span></span>
-<span id="cb46-10"><a href="#cb46-10"></a><span class="co">#&gt; 6 011500 BAPTIST HOSPICE dyspena_treatment  99.1 observed   </span></span>
-<span id="cb46-11"><a href="#cb46-11"></a><span class="co">#&gt; # … with 246 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>cms_patient_care</span>
+<span id="cb47-2"><a href="#cb47-2"></a><span class="co">#&gt; # A tibble: 252 × 5</span></span>
+<span id="cb47-3"><a href="#cb47-3"></a><span class="co">#&gt;   ccn    facility_name   measure_abbr      score type       </span></span>
+<span id="cb47-4"><a href="#cb47-4"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;      </span></span>
+<span id="cb47-5"><a href="#cb47-5"></a><span class="co">#&gt; 1 011500 BAPTIST HOSPICE beliefs_addressed 202   denominator</span></span>
+<span id="cb47-6"><a href="#cb47-6"></a><span class="co">#&gt; 2 011500 BAPTIST HOSPICE beliefs_addressed 100   observed   </span></span>
+<span id="cb47-7"><a href="#cb47-7"></a><span class="co">#&gt; 3 011500 BAPTIST HOSPICE composite_process 202   denominator</span></span>
+<span id="cb47-8"><a href="#cb47-8"></a><span class="co">#&gt; 4 011500 BAPTIST HOSPICE composite_process  88.1 observed   </span></span>
+<span id="cb47-9"><a href="#cb47-9"></a><span class="co">#&gt; 5 011500 BAPTIST HOSPICE dyspena_treatment 110   denominator</span></span>
+<span id="cb47-10"><a href="#cb47-10"></a><span class="co">#&gt; 6 011500 BAPTIST HOSPICE dyspena_treatment  99.1 observed   </span></span>
+<span id="cb47-11"><a href="#cb47-11"></a><span class="co">#&gt; # … with 246 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">Se você quiser explorar a relação entre diferentes métricas? Como você faria?</li>
 <li class="fragment">Você poderia colocar os nomes das métricas nas colunas para compará-las usando scatterplots</li>
@@ -1509,16 +1545,23 @@ Daniel Brito dos Santos
 
 <p>Dessa forma:</p>
 <div class="fragment">
-<div class="sourceCode" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>cms_patient_care <span class="sc">|&gt;</span> </span>
-<span id="cb47-2"><a href="#cb47-2"></a>  <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"observed"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb47-3"><a href="#cb47-3"></a>  <span class="fu">select</span>(<span class="sc">-</span>type) <span class="sc">|&gt;</span> </span>
-<span id="cb47-4"><a href="#cb47-4"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb47-5"><a href="#cb47-5"></a>    <span class="at">names_from =</span> measure_abbr,</span>
-<span id="cb47-6"><a href="#cb47-6"></a>    <span class="at">values_from =</span> score</span>
-<span id="cb47-7"><a href="#cb47-7"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb47-8"><a href="#cb47-8"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> dyspnea_screening, <span class="at">y =</span> dyspena_treatment)) <span class="sc">+</span> </span>
-<span id="cb47-9"><a href="#cb47-9"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb47-10"><a href="#cb47-10"></a>  <span class="fu">coord_equal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>cms_patient_care <span class="sc">|&gt;</span> </span>
+<span id="cb48-2"><a href="#cb48-2"></a>  <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"observed"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb48-3"><a href="#cb48-3"></a>  <span class="fu">select</span>(<span class="sc">-</span>type) <span class="sc">|&gt;</span> </span>
+<span id="cb48-4"><a href="#cb48-4"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb48-5"><a href="#cb48-5"></a>    <span class="at">names_from =</span> measure_abbr,</span>
+<span id="cb48-6"><a href="#cb48-6"></a>    <span class="at">values_from =</span> score</span>
+<span id="cb48-7"><a href="#cb48-7"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb48-8"><a href="#cb48-8"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> dyspnea_screening, <span class="at">y =</span> dyspena_treatment)) <span class="sc">+</span> </span>
+<span id="cb48-9"><a href="#cb48-9"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb48-10"><a href="#cb48-10"></a>  <span class="fu">coord_equal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="data_tidying_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
+</div>
+</div>
 </div>
 </section></section>
 <section id="sumário" class="title-slide slide level1 center">

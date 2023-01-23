@@ -17,7 +17,7 @@ format:
 
 . . .
 
-> Datasets tidys são todos iguais, mas datasets bagunçados são cada um bagunçados do seu próprio jeito. 
+> Datasets tidys são todos iguais, mas datasets bagunçados são bagunçados cada um à sua maneira. 
 
 -- <cite> Hadley Wickham </cite> 
 
@@ -74,6 +74,7 @@ table1
 #> 6 China        2000 213766 1280428583
 ```
 
+. . .
 
 ```r
 table2
@@ -103,6 +104,8 @@ table3
 #> 5 China        1999 212258/1272915272
 #> 6 China        2000 213766/1280428583
 ```
+
+. . .
 
 ```r
 table4a # cases
@@ -320,7 +323,7 @@ billboard |>
 - Para isso vamos usar o `mutate()` e a função `readr::parse_number()`
   - essa função extrai o primeiro número de uma string
 
-. . .
+---
 
 ```{r}
 #| echo: true
@@ -334,6 +337,7 @@ billboard_tidy <- billboard |>
   mutate(
     week = parse_number(week)
   )
+billboard_tidy
 ```
 
 ---
@@ -461,10 +465,12 @@ glimpse(who2)
 
 ---
 
-- Assim, temos seis variáveis:
-  - duas já nas colunas `country` e `year`
-  - três contidas nos nomes de colunas 
-  - e mais uma nos valores dessas colunas
+- Assim, temos **seis** variáveis:
+  - **duas** já nas colunas `country` e `year`
+  - **três** contidas nos nomes de colunas 
+  - e mais **uma** nos valores dessas colunas
+
+---
 
 - Portanto nosso `pivot_longer()` vai ter as seguintes mudanças:
   - `names_to` vai receber um vetor com os nomes de colunas
@@ -571,6 +577,8 @@ household |>
 - Pivotar com `names_to = c(".values", "id")` separa os nomes das colunas em dois componentes:
   - o primeiro determina o output do nome da coluna (`x` ou `y`) 
   - o segundo determina o valor de `id`
+
+. . .
 
 ![](data_tidying_files/images/names-and-values.png)
 
@@ -1051,6 +1059,17 @@ cms_patient_care |>
 #> Warning: Removed 1 rows containing non-finite values (`stat_bin()`).
 ```
 
+. . .
+
+```{r}
+cms_patient_care |> 
+  filter(type == "observed") |> 
+  ggplot(aes(x = score)) + 
+  geom_histogram(binwidth = 2) + 
+  facet_wrap(vars(measure_abbr))
+#> Warning: Removed 1 rows containing non-finite values (`stat_bin()`).
+```
+
 ---
 
 ```r
@@ -1089,6 +1108,20 @@ cms_patient_care |>
   coord_equal()
 ```
 
+. . .
+
+```{r}
+cms_patient_care |> 
+  filter(type == "observed") |> 
+  select(-type) |> 
+  pivot_wider(
+    names_from = measure_abbr,
+    values_from = score
+  ) |> 
+  ggplot(aes(x = dyspnea_screening, y = dyspena_treatment)) + 
+  geom_point() + 
+  coord_equal()
+```
 
 
 # 6.5 Sumário
