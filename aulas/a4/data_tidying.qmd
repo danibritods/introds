@@ -2,10 +2,10 @@
 title: "6 - Data tidying"
 subtitle: "Introdução à ciência de dados"
 author: "Daniel Brito dos Santos"
-format: pdf
-  # revealjs:
-  #   incremental: true
-  #   chalkboard: true
+format:
+  revealjs:
+    incremental: true
+    chalkboard: true
 ---
 
 # 6.1 Introdução 

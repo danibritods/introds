@@ -1,0 +1,32 @@
+---
+title: "8 Data Import"
+subtitle: "Introdução à ciência de dados"
+author: "Daniel Brito dos Santos"
+format:
+  revealjs:
+    incremental: true
+    chalkboard: true
+---
+
+# 8.1 Introdução
+
+---
+
+- Usar os dados fornecidos por pacotes de R é uma ótima forma de aprender as ferramentas da ciência de dados
+- Mas você vai querer aplicar o que aprendeu nos seus próprios dados!
+- Na aula de hoje veremos o básico da leitura de arquivos no R
+
+- Especificamente vamos focar em arquivos tabulares de texto (csv)
+- Veremos dicas práticas de como lidar com colunas, nomes, tipos e dados faltantes. 
+- Depois veremos como ler dados de arquivos múltiplos e salvar arquivos
+- Finalmente veremos como criar datasets manualmente
+
+## 8.1.1 Prerequisitos 
+
+- Vamos utilizar o pacote **readr** que é parte do tidyverse 
+
+. . . 
+
+```r
+library(tidyverse)
+```
