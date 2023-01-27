@@ -9,23 +9,64 @@ format:
 
 # Exercícios 6.2.1
 
+```{r}
+library(tidyverse)
+```
+
 ## 1. Descreva com palavras como as variáveis e observações são organizadas em cada um dos datasets `table1`, `table2`, `table3`, `table4a` e `table4b`
 
 ---
 
 ### 1.1 Descreva com palavras como as variáveis e observações são organizadas em cada um dos datasets `table1`
 
+. . .
+
+```{r}
+glimpse(table1)
+```
+
 ---
 
 ### 1.2 Descreva com palavras como as variáveis e observações são organizadas em cada um dos datasets `table2`
+
+. . .
+
+```{r}
+glimpse(table2)
+```
+
+
 
 ---
 
 ### 1.3 Descreva com palavras como as variáveis e observações são organizadas em cada um dos datasets `table3`
 
+. . .
+
+```{r}
+glimpse(table3)
+```
+
+
 ---
 
 ### 1.4 Descreva com palavras como as variáveis e observações são organizadas em cada um dos datasets `table4a` + `table4b`
+
+...
+
+. . .
+
+```{r}
+glimpse(table4a)
+```
+
+
+```{r}
+glimpse(table4b)
+```
+
+
+
 
 ## 2. Descreva com palavras e/ou pseudocódigo o processo que você faria para calcular `rate` das tabelas `table2` and `table4a` + `table4b`.
 
