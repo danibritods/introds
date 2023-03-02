@@ -24,7 +24,7 @@ O trabalho final consistiu em uma breve análise de dados:
 
 | Nome | Projeto |
 | --- | --- |
-| {nome com link do git} | {título do projeto com link pro arquivo} |
+| [aluno1](link_do_github) | [Título do projeto](link_do_projeto) |
 |  |  |
 |  |  |
 
