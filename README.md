@@ -1,5 +1,5 @@
 # Introdução a Ciência de Dados
-Disciplina de verão (2023) que eu organizei e apresentei para meus colegas.
+Disciplina de verão que eu organizei e apresentei para meus colegas em 2023.
 
 ---
 
