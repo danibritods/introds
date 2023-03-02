@@ -1,0 +1,15 @@
+estudantes <- c("Jonathan",
+                "Faria",
+                "Terra",
+                "Couto",
+                "Javier",
+                "Paulo",
+                "Fernandes",
+                "Larissa", 
+                "Guilherme",
+                "Gravina")
+l <- estudantes |>
+  sample()
+  
+  
+

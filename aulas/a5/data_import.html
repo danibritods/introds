@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="data_import_files/libs/clipboard/clipboard.min.js"></script>
+<script src="data_import_files/libs/quarto-html/tabby.min.js"></script>
+<script src="data_import_files/libs/quarto-html/popper.min.js"></script>
+<script src="data_import_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="data_import_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="data_import_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="data_import_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.2.313">
+
+  <meta name="author" content="Daniel Brito dos Santos">
+  <title>8 Data Import</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="data_import_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="data_import_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="data_import_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="styles.css">
+  <link href="data_import_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="data_import_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="data_import_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="data_import_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="data_import_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="data_import_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-captioned.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-captioned) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-captioned.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-captioned .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-captioned .callout-caption  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-captioned.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-captioned.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-caption {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-caption {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-caption {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-captioned .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-captioned .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-captioned) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-caption {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-caption {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-caption {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-caption {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-caption {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">8 Data Import</h1>
+  <p class="subtitle">Introdução à ciência de dados</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Daniel Brito dos Santos 
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<section id="introdução" class="title-slide slide level1 center">
+<h1>8.1 Introdução</h1>
+
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment">Usar os dados fornecidos por pacotes de R é uma ótima forma de aprender as ferramentas da ciência de dados</li>
+<li class="fragment">Mas você vai querer aplicar o que aprendeu nos seus próprios dados!</li>
+<li class="fragment">Na aula de hoje veremos o básico da leitura de arquivos no R</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="especificamente">Especificamente:</h3>
+<ul>
+<li class="fragment">vamos focar em arquivos <strong>tabulares de texto</strong> (csv)</li>
+<li class="fragment">veremos dicas práticas de como lidar com <strong>colunas</strong>, <strong>nomes</strong>, <strong>tipos</strong> e <strong>dados faltantes</strong>.</li>
+<li class="fragment">depois veremos como ler dados de <strong>arquivos múltiplos</strong> e <strong>salvar</strong> arquivos</li>
+<li class="fragment">finalmente veremos como <strong>criar datasets</strong> manualmente</li>
+</ul>
+</section>
+<section id="prerequisitos" class="slide level2">
+<h2>8.1.1 Prerequisitos</h2>
+<ul>
+<li class="fragment">Vamos utilizar o pacote <strong>readr</strong> que é parte do tidyverse</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li class="fragment">Também vamos mencionar o pacote <strong>janitor</strong> para facilitar certas manipulações de dados</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">install.packages</span>(<span class="st">"janitor"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(janitor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section>
+<section>
+<section id="lendo-dados-de-um-arquivo" class="title-slide slide level1 center">
+<h1>8.2 Lendo dados de um arquivo</h1>
+
+</section>
+<section id="csv" class="slide level2">
+<h2>CSV</h2>
+<ul>
+<li class="fragment">formato mais famoso de dados retangulares</li>
+<li class="fragment">primeira linha normalmente é <strong>header</strong>
+<ul>
+<li class="fragment">nomeia as colunas</li>
+</ul></li>
+<li class="fragment">linhas seguintes apresenta os dados</li>
+</ul>
+</section>
+<section id="exemplo" class="slide level2">
+<h2>Exemplo</h2>
+<div class="fragment">
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#&gt; Student ID,Full Name,favourite.food,mealPlan,AGE</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#&gt; 1,Sunil Huffmann,Strawberry yoghurt,Lunch only,4</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt; 2,Barclay Lynn,French fries,Lunch only,5</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt; 3,Jayendra Lyne,N/A,Breakfast and lunch,7</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; 4,Leon Rossini,Anchovies,Lunch only,</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; 5,Chidiegwu Dunkel,Pizza,Breakfast and lunch,five</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; 6,Güvenç Attila,Ice cream,Lunch only,6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="tabela" class="slide level2">
+<h2>Tabela</h2>
+<div width="30">
+<table>
+<colgroup>
+<col style="width: 15%">
+<col style="width: 23%">
+<col style="width: 25%">
+<col style="width: 27%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Student ID</th>
+<th>Full Name</th>
+<th>favourite.food</th>
+<th>mealPlan</th>
+<th>AGE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Sunil Huffmann</td>
+<td>Strawberry yoghurt</td>
+<td>Lunch only</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Barclay Lynn</td>
+<td>French fries</td>
+<td>Lunch only</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Jayendra Lyne</td>
+<td>N/A</td>
+<td>Breakfast and lunch</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Leon Rossini</td>
+<td>Anchovies</td>
+<td>Lunch only</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Chidiegwu Dunkel</td>
+<td>Pizza</td>
+<td>Breakfast and lunch</td>
+<td>five</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Güvenç Attila</td>
+<td>Ice cream</td>
+<td>Lunch only</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="função-read_csv" class="slide level2">
+<h2>Função <code>read_csv()</code></h2>
+<ul>
+<li class="fragment">Como o nome sugere, é a função para ler CSVs no R</li>
+<li class="fragment">Seu primeiro argumento é o caminho do arquivo</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>students <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/students.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>students <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/students.csv"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&gt; Rows: 6 Columns: 5</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; ── Column specification ─────────────────────────────────────────────────────</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt; Delimiter: ","</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt; chr (4): Full Name, favourite.food, mealPlan, AGE</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt; dbl (1): Student ID</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; </span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li class="fragment">Quando você roda a função ela apresenta uma mensagem com:
+<ul>
+<li class="fragment">número de linhas e colunas</li>
+<li class="fragment">o delimitador utilizado</li>
+<li class="fragment">especificações das colunas organizdas pelo tipo de dados que a coluna contém</li>
+<li class="fragment">informações sobre como recuperar a especificação da completa da coluna (já vamos falar disso)</li>
+<li class="fragment">como fazer essa mensagem sumir</li>
+</ul></li>
+</ul>
+</section>
+<section id="conselho-prático" class="slide level2">
+<h2>8.2.1 Conselho prático</h2>
+<ul>
+<li class="fragment">O primeiro passo após a leitura dos dados é deixá-los de um jeito que facilite o resto da análise</li>
+<li class="fragment">Com isso em mente:
+<ul>
+<li class="fragment">Vamos dar mais uma olhada no <code>students</code></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># A tibble: 6 × 5</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="st">`</span><span class="at">Student ID</span><span class="st">`</span> <span class="st">`</span><span class="at">Full Name</span><span class="st">`</span>      favourite.food     mealPlan            AGE  </span>
+<span id="cb6-3"><a href="#cb6-3"></a>         <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>            <span class="er">&lt;</span>chr<span class="sc">&gt;</span>              <span class="er">&lt;</span>chr<span class="sc">&gt;</span>               <span class="er">&lt;</span>chr<span class="sc">&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="dv">1</span>            <span class="dv">1</span> Sunil Huffmann   Strawberry yoghurt Lunch only          <span class="dv">4</span>    </span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="dv">2</span>            <span class="dv">2</span> Barclay Lynn     French fries       Lunch only          <span class="dv">5</span>    </span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="dv">3</span>            <span class="dv">3</span> Jayendra Lyne    N<span class="sc">/</span>A                Breakfast and lunch <span class="dv">7</span>    </span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="dv">4</span>            <span class="dv">4</span> Leon Rossini     Anchovies          Lunch only          <span class="cn">NA</span>   </span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="dv">5</span>            <span class="dv">5</span> Chidiegwu Dunkel Pizza              Breakfast and lunch five </span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="dv">6</span>            <span class="dv">6</span> Güvenç Attila    Ice cream          Lunch only          <span class="dv">6</span>   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li class="fragment"><p>Na coluna <code>favourite.food</code> tem alguns alimentos e uma string “N/A” que deveria ser um <code>NA</code> que o R entende como “não disponível”</p></li>
+<li class="fragment"><p>Pedemos resolver isso definindo quais stings devem ser interpretadas como <code>NA</code></p></li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>students <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/students.csv"</span>, <span class="at">na =</span> <span class="fu">c</span>(<span class="st">"N/A"</span>, <span class="st">""</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># A tibble: 6 × 5</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="st">`</span><span class="at">Student ID</span><span class="st">`</span> <span class="st">`</span><span class="at">Full Name</span><span class="st">`</span>      favourite.food     mealPlan            AGE  </span>
+<span id="cb8-3"><a href="#cb8-3"></a>         <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>            <span class="er">&lt;</span>chr<span class="sc">&gt;</span>              <span class="er">&lt;</span>chr<span class="sc">&gt;</span>               <span class="er">&lt;</span>chr<span class="sc">&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="dv">1</span>            <span class="dv">1</span> Sunil Huffmann   Strawberry yoghurt Lunch only          <span class="dv">4</span>    </span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="dv">2</span>            <span class="dv">2</span> Barclay Lynn     French fries       Lunch only          <span class="dv">5</span>    </span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="dv">3</span>            <span class="dv">3</span> Jayendra Lyne    <span class="cn">NA</span>                 Breakfast and lunch <span class="dv">7</span>    </span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="dv">4</span>            <span class="dv">4</span> Leon Rossini     Anchovies          Lunch only          <span class="cn">NA</span>   </span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="dv">5</span>            <span class="dv">5</span> Chidiegwu Dunkel Pizza              Breakfast and lunch five </span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="dv">6</span>            <span class="dv">6</span> Güvenç Attila    Ice cream          Lunch only          <span class="dv">6</span>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li class="fragment"><p>Perceberam que <code>Student ID</code> e <code>Full Name</code> estão entre crases (`) ?</p></li>
+<li class="fragment"><p>Isso é porque elas contém espaço, o que viola a regra para nomes de variáveis</p></li>
+<li class="fragment"><p>Como resolver?</p></li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>students <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">rename</span>(</span>
+<span id="cb9-3"><a href="#cb9-3"></a>    <span class="at">student_id =</span> <span class="st">`</span><span class="at">Student ID</span><span class="st">`</span>,</span>
+<span id="cb9-4"><a href="#cb9-4"></a>    <span class="at">full_name =</span> <span class="st">`</span><span class="at">Full Name</span><span class="st">`</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment">Alternativamente podemos usar o<code>janitor::clean_names()</code></li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>students <span class="sc">|&gt;</span> janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&gt;   student_id full_name        favourite_food     meal_plan           age  </span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;              &lt;chr&gt;               &lt;chr&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt; 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only          4    </span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt; 2          2 Barclay Lynn     French fries       Lunch only          5    </span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch 7    </span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only          &lt;NA&gt; </span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch five </span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li class="fragment">Essa função automaticamente transforma os nomes para “snake_case”</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># A tibble: 6 × 5</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>  student_id full_name        favourite_food     meal_plan           age  </span>
+<span id="cb11-3"><a href="#cb11-3"></a>       <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>            <span class="er">&lt;</span>chr<span class="sc">&gt;</span>              <span class="er">&lt;</span>chr<span class="sc">&gt;</span>               <span class="er">&lt;</span>chr<span class="sc">&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="dv">1</span>          <span class="dv">1</span> Sunil Huffmann   Strawberry yoghurt Lunch only          <span class="dv">4</span>    </span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="dv">2</span>          <span class="dv">2</span> Barclay Lynn     French fries       Lunch only          <span class="dv">5</span>    </span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="dv">3</span>          <span class="dv">3</span> Jayendra Lyne    <span class="cn">NA</span>                 Breakfast and lunch <span class="dv">7</span>    </span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="dv">4</span>          <span class="dv">4</span> Leon Rossini     Anchovies          Lunch only          <span class="cn">NA</span>   </span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="dv">5</span>          <span class="dv">5</span> Chidiegwu Dunkel Pizza              Breakfast and lunch five </span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="dv">6</span>          <span class="dv">6</span> Güvenç Attila    Ice cream          Lunch only          <span class="dv">6</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li class="fragment">Outra tarefa comum após a leitura é considerar os tipos de variáveis.</li>
+<li class="fragment">A variável <code>meal_type</code> é categórica com um conjunto conhecido de valores possíveis</li>
+<li class="fragment">Esse tipo de variável deve ser representada como factor:</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>students <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-4"><a href="#cb12-4"></a>    <span class="at">meal_plan =</span> <span class="fu">factor</span>(meal_plan)</span>
+<span id="cb12-5"><a href="#cb12-5"></a>  )</span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="co">#&gt;   student_id full_name        favourite_food     meal_plan           age  </span></span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;              &lt;fct&gt;               &lt;chr&gt;</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="co">#&gt; 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only          4    </span></span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="co">#&gt; 2          2 Barclay Lynn     French fries       Lunch only          5    </span></span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch 7    </span></span>
+<span id="cb12-12"><a href="#cb12-12"></a><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only          &lt;NA&gt; </span></span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch five </span></span>
+<span id="cb12-14"><a href="#cb12-14"></a><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li class="fragment">Perceba que o <code>meal_type</code> mudou de caráctere (<code>&lt;chr&gt;</code>) para factor (<code>&lt;fct&gt;</code>)</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># A tibble: 6 × 5</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>  student_id full_name        favourite_food     meal_plan           age  </span>
+<span id="cb13-3"><a href="#cb13-3"></a>       <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>            <span class="er">&lt;</span>chr<span class="sc">&gt;</span>              <span class="er">&lt;</span>fct<span class="sc">&gt;</span>               <span class="er">&lt;</span>chr<span class="sc">&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="dv">1</span>          <span class="dv">1</span> Sunil Huffmann   Strawberry yoghurt Lunch only          <span class="dv">4</span>    </span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="dv">2</span>          <span class="dv">2</span> Barclay Lynn     French fries       Lunch only          <span class="dv">5</span>    </span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="dv">3</span>          <span class="dv">3</span> Jayendra Lyne    <span class="cn">NA</span>                 Breakfast and lunch <span class="dv">7</span>    </span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="dv">4</span>          <span class="dv">4</span> Leon Rossini     Anchovies          Lunch only          <span class="cn">NA</span>   </span>
+<span id="cb13-8"><a href="#cb13-8"></a><span class="dv">5</span>          <span class="dv">5</span> Chidiegwu Dunkel Pizza              Breakfast and lunch five </span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="dv">6</span>          <span class="dv">6</span> Güvenç Attila    Ice cream          Lunch only          <span class="dv">6</span>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li class="fragment">Você também vai querer consertar a coluna <code>age</code></li>
+<li class="fragment">Atualmente é uma variável de caracteres porque um dos valores está <code>five</code> ao invés do número <code>5</code>:</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>students <span class="ot">&lt;-</span> students <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb14-4"><a href="#cb14-4"></a>    <span class="at">meal_plan =</span> <span class="fu">factor</span>(meal_plan),</span>
+<span id="cb14-5"><a href="#cb14-5"></a>    <span class="at">age =</span> <span class="fu">parse_number</span>(<span class="fu">if_else</span>(age <span class="sc">==</span> <span class="st">"five"</span>, <span class="st">"5"</span>, age))</span>
+<span id="cb14-6"><a href="#cb14-6"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># A tibble: 6 × 5</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>  student_id full_name        favourite_food     meal_plan             age</span>
+<span id="cb15-3"><a href="#cb15-3"></a>       <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>            <span class="er">&lt;</span>chr<span class="sc">&gt;</span>              <span class="er">&lt;</span>fct<span class="sc">&gt;</span>               <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="dv">1</span>          <span class="dv">1</span> Sunil Huffmann   Strawberry yoghurt Lunch only              <span class="dv">4</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="dv">2</span>          <span class="dv">2</span> Barclay Lynn     French fries       Lunch only              <span class="dv">5</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="dv">3</span>          <span class="dv">3</span> Jayendra Lyne    <span class="cn">NA</span>                 Breakfast and lunch     <span class="dv">7</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="dv">4</span>          <span class="dv">4</span> Leon Rossini     Anchovies          Lunch only             <span class="cn">NA</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="dv">5</span>          <span class="dv">5</span> Chidiegwu Dunkel Pizza              Breakfast and lunch     <span class="dv">5</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="dv">6</span>          <span class="dv">6</span> Güvenç Attila    Ice cream          Lunch only              <span class="dv">6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section>
+<section>
+<section id="outros-argumentos-importantes" class="title-slide slide level1 center">
+<h1>8.2.2 Outros argumentos importantes</h1>
+
+</section>
+<section id="antes-vamos-aprender-um-truque" class="slide level2">
+<h2>Antes vamos aprender um truque</h2>
+<ul>
+<li class="fragment">A função <code>read_csv()</code> pode ler uma string no próprio console</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">read_csv</span>(</span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="st">"a,b,c</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="st">  1,2,3</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="st">  4,5,6"</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>)</span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="co">#&gt;       a     b     c</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a><span class="co">#&gt; 1     1     2     3</span></span>
+<span id="cb16-10"><a href="#cb16-10"></a><span class="co">#&gt; 2     4     5     6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment"><code>read_csv()</code> utiliza por padrão a primeira linha para os nomes das colunas</li>
+<li class="fragment">Mas as vezes nosso csv tem metadados antes</li>
+<li class="fragment">Podemos pular n linhas (<code>skip = n</code>)</li>
+<li class="fragment">Ou definir comentários (<code>comment = "#"</code>)</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">read_csv</span>(</span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="st">"The first line of metadata</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="st">  The second line of metadata</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="st">  x,y,z</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="st">  1,2,3"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6"></a>  <span class="at">skip =</span> <span class="dv">2</span></span>
+<span id="cb17-7"><a href="#cb17-7"></a>)</span>
+<span id="cb17-8"><a href="#cb17-8"></a><span class="co">#&gt; # A tibble: 1 × 3</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a><span class="co">#&gt;       x     y     z</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb17-11"><a href="#cb17-11"></a><span class="co">#&gt; 1     1     2     3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">read_csv</span>(</span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="st">"# A comment I want to skip</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="st">  x,y,z</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a><span class="st">  1,2,3"</span>,</span>
+<span id="cb18-5"><a href="#cb18-5"></a>  <span class="at">comment =</span> <span class="st">"#"</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a>)</span>
+<span id="cb18-7"><a href="#cb18-7"></a><span class="co">#&gt; # A tibble: 1 × 3</span></span>
+<span id="cb18-8"><a href="#cb18-8"></a><span class="co">#&gt;       x     y     z</span></span>
+<span id="cb18-9"><a href="#cb18-9"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb18-10"><a href="#cb18-10"></a><span class="co">#&gt; 1     1     2     3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment">Às vezes não temos nenhuma linha com nomes de coluna</li>
+<li class="fragment">Podemos utilizar <code>col_names = FALSE</code> ou definir manualmente com um vetor</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">read_csv</span>(</span>
+<span id="cb19-2"><a href="#cb19-2"></a>  <span class="st">"1,2,3</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="st">  4,5,6"</span>,</span>
+<span id="cb19-4"><a href="#cb19-4"></a>  <span class="at">col_names =</span> <span class="cn">FALSE</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a>)</span>
+<span id="cb19-6"><a href="#cb19-6"></a><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span id="cb19-7"><a href="#cb19-7"></a><span class="co">#&gt;      X1    X2    X3</span></span>
+<span id="cb19-8"><a href="#cb19-8"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb19-9"><a href="#cb19-9"></a><span class="co">#&gt; 1     1     2     3</span></span>
+<span id="cb19-10"><a href="#cb19-10"></a><span class="co">#&gt; 2     4     5     6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">read_csv</span>(</span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="st">"1,2,3</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="st">  4,5,6"</span>,</span>
+<span id="cb20-4"><a href="#cb20-4"></a>  <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span>)</span>
+<span id="cb20-5"><a href="#cb20-5"></a>)</span>
+<span id="cb20-6"><a href="#cb20-6"></a><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span id="cb20-7"><a href="#cb20-7"></a><span class="co">#&gt;       x     y     z</span></span>
+<span id="cb20-8"><a href="#cb20-8"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb20-9"><a href="#cb20-9"></a><span class="co">#&gt; 1     1     2     3</span></span>
+<span id="cb20-10"><a href="#cb20-10"></a><span class="co">#&gt; 2     4     5     6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="pronto">Pronto!</h3>
+<ul>
+<li class="fragment">O que vimos até aqui te permite ler a grande maioria dos CSVs que vai encontrar por aí</li>
+<li class="fragment">As excessões você tem que inspecionar com cuidado o arquivo e ler a documentação da <code>read_csv()</code></li>
+</ul>
+</section>
+<section id="outros-formatos-de-arquivo" class="slide level2">
+<h2>8.2.3 Outros formatos de arquivo</h2>
+<ul>
+<li class="fragment">Depois de compreender o <code>read_csv()</code> é fácil utilizar as outras funções do <strong>readr</strong>
+<ul>
+<li class="fragment"><code>read_csv2()</code> - lê os CSVs separados por ; ao invés de ,</li>
+<li class="fragment"><code>read_tsv()</code> - lê arquivos separados por tabs</li>
+<li class="fragment"><code>read_delim()</code> - lê arquivos separados por qualquer delimitador</li>
+<li class="fragment"><code>read_fwf()</code> - lê arquivos com largura fixa</li>
+<li class="fragment"><code>read_table()</code> - lê arquivos com separação fixa de espaços em branco</li>
+<li class="fragment"><code>read_log()</code> - lê logs estilo Apache</li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section id="controlando-os-tipos-de-dados-das-colunas" class="title-slide slide level1 center">
+<h1>8.3 Controlando os tipos de dados das colunas</h1>
+
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment">Arquivos CSV não contém <strong>nenhuma informação</strong> sobre o <strong>tipo</strong> de cada variável
+<ul>
+<li class="fragment">(se ela é lógica, numérica, string, etc)</li>
+</ul></li>
+<li class="fragment">O <strong>readr</strong> vai tentar advinhar o tipo de dado
+<ul>
+<li class="fragment">vamos ver como esse processo funciona</li>
+<li class="fragment">aprender a resolver falhas comuns</li>
+<li class="fragment">como nós mesmos deinirmos os tipos</li>
+<li class="fragment">Estratégias do que fazer quando o a leitura falha catastróficamente</li>
+</ul></li>
+</ul>
+</section>
+<section id="advinhando-tipos-de-dados" class="slide level2">
+<h2>8.3.1 Advinhando tipos de dados</h2>
+<ul>
+<li class="fragment">readr usa uma <strong>heurística</strong> para atribuir tipo as colunas</li>
+<li class="fragment">Para cada coluna o readr:</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment">seleciona os valores 1 000 linhas igualmente espaçados, ignorando NAs</li>
+<li class="fragment">a partir dessa amostra ele responde essas perguntas:
+<ul>
+<li class="fragment">os valores contém apenas <code>F</code>, <code>T</code>, <code>FALSE</code>, ou <code>TRUE</code> (case insentive)? Se sim: tipo lógico</li>
+<li class="fragment">Os valores contém apenas números (<code>1</code>, <code>-4.5</code>, <code>5e6</code>, <code>Inf</code>)? Então: tipo numérico</li>
+<li class="fragment">Os valores correspondem ao padrão ISO8601? Então é data ou date-time</li>
+<li class="fragment">Do contrário é uma string</li>
+</ul></li>
+<li class="fragment">Essa heurística funciona bem se tiver um dataset limpo, mas na vida real …</li>
+</ul>
+</section>
+<section id="valores-faltantes-tipos-de-colunas-e-problemas" class="slide level2">
+<h2>8.3.2 Valores faltantes, tipos de colunas e problemas</h2>
+<ul>
+<li class="fragment">A falha mais comum na detecção de colunas é quando ela contém valores inesperados</li>
+<li class="fragment">O caso mais comum é registrar um valor faltante utilizando algo diferente de <code>NA</code></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<div class="fragment">
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>csv <span class="ot">&lt;-</span> <span class="st">"</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="st">  x</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="st">  10</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="st">  .</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="st">  20</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a><span class="st">  30"</span></span>
+<span id="cb21-7"><a href="#cb21-7"></a></span>
+<span id="cb21-8"><a href="#cb21-8"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(csv)</span>
+<span id="cb21-9"><a href="#cb21-9"></a><span class="co">#&gt; Rows: 4 Columns: 1</span></span>
+<span id="cb21-10"><a href="#cb21-10"></a><span class="co">#&gt; ── Column specification ─────────────────────────────────────────────────────</span></span>
+<span id="cb21-11"><a href="#cb21-11"></a><span class="co">#&gt; Delimiter: ","</span></span>
+<span id="cb21-12"><a href="#cb21-12"></a><span class="co">#&gt; chr (1): x</span></span>
+<span id="cb21-13"><a href="#cb21-13"></a><span class="co">#&gt; </span></span>
+<span id="cb21-14"><a href="#cb21-14"></a><span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span id="cb21-15"><a href="#cb21-15"></a><span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li class="fragment">Nesse exemplo a coluna x é interpretada como caractere</li>
+<li class="fragment">Como poderíamos resolver?</li>
+<li class="fragment">Isso, <code>na = "."</code></li>
+<li class="fragment">Mas e se fossem milhares de linhas com poucos valores faltantes?</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment">Uma forma de resolver é dizer pra readr que a coluna é numérica e ver onde a leitura falha</li>
+<li class="fragment">Podemos utilizar o <code>col_types</code> para isso:</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(csv, <span class="at">col_types =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="fu">col_double</span>()))</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="co">#&gt; Warning: One or more parsing issues, call `problems()` on your data frame for</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="co">#&gt; details, e.g.:</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a><span class="co">#&gt;   dat &lt;- vroom(...)</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="co">#&gt;   problems(dat)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li class="fragment">Observem a mensagem avisando que houve um problema</li>
+<li class="fragment">Vamos investigar!</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="investigando-problemas-em-datasets">Investigando problemas em datasets</h3>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">problems</span>(df)</span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="co">#&gt; # A tibble: 1 × 5</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="co">#&gt;     row   col expected actual file                            </span></span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;                           </span></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="co">#&gt; 1     3     1 a double .      /tmp/Rtmps4rcCC/file1fd82862f609</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li class="fragment">Quem gostaria de tentar interpretar?</li>
+<li class="fragment">Essa função nos mostra que houve um problema na linha 3, coluna 1</li>
+<li class="fragment">O readr esperava um valor do tipo <code>double</code>, mas encontrou o “.”</li>
+<li class="fragment">Isso nos sugere que o dataset utiliza “.” para valores faltantes</li>
+<li class="fragment">Agora sim podemos informar ao readr pra fazer o chute correto:</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(csv, <span class="at">na =</span> <span class="st">"."</span>)</span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="co">#&gt; Rows: 4 Columns: 1</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="co">#&gt; ── Column specification ─────────────────────────────────────────────────────</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="co">#&gt; Delimiter: ","</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="co">#&gt; dbl (1): x</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a><span class="co">#&gt; </span></span>
+<span id="cb24-7"><a href="#cb24-7"></a><span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span id="cb24-8"><a href="#cb24-8"></a><span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="tipos-de-colunas" class="slide level2">
+<h2>8.3.3 Tipos de colunas</h2>
+<ul>
+<li class="fragment">readr oferece nove tipos de colunas para utilizarmos na leitura:
+<ul>
+<li class="fragment"><code>col_logical()</code> e <code>col_double()</code> para tipos lógicos e números reais. São raramente usadas porque o readr costuma acertar esse chute</li>
+<li class="fragment"><code>col_integer()</code> para inteiros. Funcionalmenete idênticos aos reais mas ocupam metade da memória.</li>
+<li class="fragment"><code>col_character()</code> para strings. É útil para explicitar uma coluna com identifiador numérico. Por exemplo, não faz sentido seu número de matrícula por dois, ser uma string garante isso.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment"><code>col_factor</code>, <code>col_data()</code>, <code>col_datetime()</code> para fatores, datas e date-times.</li>
+<li class="fragment"><code>col_number()</code> é um parser numérico que ignora componentes não numéricos, particularmente útil para moedas.</li>
+<li class="fragment"><code>col_skip()</code> para pular a leitura de determinada coluna.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment">Outra função útil é <code>cols_only</code> para ler apenas as colunas que você especificar:</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">read_csv</span>(</span>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="st">"x,y,z</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="st">  1,2,3"</span>,</span>
+<span id="cb25-4"><a href="#cb25-4"></a>  <span class="at">col_types =</span> <span class="fu">cols_only</span>(<span class="at">x =</span> <span class="fu">col_character</span>())</span>
+<span id="cb25-5"><a href="#cb25-5"></a>)</span>
+<span id="cb25-6"><a href="#cb25-6"></a><span class="co">#&gt; # A tibble: 1 × 1</span></span>
+<span id="cb25-7"><a href="#cb25-7"></a><span class="co">#&gt;   x    </span></span>
+<span id="cb25-8"><a href="#cb25-8"></a><span class="co">#&gt;   &lt;chr&gt;</span></span>
+<span id="cb25-9"><a href="#cb25-9"></a><span class="co">#&gt; 1 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="lendo-dados-de-múltiplos-arquivos" class="slide level2">
+<h2>8.4 Lendo dados de múltiplos arquivos</h2>
+<ul>
+<li class="fragment">As vezes nossos dados estão separados em vários arquivos</li>
+<li class="fragment">Um exemplo são dados de vendas em múltiplos meses:
+<ul>
+<li class="fragment"><code>01-sales.csv</code> para janeiro</li>
+<li class="fragment"><code>02-sales.csv</code> para fevereiro e</li>
+<li class="fragment"><code>03-sales.csv</code> para março</li>
+</ul></li>
+<li class="fragment">você pode usar o <code>read_csv()</code> para empilhar todos esses dados em apenas um dataframe</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<div class="fragment">
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>sales_files <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"data/01-sales.csv"</span>, <span class="st">"data/02-sales.csv"</span>, <span class="st">"data/03-sales.csv"</span>)</span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="fu">read_csv</span>(sales_files, <span class="at">id =</span> <span class="st">"file"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="co">#&gt; Rows: 19 Columns: 6</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a><span class="co">#&gt; ── Column specification ─────────────────────────────────────────────────────</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a><span class="co">#&gt; Delimiter: ","</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="co">#&gt; chr (1): month</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a><span class="co">#&gt; dbl (4): year, brand, item, n</span></span>
+<span id="cb26-8"><a href="#cb26-8"></a><span class="co">#&gt; </span></span>
+<span id="cb26-9"><a href="#cb26-9"></a><span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span id="cb26-10"><a href="#cb26-10"></a><span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span id="cb26-11"><a href="#cb26-11"></a><span class="co">#&gt; # A tibble: 19 × 6</span></span>
+<span id="cb26-12"><a href="#cb26-12"></a><span class="co">#&gt;   file              month    year brand  item     n</span></span>
+<span id="cb26-13"><a href="#cb26-13"></a><span class="co">#&gt;   &lt;chr&gt;             &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb26-14"><a href="#cb26-14"></a><span class="co">#&gt; 1 data/01-sales.csv January  2019     1  1234     3</span></span>
+<span id="cb26-15"><a href="#cb26-15"></a><span class="co">#&gt; 2 data/01-sales.csv January  2019     1  8721     9</span></span>
+<span id="cb26-16"><a href="#cb26-16"></a><span class="co">#&gt; 3 data/01-sales.csv January  2019     1  1822     2</span></span>
+<span id="cb26-17"><a href="#cb26-17"></a><span class="co">#&gt; 4 data/01-sales.csv January  2019     2  3333     1</span></span>
+<span id="cb26-18"><a href="#cb26-18"></a><span class="co">#&gt; 5 data/01-sales.csv January  2019     2  2156     9</span></span>
+<span id="cb26-19"><a href="#cb26-19"></a><span class="co">#&gt; 6 data/01-sales.csv January  2019     2  3987     6</span></span>
+<span id="cb26-20"><a href="#cb26-20"></a><span class="co">#&gt; # … with 13 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li class="fragment">Com o parâmetro <code>id</code> nós definimos a coluna <code>files</code> para abrigar o nome do arquivo de origem de cada linha</li>
+<li class="fragment">Isso pode ser útil para localizar uma observação na sua fonte original</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment">Se forem muitos arquivos você pode usar a função <code>list.files()</code> para gerar a lista dos nomes pra você a partir de algum padrão</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>sales_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">"data"</span>, <span class="at">pattern =</span> <span class="st">"sales</span><span class="sc">\\</span><span class="st">.csv$"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-2"><a href="#cb27-2"></a>sales_files</span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="co">#&gt; [1] "data/01-sales.csv" "data/02-sales.csv" "data/03-sales.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li class="fragment">O capítulo 17 do livro e a documentação dessa função são ótimas referências caso você precise dela</li>
+</ul>
+</div>
+</section>
+<section id="salvando-em-um-arquivo" class="slide level2">
+<h2>8.5 Salvando em um arquivo</h2>
+<ul>
+<li class="fragment">readr oferece duas funções para salvar dados no disco:
+<ul>
+<li class="fragment"><code>write_csv()</code> e <code>write_tsv()</code></li>
+</ul></li>
+<li class="fragment">Ambas utilizam os padrões UTF-8 para strings e ISO8601 para date-times</li>
+<li class="fragment">Os principais argumentos são o dataframe a ser salvo e a localização do arquivo</li>
+<li class="fragment">Você também pode especificar como escrever os <code>na</code></li>
+<li class="fragment">e acrescentar o dataset a um arquivo existente com <code>append</code></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment">Vamos salvar o <code>student</code> e ler de volta:</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>students</span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="co">#&gt;   student_id full_name        favourite_food     meal_plan             age</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;              &lt;fct&gt;               &lt;dbl&gt;</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a><span class="co">#&gt; 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only              4</span></span>
+<span id="cb28-6"><a href="#cb28-6"></a><span class="co">#&gt; 2          2 Barclay Lynn     French fries       Lunch only              5</span></span>
+<span id="cb28-7"><a href="#cb28-7"></a><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch     7</span></span>
+<span id="cb28-8"><a href="#cb28-8"></a><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only             NA</span></span>
+<span id="cb28-9"><a href="#cb28-9"></a><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5</span></span>
+<span id="cb28-10"><a href="#cb28-10"></a><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only              6</span></span>
+<span id="cb28-11"><a href="#cb28-11"></a><span class="fu">write_csv</span>(students, <span class="st">"students-2.csv"</span>)</span>
+<span id="cb28-12"><a href="#cb28-12"></a><span class="fu">read_csv</span>(<span class="st">"students-2.csv"</span>)</span>
+<span id="cb28-13"><a href="#cb28-13"></a><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span id="cb28-14"><a href="#cb28-14"></a><span class="co">#&gt;   student_id full_name        favourite_food     meal_plan             age</span></span>
+<span id="cb28-15"><a href="#cb28-15"></a><span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;              &lt;chr&gt;               &lt;dbl&gt;</span></span>
+<span id="cb28-16"><a href="#cb28-16"></a><span class="co">#&gt; 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only              4</span></span>
+<span id="cb28-17"><a href="#cb28-17"></a><span class="co">#&gt; 2          2 Barclay Lynn     French fries       Lunch only              5</span></span>
+<span id="cb28-18"><a href="#cb28-18"></a><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch     7</span></span>
+<span id="cb28-19"><a href="#cb28-19"></a><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only             NA</span></span>
+<span id="cb28-20"><a href="#cb28-20"></a><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5</span></span>
+<span id="cb28-21"><a href="#cb28-21"></a><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only              6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment">Perceba que a informação de tipo se <strong>perde</strong> quando você salva em CSV</li>
+<li class="fragment">É necessário <strong>recriar</strong> a especificação das colunas <strong>sempre</strong> que carregar um CSV</li>
+<li class="fragment">Isso torna o CSV incerto e pouco confiável para armazenar resultados interinos</li>
+<li class="fragment">Temos duas alternativas:
+<ul>
+<li class="fragment">Salvar os dados em RDS, ou parquet</li>
+</ul></li>
+</ul>
+</section>
+<section id="rds" class="slide level2">
+<h2>RDS</h2>
+<ul>
+<li class="fragment">Formato de binário nativo de R</li>
+<li class="fragment">Não consegui o significado da sigla
+<ul>
+<li class="fragment">O melhor chute que eu encontrei foi “R data serialized”</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">write_rds</span>(students, <span class="st">"students.rds"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="fu">read_rds</span>(<span class="st">"students.rds"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="co">#&gt;   student_id full_name        favourite_food     meal_plan             age</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;              &lt;fct&gt;               &lt;dbl&gt;</span></span>
+<span id="cb29-6"><a href="#cb29-6"></a><span class="co">#&gt; 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only              4</span></span>
+<span id="cb29-7"><a href="#cb29-7"></a><span class="co">#&gt; 2          2 Barclay Lynn     French fries       Lunch only              5</span></span>
+<span id="cb29-8"><a href="#cb29-8"></a><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch     7</span></span>
+<span id="cb29-9"><a href="#cb29-9"></a><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only             NA</span></span>
+<span id="cb29-10"><a href="#cb29-10"></a><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5</span></span>
+<span id="cb29-11"><a href="#cb29-11"></a><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only              6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="parquet" class="slide level2">
+<h2>parquet</h2>
+<ul>
+<li class="fragment"><p>parquet files é o que todas as pessoas legais usam</p></li>
+<li class="fragment"><p>um formato binário, autocontido que é absurdamente rápido e extremamente leve</p></li>
+<li class="fragment"><p>Desenvolvido pela Apache para big data, mas funciona incrível para armazenar qualquer tipo de dado tabular, e é compatível com virutalmente todas as linguagens de programação</p></li>
+<li class="fragment"><p>Para utilizar precisamos da biblioteca arrow:</p></li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">install.packages</span>(<span class="st">"arrow"</span>)</span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="fu">library</span>(arrow)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">write_parquet</span>(students, <span class="st">"students.parquet"</span>)</span>
+<span id="cb31-2"><a href="#cb31-2"></a><span class="fu">read_parquet</span>(<span class="st">"students.parquet"</span>)</span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span id="cb31-4"><a href="#cb31-4"></a><span class="co">#&gt;   student_id full_name        favourite_food     meal_plan             age</span></span>
+<span id="cb31-5"><a href="#cb31-5"></a><span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;              &lt;fct&gt;               &lt;dbl&gt;</span></span>
+<span id="cb31-6"><a href="#cb31-6"></a><span class="co">#&gt; 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only              4</span></span>
+<span id="cb31-7"><a href="#cb31-7"></a><span class="co">#&gt; 2          2 Barclay Lynn     French fries       Lunch only              5</span></span>
+<span id="cb31-8"><a href="#cb31-8"></a><span class="co">#&gt; 3          3 Jayendra Lyne    NA                 Breakfast and lunch     7</span></span>
+<span id="cb31-9"><a href="#cb31-9"></a><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only             NA</span></span>
+<span id="cb31-10"><a href="#cb31-10"></a><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5</span></span>
+<span id="cb31-11"><a href="#cb31-11"></a><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only              6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">system.time</span>(<span class="fu">replicate</span>(<span class="dv">100</span>, <span class="fu">write_csv</span>(flights,<span class="st">"flights.csv"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   user  system elapsed 
+189.930  13.451 148.989 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">system.time</span>(<span class="fu">replicate</span>(<span class="dv">100</span>, <span class="fu">write_rds</span>(flights,<span class="st">"flights.rds"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   user  system elapsed 
+ 38.418  13.384 104.653 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">system.time</span>(<span class="fu">replicate</span>(<span class="dv">100</span>, <span class="fu">write_parquet</span>(flights,<span class="st">"flights.parquet"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   user  system elapsed 
+ 35.164   2.000  42.927 </code></pre>
+</div>
+</div>
+</section>
+<section id="entrada-de-dados" class="slide level2">
+<h2>8.6 Entrada de dados</h2>
+<ul>
+<li class="fragment">As vezes você precisa montar uma tabela “manualmente” no seu script</li>
+<li class="fragment">Para isso temos duas funções que te permitem entrar dados por <strong>linhas</strong> ou por <strong>colunas</strong></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="tibble-para-escrever-as-colunas"><code>tibble()</code> para escrever as <strong>colunas</strong></h3>
+<ul>
+<li class="fragment">Nossa querida tabela neozelandesa, montada por <strong>colunas</strong></li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb38-2"><a href="#cb38-2"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>), </span>
+<span id="cb38-3"><a href="#cb38-3"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"h"</span>, <span class="st">"m"</span>, <span class="st">"g"</span>),</span>
+<span id="cb38-4"><a href="#cb38-4"></a>  <span class="at">z =</span> <span class="fu">c</span>(<span class="fl">0.08</span>, <span class="fl">0.83</span>, <span class="fl">0.60</span>)</span>
+<span id="cb38-5"><a href="#cb38-5"></a>)</span>
+<span id="cb38-6"><a href="#cb38-6"></a><span class="co">#&gt; # A tibble: 3 × 3</span></span>
+<span id="cb38-7"><a href="#cb38-7"></a><span class="co">#&gt;       x y         z</span></span>
+<span id="cb38-8"><a href="#cb38-8"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;</span></span>
+<span id="cb38-9"><a href="#cb38-9"></a><span class="co">#&gt; 1     1 h      0.08</span></span>
+<span id="cb38-10"><a href="#cb38-10"></a><span class="co">#&gt; 2     2 m      0.83</span></span>
+<span id="cb38-11"><a href="#cb38-11"></a><span class="co">#&gt; 3     5 g      0.6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li class="fragment">Sim, João, cada coluna precisa ter o mesmo número de linhas</li>
+<li class="fragment">Nesse formato é mais difícil enxergar a relação entre linhas</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="tribble-para-escrever-as-linhas"><code>tribble()</code> para escrever as <strong>linhas</strong></h3>
+<ul>
+<li class="fragment"><strong>tr</strong>ansposed <strong>tibble</strong>, estruturada por <strong>linhas</strong></li>
+<li class="fragment">Cada nome de coluna é precedido por um ~</li>
+<li class="fragment">todas as entradas são separadas por vírgulas</li>
+<li class="fragment">Permite uma visualização mais fácil de tabelas com poucos dados</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">tribble</span>(</span>
+<span id="cb39-2"><a href="#cb39-2"></a>  <span class="sc">~</span>x, <span class="sc">~</span>y, <span class="sc">~</span>z,</span>
+<span id="cb39-3"><a href="#cb39-3"></a>  <span class="st">"h"</span>, <span class="dv">1</span>, <span class="fl">0.08</span>,</span>
+<span id="cb39-4"><a href="#cb39-4"></a>  <span class="st">"m"</span>, <span class="dv">2</span>, <span class="fl">0.83</span>,</span>
+<span id="cb39-5"><a href="#cb39-5"></a>  <span class="st">"g"</span>, <span class="dv">5</span>, <span class="fl">0.60</span>,</span>
+<span id="cb39-6"><a href="#cb39-6"></a>)</span>
+<span id="cb39-7"><a href="#cb39-7"></a><span class="co">#&gt; # A tibble: 3 × 3</span></span>
+<span id="cb39-8"><a href="#cb39-8"></a><span class="co">#&gt;   x         y     z</span></span>
+<span id="cb39-9"><a href="#cb39-9"></a><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb39-10"><a href="#cb39-10"></a><span class="co">#&gt; 1 h         1  0.08</span></span>
+<span id="cb39-11"><a href="#cb39-11"></a><span class="co">#&gt; 2 m         2  0.83</span></span>
+<span id="cb39-12"><a href="#cb39-12"></a><span class="co">#&gt; 3 g         5  0.6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sumário" class="slide level2">
+<h2>8.7 Sumário</h2>
+<ul>
+<li class="fragment">Neste capítulo você viu
+<ul>
+<li class="fragment">como carregar arquivos CSV com <code>read_csv()</code></li>
+<li class="fragment">como escrever seus dados com <code>tibble()</code> e <code>tribble()</code></li>
+<li class="fragment">como arquivos CSV funcionam</li>
+<li class="fragment">alguns problemas comuns e como superá-los</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<ul>
+<li class="fragment">Agora você já sabe um tanto de R
+<ul>
+<li class="fragment">Pelo menos, tem uma ideia que vai te permitir encontrar ajuda quando precisar</li>
+<li class="fragment">Esse é o mais importante</li>
+</ul></li>
+</ul>
+</section></section>
+<section id="perguntas" class="title-slide slide level1 center">
+<h1>Perguntas?</h1>
+
+</section>
+
+<section id="nos-vemos-no-projeto" class="title-slide slide level1 center">
+<h1>Nos vemos no projeto!</h1>
+<!-- 
+```r
+students_string <- "Student ID,Full Name,favourite.food,mealPlan,AGE
+1,Sunil Huffmann,Strawberry yoghurt,Lunch only,4
+2,Barclay Lynn,French fries,Lunch only,5
+3,Jayendra Lyne,N/A,Breakfast and lunch,7
+4,Leon Rossini,Anchovies,Lunch only,
+5,Chidiegwu Dunkel,Pizza,Breakfast and lunch,five
+6,Güvenç Attila,Ice cream,Lunch only,6"
+
+read_csv(students_string)
+``` 
+
+```r
+time_function <- function(exp) {
+  start_time <- Sys.time()
+  exp
+  end_time <- Sys.time()
+  
+}
+```
+
+
+-->
+<div class="footer footer-default">
+
+</div>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="data_import_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="data_import_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="data_import_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="data_import_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="data_import_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="data_import_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="data_import_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="data_import_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="data_import_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="data_import_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="data_import_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        target: function(trigger) {
+          return trigger.previousElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto-reveal',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>

@@ -1,0 +1,124 @@
+---
+title: "Exercícios Data Import"
+subtitle: "Introdução à ciência de dados"
+author: "Daniel Brito dos Santos"
+format:
+  revealjs:
+    incremental: true
+    chalkboard: true
+---
+
+# Exercícios 8.2.4 
+
+## 1. Qual função você utilizaria para ler um arquivo cujos campos são separados por "|"
+
+## 2. Além de `file`, `ski`, e `comment`, quais outros argumentos `read_csv()` e `read_tsv()` tem em comum? 
+
+## 3. Quais são os argumentos mais importantes de `read_fwf()`?
+
+## 4. As vezes as strings em um CSV contém vírgulas. Para evitar que isso couse problema essas strings normalmente são colocadas entre aspas. Para ler o texto a seguir em um dataframe, qual argumento você deve especificar no `read_csv()`?
+
+. . .
+
+```r
+"x,y\n1,'a,b'"
+```
+
+## 5. Identifique o que está errado em cada uma dessas linhas e o que acontece se você rodar o código? 
+
+---
+
+### 5.1 O que está errado nessa linha? O que acontece se você rodar o código?
+
+```r
+read_csv("a,b\n1,2,3\n4,5,6")
+```
+
+---
+
+### 5.2 O que está errado nessa linha? O que acontece se você rodar o código?
+
+```r
+read_csv("a,b,c\n1,2\n1,2,3,4")
+```
+
+---
+
+### 5.3 O que está errado nessa linha? O que acontece se você rodar o código?
+
+```r
+read_csv("a,b\n\"1")
+```
+
+---
+
+### 5.4 O que está errado nessa linha? O que acontece se você rodar o código?
+
+```r
+read_csv("a,b\n1,2\na,b")
+```
+
+---
+
+### 5.5 O que está errado nessa linha? O que acontece se você rodar o código?
+
+```r
+read_csv("a;b\n1;3")
+```
+
+## 6. Pratique seu aprendizado nesse dataset irritante!
+
+. . .
+
+```r
+annoying <- tibble(
+  `1` = 1:10,
+  `2` = `1` * 2 + rnorm(length(`1`))
+)
+```
+
+---
+
+### 6.1 Cole o código para **extrair** a variável chamada `1`
+
+```r
+annoying <- tibble(
+  `1` = 1:10,
+  `2` = `1` * 2 + rnorm(length(`1`))
+)
+```
+
+---
+
+### 6.2 Cole o código para **graficar** um scaterplot `1` vs `2`
+
+```r
+annoying <- tibble(
+  `1` = 1:10,
+  `2` = `1` * 2 + rnorm(length(`1`))
+)
+```
+
+---
+
+### 6.3 Cole o código para **criar** uma nova coluna chamada `3` calculada a partir de `2` dividido por `1`
+
+```r
+annoying <- tibble(
+  `1` = 1:10,
+  `2` = `1` * 2 + rnorm(length(`1`))
+)
+```
+
+---
+
+### 6.4 Cole o código para **renomear** as colunas para `one`, `two` e `three`
+
+```r
+annoying <- tibble(
+  `1` = 1:10,
+  `2` = `1` * 2 + rnorm(length(`1`))
+)
+```
+
+# Fim! 
