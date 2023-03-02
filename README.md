@@ -1,16 +1,17 @@
 # Introdução a Ciência de Dados
+Disciplina de verão (2023) que eu organizei e apresentei para meus colegas.
 
-## Disciplina de verão que eu organizei e apresentei pros meus colegas.
+---
 
-Descaradamente inspirado no livro [R for data science](https://r4ds.hadley.nz/), que eu considero o melhor recurso para iniciar no mundo dos dados. 
+Descaradamente inspirado no livro [R for data science](https://r4ds.hadley.nz/), que eu considero o melhor recurso para iniciar no mundo dos dados. A disciplina foi dividida entre o conteúdo do livro e um [projeto final](metodologia/definicao_trabalho_final.md) para efetuar uma breve análise de dados. 
 
-A disciplina foi dividida entre o conteúdo do livro e um projeto final. Cada semana de conteúdo foi composta por:
+De acordo com os [critérios avaliativos](metodologia/criterios_avaliativos.md), cada semana de conteúdo foi composta por:
 
 - uma aula teórica (que tentei ser o mais prática possível)
 - uma lista de exercício
 - uma aula de revisão onde cada estudante sorteado explicava uma questão da lista de exercício
 
-Material:
+## Material:
 
 | Semana | Aula | Exercício |
 | - | --- | --- |
@@ -20,7 +21,7 @@ Material:
 | 3 | [Data Tidying](aulas/a4/data_tidying.pdf) | [l3](aulas/a5/ex_data_import.qmd)
 | 4 | [Data Import](aulas/a5/data_import.pdf) | [l4](aulas/a5/ex_data_import.qmd)
 
-O trabalho final consistiu em uma breve análise de dados:
+## Trabalhos finais:
 
 | Nome | Projeto |
 | --- | --- |
@@ -30,4 +31,4 @@ O trabalho final consistiu em uma breve análise de dados:
 
 ---
 
-Apresentações feitas com [Quarto](https://quarto.org/).
+Apresentações feitas com [Quarto](https://quarto.org/), renderizadas para html com [revealjs](https://quarto.org/docs/presentations/revealjs/) e pdf com [Beamer](https://quarto.org/docs/presentations/beamer.html)
