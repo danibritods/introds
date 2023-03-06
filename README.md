@@ -3,7 +3,7 @@ Disciplina de verão que eu organizei e apresentei para meus colegas em 2023.
 
 ---
 
-Descaradamente inspirado no livro [R for data science](https://r4ds.hadley.nz/), que eu considero o melhor recurso para iniciar no mundo dos dados. A disciplina foi dividida entre o conteúdo do livro e um [projeto final](metodologia/definicao_trabalho_final.md) para efetuar uma breve análise de dados.
+Descaradamente inspirado no livro [R for data science](https://r4ds.hadley.nz/), que eu considero o melhor recurso para iniciar no mundo dos dados. A disciplina foi dividida entre o conteúdo do livro e um [projeto final](metodologia/definicao_trabalho_final.md) para efetuar uma breve análise de dados. Vimos o tidyverse, especialmente ggplot2, dplyr e readr. Além das técnicas fundamentais de importação, tidyness, manipulação e principalmente visualização de dados. 
 
 De acordo com os [critérios avaliativos](metodologia/criterios_avaliativos.md), cada semana de conteúdo foi composta por:
 
