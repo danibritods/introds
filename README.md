@@ -17,7 +17,7 @@ De acordo com os [critérios avaliativos][criterios], cada semana de conteúdo f
 |---|               ---                     |             ---                |
 | 1 | [Introdução][intro]                   |              -                 |
 | 1 | [Dataviz][dataviz]                    | [l1][ex_intro_dataviz]         |
-| 2 | [Data Transformations][datatransform] | [l2][ex_transfom]              |
+| 2 | [Data Transformations][datatransform] | [l2][ex_transform]              |
 | 3 | [Data Tidying][datatidying]           | [l3][ex_tidying]               |
 | 4 | [Data Import][dataimport]             | [l4][ex_import]                |   
 | 5 |                 -                     | [Projeto Final][projeto_final] |
@@ -25,9 +25,9 @@ De acordo com os [critérios avaliativos][criterios], cada semana de conteúdo f
 ## Trabalhos finais:
 
 | Nome | Projeto |
-|             ---                 |             ---              |
-| [Daniel Terra Gomes][git_terra] | [Fitbit Fitness][proj_terra] |
-|              -                  |              -               |
+|             ---                 |             ---                     |
+| [Daniel Terra Gomes][git_terra] | [Fitbit Fitness][proj_terra]        |
+| [João Victor Couto][git_couto]  | [Campeonato Brasileiro][proj_couto] |  
 |              -                  |              -               |
 |              -                  |              -               |
 |              -                  |              -               |
@@ -58,3 +58,5 @@ Apresentações feitas com [Quarto][quarto], renderizadas para html com [revealj
 <!-- Projetos -->
 [git_terra]: https://github.com/ARRETdaniel
 [proj_terra]: https://github.com/ARRETdaniel/22-2E_topicos_Especiais_em_IA_II_Sistemas_Inteligentes
+[git_couto]: https://github.com/iamjvictor
+[proj_couto]: https://github.com/iamjvictor/analiseDeDados
