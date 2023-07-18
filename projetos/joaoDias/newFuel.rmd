@@ -1,5 +1,8 @@
+# Reduzindo peso dos arquivos
 
-```{r}
+Como o peso dos arquivos originais era grande demais para se colocar no GitHub por métodos usuais, optei por usar esse código criado com auxílio do Phind para poder converter os arquivos CSV anteriores para novos que contivessem apenas as informações necessárias, assim tornando os arquivos mais leves.
+
+```{r Reduzindo peso dos arquivos}
 # load requisite libraries
 library(tidyverse)
 library(readr)

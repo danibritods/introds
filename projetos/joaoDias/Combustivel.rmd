@@ -1,10 +1,15 @@
+---
+title: "Preço da gasolina por presidente"
+output: pdf_document
+---
+
 # Trabalho final
 
 Este trabalho se trata de um relatório de análise de dados para a disciplina vulgarmente chamada de "Introdução a Data Science". Ao longo do relatório serão expostas as motivações para a análise específica, a pergunta a ser respondida, uma amostra dos dados, a estrutura do gráfico esperado, os códigos realizados em [R][RLang] e o gráfico final encontrado.
 
 Ao longo de uma análise de dados, um determinado conjunto de ações é realizado. Este conjunto pode ser ilustrado pela imagem abaixo:
 
-![Processo da ciência de dados](Imagens/DS_Process.png)
+![](Imagens/DS_Process.png)
 
 Neste trabalho, estes processos serão distribuídos da seguinte forma:
 
@@ -24,7 +29,7 @@ A pergunta que viso responder é:
 
 Suponho que o resultado final se aproxime de algo como este gráfico esboçado no [Paint 3D][LinkPaint]:
 
-![Esboço de gráfico](Imagens/GráficoEsperado-Grey.png)
+![](Imagens/GráficoEsperado-Grey.png)
 
 Ou seja, imagino que em cada segmento de 4 anos, o combustível tenderá a estar mais caro que no período anterior, entretanto, cada um desses segmentos deverá apresentar um grau diferente de variabilidade ao longo do período. É essa diferença que se visa analisar por fim.
 
@@ -156,7 +161,7 @@ library(lubridate)
 
 Nessa etapa, iremos realizar a "aquisição" dos dados. Importando os dados de sua fonte de origem e os estruturando de uma forma específica no código para que possamos trabalhar com eles. Mas antes de atingirmos o molho, precisamos primeiro preparar os tomates.
 
-![Molho de tomate](Imagens/tomate.gif)
+![](Imagens/tomate.gif)
 
 #### Preparações
 <!-- Adicionar um grafo em mermaid para ilustrar o processo? Não -->
@@ -207,15 +212,16 @@ Obs.: perceba que caso todos os blocos de código deste arquivo sejam executados
 Alternativamente, ele usará o link como forma de importação.
 
 ```{r Obtendo_caminho_dos_arquivos}
-base_path <- if_else(isKnitting, "", "TrabalhoFinal/")
+base_path <- if_else(isKnitting, "", "projetos/joaoDias/")
 if (get_data_from_internet) {
   base_path <- "https://www.gov.br/anp/pt-br/centrais-de-conteudo/\
 dados-abertos/arquivos/shpc/dsas/ca/"
 }
-if (is_using_dense_data) {
-  base_path <- paste0(base_path, "Compact")
-}
-data_path <- paste0(base_path, "FuelDB/")
+data_path <- paste0(
+  base_path,
+  if_else(is_using_dense_data, "Compact", ""),
+  "FuelDB/"
+)
 ```
 
 ##### Finalizando a preparação
@@ -551,7 +557,7 @@ ggplot(transformed_db, aes(x = data, y = valor, color = presidentes)) +
 Por fim, salvemos a imagem 🖼️! Eu utilizei um índice (atualmente em 43) pois fui gerando diversas imagens de teste ao longo do processo de testes.
 
 ```{r Definindo_indice}
-index <- 53
+index <- 55
 ```
 ```{r Salvando_imagem}
 index <- index + 1
@@ -570,31 +576,31 @@ Nesta etapa busco trazer parte da sequência de gráficos gerados em busca do gr
 
 - **Prova de conceito**
 
-![Gráfico 1](Imagens/meu_grafico_1.png)
+![](Imagens/meu_grafico_1.png)
 
 A imagem acima representou o primeiro marco visual no desenvolvimento. Ela representava, se não me engano, a variação do preço do GNV entre 2004 e 2009. O GNV foi escolhido por ter poucas observações em relação aos outros. Quanto ao gráfico, vemos um crescimento quase linear de seu preço ao longo desses anos.
 
 - **Quantidade mais elevada de dados**
 
-![Gráfico 2](Imagens/meu_grafico_10-por_dia.png)
+![](Imagens/meu_grafico_10-por_dia.png)
 
 Se não me engano, este continua ilustrando o valor do GNV, só que dessa vez contemplando uma quantidade maior de dados.
 
 - **Coloração por presidente**
 
-![Gráfico 3](Imagens/meu_grafico_15.png)
+![](Imagens/meu_grafico_15.png)
 
 Começamos a entrar na onda colorida e o gráfico agora também está mais explicativo. Ele ilustra a legenda para as cores, também apresenta um título e textos customizados para os valores laterais. Aqui já começamos a ter uma resposta para a pergunta feita inicialmente "De que forma o valor do combustível tende a variar ao longo do governo das presidências?" E vemos que no governo do Temer e no governo do Bolsonaro houveram crescimentos no valor do combustível de forma muito mais intensa do que os da Dilma e do Lula.
 
 - **Gráfico por tempo de governo**
 
-![Gráfico 4](Imagens/meu_grafico_28.png)
+![](Imagens/meu_grafico_28.png)
 
 Aqui ocorre a maior aproximação vista até agora do gráfico idealizado inicialmente. Assim como no anterior, também conseguimos responder à pergunta proposta, dessa vez com uma visualização um pouco mais densa que a anterior e que traz a data relativa de governo ao invés da data na qual os governantes estiveram no poder, Assim podendo analisar de que forma cada uma das linhas se comportou ao longo de seu período de mandato. Com isso, conseguimos constatar que a taxa de variabilidade tende a ser bem maior após o primeiro ano de governo.
 
 - **Resultado final**
 
-![Gráfico 5](Imagens/meu_grafico_44.png)
+![](Imagens/meu_grafico_44.png)
 
 Com isso alcançamos o resultado final. Podemos então analisar a forma com o preço do combustível tem variado ao logo dos semestres de governo de cada um dos presidentes presentes no dataset. É interessante perceber que nos governos de Lula 1 e 2, e durante o governo 1 de Dilma, o preço de combustível se apresentou consideravelmente estável, sem grandes variações bruscas de crescimento.
 
@@ -650,12 +656,12 @@ Entretanto, pode-se perceber o visível aumento dos preços dos combustíveis ge
 
 Quanto a análises futuras, uma simples e interessante seria ver a comparação entre o crescimento de cada um dos tipos de combustível. Outra, que demandaria maior pesquisa e estudo seria uma para responder a pergunta inicial, talvez tendendo a uma visualização similar a esta abaixo que mostra a taxa de mortes por dia devido à pandemia e as falas do então presidente.
 
-![Falas do Bolsonaro](https://i0.wp.com/cartacampinas.com.br/wordpress/wp-content/uploads/falas-de-bolsonaro-e-gra%C2%B4fico-da-covid-19-coronav%C3%ADrus.jpg)
+![](https://i0.wp.com/cartacampinas.com.br/wordpress/wp-content/uploads/falas-de-bolsonaro-e-gra%C2%B4fico-da-covid-19-coronav%C3%ADrus.jpg)
 
-Na visualização que proponho, haveriam algumas medidas tomadas pelos governantes que possam ser consideradas relevantes a variação do preço do combustível, como por exemplo a [paralização dos caminhoneiros][Caminhão] e o [navio encalhado em 2021][Navio], bem como a comparação dos [preços de combustível no Brasil][BRGasPrices] com os [preços internacionais][GasPrices].
+Na visualização que proponho, haveriam algumas medidas tomadas pelos governantes que possam ser consideradas relevantes a variação do preço do combustível, como por exemplo a [paralização dos caminhoneiros][Caminhao] e o [navio encalhado em 2021][Navio], bem como a comparação dos [preços de combustível no Brasil][BRGasPrices] com os [preços internacionais][GasPrices].
 
 [BolsonaroXCOVID]: https://i0.wp.com/cartacampinas.com.br/wordpress/wp-content/uploads/falas-de-bolsonaro-e-gra%C2%B4fico-da-covid-19-coronav%C3%ADrus.jpg?resize=1080%2C766&ssl=1
-[Caminhão]: https://www.brasildefato.com.br/2022/06/17/apos-novo-aumento-nos-combustiveis-lider-de-caminhoneiros-diz-que-greve-e-provavel#:~:text=O%20pre%C3%A7o%20m%C3%A9dio%20para%20as,%24%200%2C63%20por%20litro.
+[Caminhao]: https://www.brasildefato.com.br/2022/06/17/apos-novo-aumento-nos-combustiveis-lider-de-caminhoneiros-diz-que-greve-e-provavel#:~:text=O%20pre%C3%A7o%20m%C3%A9dio%20para%20as,%24%200%2C63%20por%20litro.
 [Navio]: https://quatrorodas.abril.com.br/noticias/navio-encalhado-no-egito-pode-encarecer-ainda-mais-o-combustivel-no-brasil/
 [BRGasPrices]: https://dados.gov.br/dados/organizacoes/visualizar/agencia-nacional-do-petroleo-gas-natural-e-biocombustiveis-anp
 [GasPrices]: https://www.globalpetrolprices.com/data_download.php
