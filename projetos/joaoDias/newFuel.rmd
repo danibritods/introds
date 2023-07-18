@@ -1,0 +1,53 @@
+
+```{r}
+# load requisite libraries
+library(tidyverse)
+library(readr)
+
+# original file path
+og_path <- "TrabalhoFinal/FuelDB"
+# destination path
+new_path <- "TrabalhoFinal/CompactFuelDB"
+
+# list out all CSV files in the directory specified by `og_path`
+file_list <- list.files(path = og_path, pattern = "*.csv", full.names = TRUE)
+
+# the indices of columns to keep
+column_indices <- 11:13
+
+# for each CSV file:
+for (file in file_list) {
+    # read the file into R with semicolon as the delimiter;
+    df <- read_delim(file,
+        delim = ";",
+        name_repair = "universal",
+        locale = locale(
+            decimal_mark = ","
+        ),
+        col_types = cols(
+            Data.da.Coleta = col_date(
+                format = "%d/%m/%Y"
+            ),
+            Produto = col_factor(),
+            Valor.de.Venda = col_double()
+        )
+    )
+
+    # select only the columns specified;
+    df <- df[, column_indices]
+    glimpse(df)
+    # Reformat the date in desired format
+    df$`Data.da.Coleta` <- format(df$`Data.da.Coleta`, format = "%d/%m/%Y")
+    df$`Valor.de.Venda` <- format(df$`Valor.de.Venda`, nsmall = 4, decimal.mark = ",")
+    glimpse(df)
+    # build the new file name
+    base_name <- basename(file) # get the base file name
+    base_name_no_ext <- tools::file_path_sans_ext(base_name) # remove the extension
+
+    new_file_name <- paste0(new_path, "/", base_name_no_ext, ".csv") # create new file name
+
+    # save the cleaned data back into a CSV file in the `new_path` directory
+    write_delim(df, new_file_name, delim = ";")
+    message(paste("File", file, "was cleaned and saved as", new_file_name))
+}
+```
