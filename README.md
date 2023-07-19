@@ -28,9 +28,9 @@ De acordo com os [critérios avaliativos][criterios], cada semana de conteúdo f
 | Nome                                  | Projeto                              |
 | ------------------------------------- | ------------------------------------ |
 | [Daniel Terra Gomes][git_terra]       | [Fitbit Fitness][proj_terra]         |
+| [Guilherme Tavares][git_guilherme]    | [Índices de Pobreza][proj_guilherme] |
 | [João Victor Couto][git_couto]        | [Campeonato Brasileiro][proj_couto]  |
 | [João Vítor Fernandes Dias][git_jvfd] | [Gasolina por presidente][proj_dias] |
-| -                                     | -                                    |
 | -                                     | -                                    |
 
 ---
@@ -63,3 +63,5 @@ Apresentações feitas com [Quarto][quarto], renderizadas para html com [revealj
 [proj_couto]: https://github.com/iamjvictor/analiseDeDados
 [git_jvfd]: https://github.com/jvfd3
 [proj_dias]: https://github.com/UENF-Conteudo-de-Disciplinas/INF01133-Topicos_Especiais_em_Inteligencia_Artificial_II_-_Sistemas_Inteligentes/tree/main/Files/TrabalhoFinal
+[git_guilherme]: https://github.com/guilhermeomt
+[proj_guilherme]: https://github.com/danibritods/introds/blob/main/projetos/Guilherme-Tavares/Guilherme%20Oliveira%20Mussa%20Tavares%20-%20Trabalho%20Final%20.pdf
