@@ -30,7 +30,7 @@ De acordo com os [critérios avaliativos][criterios], cada semana de conteúdo f
 | [Daniel Terra Gomes][git_terra]       | [Fitbit Fitness][proj_terra]         |
 | [Guilherme Tavares][git_guilherme]    | [Índices de Pobreza][proj_guilherme] |
 | [João Victor Couto][git_couto]        | [Campeonato Brasileiro][proj_couto]  |
-| [João Vítor Fernandes Dias][git_jvfd] | [Gasolina por presidente][proj_dias] |
+| [João Vítor Fernandes Dias][git_jvfd] | [Gasolina por presidente][proj_jvfd] |
 | -                                     | -                                    |
 
 ---
