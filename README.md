@@ -62,6 +62,6 @@ Apresentações feitas com [Quarto][quarto], renderizadas para html com [revealj
 [git_couto]: https://github.com/iamjvictor
 [proj_couto]: https://github.com/iamjvictor/analiseDeDados
 [git_jvfd]: https://github.com/jvfd3
-[proj_dias]: https://github.com/UENF-Conteudo-de-Disciplinas/INF01133-Topicos_Especiais_em_Inteligencia_Artificial_II_-_Sistemas_Inteligentes/tree/main/Files/TrabalhoFinal
+[proj_jvfd]: https://github.com/danibritods/introds/blob/main/projetos/joaoDias/Pre%C3%A7o%20da%20gasolina%20por%20presidente.pdf
 [git_guilherme]: https://github.com/guilhermeomt
 [proj_guilherme]: https://github.com/danibritods/introds/blob/main/projetos/Guilherme-Tavares/Guilherme%20Oliveira%20Mussa%20Tavares%20-%20Trabalho%20Final%20.pdf
